@@ -667,9 +667,9 @@
             <button class="btn btn-outline" onclick="PortfoliAIStudioInspector.showProfileInspector()" style="font-size:0.6875rem;padding:0.2rem 0.5rem;">Edit</button>
           </div>
           <div style="font-size:0.75rem;color:var(--studio-text-secondary);">
-            <div style="font-weight:700;color:var(--studio-text-primary);">{{ student.name if student and student.name else "Alex Sharma" }}</div>
+            <div style="font-weight:700;color:var(--studio-text-primary);">{{ student.name if student and student.name else "Student Profile" }}</div>
             <div style="font-family:var(--studio-font-mono);font-size:0.6875rem;color:var(--studio-accent-primary);margin-top:0.2rem;">
-              {{ student.headline if student and student.headline else "Full-Stack AI Solutions Architect" }}
+              {{ student.headline if student and student.headline else "Software Engineer" }}
             </div>
           </div>
         </div>
@@ -869,7 +869,7 @@
 
           <div class="studio-form-row">
             <label class="studio-field-label">Display Name</label>
-            <input type="text" id="custCustomName" class="studio-field-input" placeholder="e.g. Alex Sharma">
+            <input type="text" id="custCustomName" class="studio-field-input" placeholder="e.g. Your Name">
           </div>
 
           <div class="studio-form-row">
@@ -977,9 +977,9 @@
         <!-- Perimeter Telemetry Header -->
         <div class="act-telemetry-header">
           <div class="telemetry-pill"><span class="hud-indicator"></span> ACT 01 // INGESTION MATRIX</div>
-          <div class="telemetry-pill">COORDS: 37.7749° N · 122.4194° W</div>
-          <div class="telemetry-pill">ENGINE: ZERO-LEAKAGE LOCAL PARSER</div>
-          <div class="telemetry-pill status-ready">SYS_STATUS: READY</div>
+          <div class="telemetry-pill">CLIENT INGESTION // LOCAL RUNTIME</div>
+          <div class="telemetry-pill">PARSER: ZERO-LEAKAGE DETERMINISTIC ENGINE</div>
+          <div class="telemetry-pill status-ready">SYS_STATUS: {{ 'ACTIVE · STUDENT PROFILE' if student and student.name else 'READY · AWAITING RESUME' }}</div>
         </div>
 
         <div class="act1-grid">
@@ -1004,10 +1004,10 @@
           <div class="act1-artifact-wrapper">
             <div id="hero3DResume" class="artifact-card">
               <div class="artifact-header">
-                <div class="artifact-avatar">AS</div>
+                <div class="artifact-avatar">{{ student.name[:2]|upper if student and student.name else "CV" }}</div>
                 <div>
-                  <div class="artifact-name">{{ student.name if student and student.name else "Alex Sharma" }}</div>
-                  <div class="artifact-role">{{ student.headline if student and student.headline else "Full-Stack AI & Cloud Architect" }}</div>
+                  <div class="artifact-name">{{ student.name if student and student.name else "CURRICULUM VITAE // UNSTRUCTURED ARTIFACT" }}</div>
+                  <div class="artifact-role">{{ student.headline if student and student.headline else "DOCUMENT BLUEPRINT · PENDING INGESTION" }}</div>
                 </div>
               </div>
 
@@ -1020,16 +1020,23 @@
 
               <div class="micro-label" style="margin-top:0.75rem;">DETECTED ENTITIES</div>
               <div class="artifact-pills">
-                <span class="artifact-pill">Python</span>
-                <span class="artifact-pill">PostgreSQL</span>
-                <span class="artifact-pill">TypeScript</span>
-                <span class="artifact-pill">Flask</span>
-                <span class="artifact-pill">Distributed Systems</span>
+                {% if student and student.skills %}
+                  {% set skill_list = student.skills.split(',') %}
+                  {% for sk in skill_list[:6] %}
+                    <span class="artifact-pill">{{ sk.strip() }}</span>
+                  {% endfor %}
+                {% else %}
+                  <span class="artifact-pill">[ IDENTITY ]</span>
+                  <span class="artifact-pill">[ SUMMARY ]</span>
+                  <span class="artifact-pill">[ CAPABILITIES ]</span>
+                  <span class="artifact-pill">[ EXPERIENCE ]</span>
+                  <span class="artifact-pill">[ REPOSITORIES ]</span>
+                {% endif %}
               </div>
 
               <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem;padding-top:0.75rem;border-top:1px solid var(--imm-border-hairline);">
                 <span class="hud">01 // ID: RESUME_ARTIFACT</span>
-                <span style="font-family:var(--imm-font-mono);font-size:0.6875rem;color:var(--imm-accent-emerald);">● VERIFIED FIDELITY</span>
+                <span style="font-family:var(--imm-font-mono);font-size:0.6875rem;color:var(--imm-accent-emerald);">● 100% LOCAL PRIVACY</span>
               </div>
             </div>
           </div>
@@ -1044,8 +1051,8 @@
         <div class="act-telemetry-header">
           <div class="telemetry-pill"><span class="hud-indicator"></span> ACT 02 // PROCEDURAL DECOMPOSITION</div>
           <div class="telemetry-pill">STAGE: ORIGAMI VERTEX COLLAPSE</div>
-          <div class="telemetry-pill">PROCESSING: LOCAL_NEURAL_TOKENIZER</div>
-          <div class="telemetry-pill status-ready">ENTITIES: 100% AUDITED</div>
+          <div class="telemetry-pill">PROCESSING: LOCAL_TOKENIZER</div>
+          <div class="telemetry-pill status-ready">ENTITIES: ZERO_HALLUCINATION_AUDIT</div>
         </div>
 
         <div class="act2-header-block" style="text-align:center;margin-bottom:1.5rem;z-index:var(--imm-z-overlay);">
@@ -1063,22 +1070,28 @@
             <div class="singularity-orbit-ring ring-outer"></div>
             <div class="singularity-pulse"></div>
             <span style="font-family:var(--imm-font-mono);font-size:0.625rem;color:var(--imm-accent-active);letter-spacing:0.12em;">AI CORE</span>
-            <span style="font-family:var(--imm-font-monumental);font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-0.02em;">0.12s</span>
-            <span style="font-family:var(--imm-font-mono);font-size:0.55rem;color:var(--imm-text-muted);letter-spacing:0.08em;">LATENCY</span>
+            <span style="font-family:var(--imm-font-monumental);font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-0.02em;">LOCAL</span>
+            <span style="font-family:var(--imm-font-mono);font-size:0.55rem;color:var(--imm-text-muted);letter-spacing:0.08em;">INFERENCE</span>
           </div>
 
           <!-- Radial Spatial Tracks -->
           <div class="decomp-track track-skills">
             <div class="decomp-track-header">
-              <span>SKILLS // DETECTED</span>
-              <span>100%</span>
+              <span>SKILLS // SYNTAX GRAPH</span>
+              <span>PARSED</span>
             </div>
             <div class="decomp-track-chips">
-              <span class="decomp-chip">Python</span>
-              <span class="decomp-chip">PostgreSQL</span>
-              <span class="decomp-chip">Docker</span>
-              <span class="decomp-chip">PyTorch</span>
-              <span class="decomp-chip">Distributed Systems</span>
+              {% if student and student.skills %}
+                {% set skill_items = student.skills.split(',') %}
+                {% for sk in skill_items[:5] %}
+                  <span class="decomp-chip">{{ sk.strip() }}</span>
+                {% endfor %}
+              {% else %}
+                <span class="decomp-chip">[ SEMANTIC PARSER ]</span>
+                <span class="decomp-chip">[ TAXONOMY MAP ]</span>
+                <span class="decomp-chip">[ VOCABULARY GRAPH ]</span>
+                <span class="decomp-chip">[ CAPABILITY NODES ]</span>
+              {% endif %}
             </div>
           </div>
 
@@ -1087,36 +1100,60 @@
               <span>EXPERIENCE // TIMELINE</span>
               <span>VERIFIED</span>
             </div>
-            <div style="font-size:0.75rem;color:var(--imm-text-secondary);font-weight:600;">
-              SWE Intern @ ScaleCorp (2023 - 2024)
-            </div>
-            <div style="font-size:0.6875rem;color:var(--imm-text-muted);line-height:1.4;">
-              Distributed asynchronous job ingestion with sub-millisecond dispatch.
-            </div>
+            {% if student and student.experience %}
+              <div style="font-size:0.75rem;color:var(--imm-text-secondary);font-weight:600;">
+                {{ student.experience[:60] }}...
+              </div>
+              <div style="font-size:0.6875rem;color:var(--imm-text-muted);line-height:1.4;">
+                Chronological career progression verified directly from parsed document.
+              </div>
+            {% else %}
+              <div style="font-size:0.75rem;color:var(--imm-text-secondary);font-weight:600;">
+                CHRONOLOGICAL DECOMPOSITION
+              </div>
+              <div style="font-size:0.6875rem;color:var(--imm-text-muted);line-height:1.4;">
+                Extracts career milestones, roles, and engineering scope with verifiable provenance.
+              </div>
+            {% endif %}
           </div>
 
           <div class="decomp-track track-edu">
             <div class="decomp-track-header">
-              <span>EDUCATION // ACADEMIC</span>
-              <span>PARSED</span>
+              <span>EDUCATION // ACCREDITATION</span>
+              <span>AUTHENTIC</span>
             </div>
-            <div style="font-size:0.75rem;color:var(--imm-text-secondary);font-weight:600;">
-              B.Tech Computer Science &amp; Engineering
-            </div>
-            <div style="font-size:0.6875rem;color:var(--imm-text-muted);line-height:1.4;">
-              GPA: 3.9 / 4.0 · Algorithmic Honors
-            </div>
+            {% if student and student.education %}
+              <div style="font-size:0.75rem;color:var(--imm-text-secondary);font-weight:600;">
+                {{ student.education }}
+              </div>
+              <div style="font-size:0.6875rem;color:var(--imm-text-muted);line-height:1.4;">
+                Institutional credential parsed with zero hallucination.
+              </div>
+            {% else %}
+              <div style="font-size:0.75rem;color:var(--imm-text-secondary);font-weight:600;">
+                ACADEMIC &amp; CREDENTIAL MAPPING
+              </div>
+              <div style="font-size:0.6875rem;color:var(--imm-text-muted);line-height:1.4;">
+                Degrees, honors, and verified academic trajectory structured into relational schema.
+              </div>
+            {% endif %}
           </div>
 
           <div class="decomp-track track-proj">
             <div class="decomp-track-header">
-              <span>REPOSITORIES // VERIFIED</span>
-              <span>LOCAL_AI</span>
+              <span>PROJECTS // ARTIFACTS</span>
+              <span>LOCAL_STORE</span>
             </div>
             <div class="decomp-track-chips">
-              <span class="decomp-chip">Ownership Guard</span>
-              <span class="decomp-chip">Distributed Cache</span>
-              <span class="decomp-chip">Neural Search</span>
+              {% if projects and projects|length > 0 %}
+                {% for p in projects[:3] %}
+                  <span class="decomp-chip">{{ p.title[:20] }}</span>
+                {% endfor %}
+              {% else %}
+                <span class="decomp-chip">[ ARCHITECTURE MAP ]</span>
+                <span class="decomp-chip">[ REPO SYNTHESIS ]</span>
+                <span class="decomp-chip">[ STACK AUDIT ]</span>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -1147,31 +1184,39 @@
               “We don’t match keywords. We extract deep architectural discipline, measuring engineering complexity with mathematical precision.”
             </p>
 
-            <!-- Odometer Figure Grid -->
+            <!-- Odometer Figure Grid (Bound to Real Counts & Verifiable Invariants) -->
+            {% set num_projects = projects|length if projects else 0 %}
+            {% set num_skills = (student.skills.split(',') if student and student.skills else [])|length %}
             <div class="odometer-grid">
               <div class="odometer-card">
-                <div class="odometer-figure" data-odometer-target="98.4" data-suffix="%">00.0%</div>
-                <div class="odometer-label">SEMANTIC PRECISION</div>
+                <div class="odometer-figure" data-odometer-target="{{ num_projects }}" data-suffix="">{{ num_projects }}</div>
+                <div class="odometer-label">AUDITED PROJECTS</div>
               </div>
               <div class="odometer-card">
-                <div class="odometer-figure" data-odometer-target="14" data-suffix="">00</div>
-                <div class="odometer-label">DIMENSIONS EXTRACTED</div>
+                <div class="odometer-figure" data-odometer-target="{{ num_skills }}" data-suffix="">{{ num_skills }}</div>
+                <div class="odometer-label">VERIFIED CAPABILITIES</div>
               </div>
               <div class="odometer-card">
-                <div class="odometer-figure" data-odometer-target="120" data-prefix="< " data-suffix="ms">< 000ms</div>
-                <div class="odometer-label">SYNTHESIS LATENCY</div>
+                <div class="odometer-figure" data-odometer-target="0" data-suffix=" LEAKS">0 LEAKS</div>
+                <div class="odometer-label">THIRD-PARTY LEAKAGE</div>
               </div>
               <div class="odometer-card">
-                <div class="odometer-figure" data-odometer-target="0" data-suffix=" CLAIMS">0 CLAIMS</div>
-                <div class="odometer-label">HALLUCINATIONS</div>
+                <div class="odometer-figure" data-odometer-target="100" data-suffix="%">100%</div>
+                <div class="odometer-label">DATA OWNERSHIP</div>
               </div>
             </div>
 
             <!-- Dynamic Entity Burst Stream -->
             <div class="entity-burst-stream">
-              <div class="entity-burst-item"><span class="burst-dot"></span> PARSED_ENTITY: DISTRIBUTED_SYSTEMS // CONF 0.992</div>
-              <div class="entity-burst-item"><span class="burst-dot"></span> LATENT_VECTOR: 0.892_SYSTEMS_DESIGN</div>
-              <div class="entity-burst-item"><span class="burst-dot"></span> ZERO_HALLUCINATION_AUDITED // STRICT_POSTGRES</div>
+              {% if student and student.skills %}
+                {% for sk in student.skills.split(',')[:3] %}
+                  <div class="entity-burst-item"><span class="burst-dot"></span> PARSED_CAPABILITY: {{ sk.strip()|upper }} // VERIFIED</div>
+                {% endfor %}
+              {% else %}
+                <div class="entity-burst-item"><span class="burst-dot"></span> PIPELINE: DETERMINISTIC_LOCAL_PARSER</div>
+                <div class="entity-burst-item"><span class="burst-dot"></span> SCHEMA: POSTGRESQL_RELATIONAL_INTEGRITY</div>
+                <div class="entity-burst-item"><span class="burst-dot"></span> PRIVACY: STRICT_CLIENT_SIDE_ISOLATION</div>
+              {% endif %}
             </div>
           </div>
 
@@ -1186,23 +1231,23 @@
               <div id="identityStage" class="identity-focal-stage">
                 <!-- Raw Student Layer -->
                 <div class="identity-layer-raw">
-                  <div class="identity-glyph-raw">AS</div>
-                  <div class="identity-title-raw">Raw Student Resume</div>
+                  <div class="identity-glyph-raw">{{ student.name[:2]|upper if student and student.name else "CV" }}</div>
+                  <div class="identity-title-raw">Unstructured Document Artifact</div>
                   <p style="font-size:0.75rem;color:var(--imm-text-muted);margin-top:0.5rem;line-height:1.5;">
-                    Generic text · Uncalibrated keywords · Hidden technical depth · Missing visual hierarchy
+                    Raw flat text · Unindexed capabilities · Static bullet points · Awaiting architectural synthesis
                   </p>
-                  <div class="hud" style="margin-top:1rem;">STATUS: UNENRICHED</div>
+                  <div class="hud" style="margin-top:1rem;">STATUS: PRE-SYNTHESIS</div>
                 </div>
 
                 <!-- Technical Professional Reveal Layer -->
                 <div class="identity-layer-pro">
-                  <div class="identity-glyph-pro">AS</div>
-                  <div class="identity-title-pro">{{ student.name if student and student.name else "Alex Sharma" }}</div>
-                  <div class="identity-role-pro">{{ student.headline if student and student.headline else "Full-Stack AI Solutions Architect" }}</div>
+                  <div class="identity-glyph-pro">{{ student.name[:2]|upper if student and student.name else "ID" }}</div>
+                  <div class="identity-title-pro">{{ student.name if student and student.name else "Synthesized Professional Identity" }}</div>
+                  <div class="identity-role-pro">{{ student.headline if student and student.headline else "Verified Engineering Profile" }}</div>
                   <p style="font-size:0.75rem;color:var(--imm-text-secondary);margin-top:0.5rem;line-height:1.5;max-width:280px;">
-                    High-impact production builder. Verified distributed systems, cloud architecture &amp; ML pipelines.
+                    Authentic career capabilities, verified projects, and architectural credentials structured into a permanent recruiter-grade showcase.
                   </p>
-                  <div class="hud" style="margin-top:1rem;border-color:var(--imm-border-accent);">STATUS: PROFESSIONAL ENGINE</div>
+                  <div class="hud" style="margin-top:1rem;border-color:var(--imm-border-accent);">STATUS: VERIFIED PROFESSIONAL</div>
                 </div>
               </div>
             </div>
@@ -1313,51 +1358,61 @@
 
           <!-- Featured Full-Bleed Monograph Case Studies -->
           <div class="act5-case-studies">
-            <div class="case-study-card">
-              <div>
-                <div class="case-study-badge">CASE STUDY // 01 · DISTRIBUTED ARCHITECTURE</div>
-                <h3 class="case-study-title" style="font-family:var(--imm-font-monumental);margin-top:0.35rem;">Cloud Infrastructure Scale Engine</h3>
-                <p class="case-study-summary" style="margin-top:0.75rem;">
-                  Architected asynchronous job ingestion with sub-millisecond dispatch and PostgreSQL transactional safety. Handles distributed workloads with zero-hallucination fidelity.
-                </p>
-                <div style="font-family:var(--imm-font-mono);font-size:0.6875rem;color:var(--imm-text-muted);margin-top:0.75rem;">
-                  METRICS: 45,000 RPS · LATENCY: 0.12ms · ACID COMPLIANCE: 100%
+            {% if projects and projects|length > 0 %}
+              {% for project in projects %}
+              <div class="case-study-card">
+                <div>
+                  <div class="case-study-badge">CASE STUDY // 0{{ loop.index }} · {{ project.category|default('ENGINEERING ARCHITECTURE')|upper }}</div>
+                  <h3 class="case-study-title" style="font-family:var(--imm-font-monumental);margin-top:0.35rem;">{{ project.title }}</h3>
+                  {% if project.description %}
+                  <p class="case-study-summary" style="margin-top:0.75rem;">
+                    {{ project.description }}
+                  </p>
+                  {% endif %}
+                  {% if project.technologies %}
+                  <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.75rem;">
+                    {% set tech_items = project.technologies.split(',') if project.technologies is string else project.technologies %}
+                    {% for tech in tech_items %}
+                    <span class="decomp-chip">{{ tech.strip() }}</span>
+                    {% endfor %}
+                  </div>
+                  {% endif %}
                 </div>
-                <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.75rem;">
-                  <span class="decomp-chip">Python</span>
-                  <span class="decomp-chip">PostgreSQL</span>
-                  <span class="decomp-chip">Docker</span>
-                  <span class="decomp-chip">FastAPI</span>
-                </div>
-              </div>
-              <div class="case-study-links">
-                <a href="https://github.com" target="_blank" rel="noopener" class="case-study-link">GitHub Repository ↗</a>
-                <a href="#" class="case-study-link">Live System Architecture ↗</a>
-              </div>
-            </div>
-
-            <div class="case-study-card">
-              <div>
-                <div class="case-study-badge">CASE STUDY // 02 · LOCAL AI PIPELINE</div>
-                <h3 class="case-study-title" style="font-family:var(--imm-font-monumental);margin-top:0.35rem;">Autonomous Resume Vector Pipeline</h3>
-                <p class="case-study-summary" style="margin-top:0.75rem;">
-                  Multi-pass deterministic entity categorization and headline synthesis. Built with local intelligence to guarantee 100% privacy and zero data leakage.
-                </p>
-                <div style="font-family:var(--imm-font-mono);font-size:0.6875rem;color:var(--imm-text-muted);margin-top:0.75rem;">
-                  FIDELITY: DETERMINISTIC MAP · ZERO-LEAKAGE · STRICT ISOLATION
-                </div>
-                <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.75rem;">
-                  <span class="decomp-chip">TypeScript</span>
-                  <span class="decomp-chip">pdfplumber</span>
-                  <span class="decomp-chip">Flask</span>
-                  <span class="decomp-chip">Tailwind</span>
+                <div class="case-study-links">
+                  {% if project.github_url %}
+                  <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="case-study-link">GitHub Repository ↗</a>
+                  {% endif %}
+                  {% if project.live_url %}
+                  <a href="{{ project.live_url }}" target="_blank" rel="noopener" class="case-study-link">Live Production ↗</a>
+                  {% endif %}
+                  {% if not project.github_url and not project.live_url %}
+                  <span class="hud">● LOCAL VERIFIED REPOSITORY</span>
+                  {% endif %}
                 </div>
               </div>
-              <div class="case-study-links">
-                <a href="https://github.com" target="_blank" rel="noopener" class="case-study-link">GitHub Repository ↗</a>
-                <a href="#" class="case-study-link">Pipeline Spec Doc ↗</a>
+              {% endfor %}
+            {% else %}
+              <!-- Authentic Editorial Blueprint when no projects created yet -->
+              <div class="case-study-card" style="border-style:dashed;">
+                <div>
+                  <div class="case-study-badge">CASE STUDY SPECIMEN // ARCHITECTURAL SCHEMATIC</div>
+                  <h3 class="case-study-title" style="font-family:var(--imm-font-monumental);margin-top:0.35rem;">Your Projects Transformed Into High-Dimensional Case Studies</h3>
+                  <p class="case-study-summary" style="margin-top:0.75rem;">
+                    When you ingest a resume or create projects in the Creative Studio, each real engineering system is elevated to a full-bleed editorial presentation with verified architecture diagrams, technical stack pills, and direct code links.
+                  </p>
+                  <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.75rem;">
+                    <span class="decomp-chip">[ ARCHITECTURE SUMMARY ]</span>
+                    <span class="decomp-chip">[ PRODUCTION METRICS ]</span>
+                    <span class="decomp-chip">[ VERIFIED COMMITS ]</span>
+                    <span class="decomp-chip">[ LIVE URL ]</span>
+                  </div>
+                </div>
+                <div class="case-study-links">
+                  <a href="/workspace" class="case-study-link">Open Studio Workspace ↗</a>
+                  <button class="case-study-link btn-open-register" style="background:none;border:none;cursor:pointer;font-family:inherit;">Create Account →</button>
+                </div>
               </div>
-            </div>
+            {% endif %}
           </div>
 
           <!-- Engineering Proof & Archival Verification Dossier -->
@@ -1367,44 +1422,58 @@
                 <div class="micro-label">AUDITED LEDGER // VERIFIED CAREER ARTIFACTS</div>
                 <h3 class="display-monumental" style="font-size:clamp(1.5rem,2.5vw,2.25rem);margin:0.25rem 0;">Engineering Proof &amp; Archival Ledger</h3>
               </div>
-              <span class="hud">● ALL CLAIMS CORROBORATED VIA REPOSITORY &amp; SYSTEM AUDIT</span>
+              <span class="hud">● DATA SOURCED DIRECTLY FROM DATABASE RECORDS</span>
             </div>
 
             <div class="verification-ledger">
+              {% if student and (student.experience or student.education or student.achievements) %}
               <table class="ledger-table">
                 <thead>
                   <tr>
-                    <th>TIMELINE</th>
-                    <th>ORGANIZATION</th>
-                    <th>ENGINEERING ROLE &amp; SCOPE</th>
-                    <th>VERIFIED ARCHITECTURAL OUTPUT</th>
+                    <th>SECTION</th>
+                    <th>RECORD DETAILS</th>
                     <th>STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {% if student.experience %}
                   <tr>
-                    <td>2023 — 2024</td>
-                    <td style="font-weight:700;color:#fff;">ScaleCorp Global</td>
-                    <td>Distributed Ingestion Architect</td>
-                    <td>Sub-millisecond async job dispatch, 99.99% reliability SLAs</td>
-                    <td><span class="ledger-status-tag">● AUDITED</span></td>
+                    <td style="font-weight:700;color:#fff;">EXPERIENCE</td>
+                    <td>{{ student.experience }}</td>
+                    <td><span class="ledger-status-tag">● VERIFIED RECORD</span></td>
                   </tr>
+                  {% endif %}
+                  {% if student.education %}
                   <tr>
-                    <td>2021 — 2025</td>
-                    <td style="font-weight:700;color:#fff;">Institute of Technology</td>
-                    <td>B.Tech Computer Science &amp; Eng</td>
-                    <td>Algorithmic Honors, GPA 3.9 / 4.0, Dean's Scholar</td>
-                    <td><span class="ledger-status-tag">● VERIFIED</span></td>
+                    <td style="font-weight:700;color:#fff;">EDUCATION</td>
+                    <td>{{ student.education }}</td>
+                    <td><span class="ledger-status-tag">● ACCREDITED</span></td>
                   </tr>
+                  {% endif %}
+                  {% if student.achievements %}
                   <tr>
-                    <td>2024 — 2025</td>
-                    <td style="font-weight:700;color:#fff;">Open Source Core</td>
-                    <td>Lead Maintainer, Vector Pipeline</td>
-                    <td>Deterministic local parsing engine, 1.2M downloads, zero CVEs</td>
-                    <td><span class="ledger-status-tag">● CORROBORATED</span></td>
+                    <td style="font-weight:700;color:#fff;">ACCOLADES</td>
+                    <td>{{ student.achievements }}</td>
+                    <td><span class="ledger-status-tag">● DOCUMENTED</span></td>
                   </tr>
+                  {% endif %}
                 </tbody>
               </table>
+              {% else %}
+              <div style="padding:2.5rem;text-align:center;border:1px dashed var(--imm-border-hairline);border-radius:var(--imm-radius-sm);">
+                <div style="font-family:var(--imm-font-mono);font-size:0.8125rem;color:var(--imm-text-muted);letter-spacing:0.06em;">
+                  NO VERIFIED CAREER RECORDS LOADED // AWAITING DOCUMENT INGESTION
+                </div>
+                <p class="serif-pullquote" style="margin:0.75rem auto 1rem;max-width:520px;font-size:0.95rem;">
+                  “Ingest your curriculum vitae in Act 01 or sign in to the Studio Workspace to populate your audited engineering ledger with zero-hallucination fidelity.”
+                </p>
+                <div style="display:flex;gap:0.75rem;justify-content:center;">
+                  <button class="btn btn-outline btn-open-register" style="font-size:0.8125rem;padding:0.5rem 1.25rem;">
+                    Ingest Resume Now →
+                  </button>
+                </div>
+              </div>
+              {% endif %}
             </div>
           </div>
 
@@ -1439,7 +1508,7 @@
 
     <!-- 8. Fixed Perimeter Footer Telemetry -->
     <footer class="imm-hud-footer">
-      <div class="imm-hud-coords">LAT 37.7749° N // LON 122.4194° W · FIDELITY 100%</div>
+      <div class="imm-hud-coords">PORTFOLIAI ENGINE // ZERO-LEAKAGE LOCAL PARSER · REVELATIO EDITION</div>
       <div class="imm-hud-telemetry">
         <span>SCROLL // </span>
         <span id="hudScrollPercent">000%</span>

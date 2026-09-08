@@ -53,6 +53,9 @@
         ctx.setLineDash([]);
 
         // Wireframe Avatar Circle
+        const isRealCandidate = name && !name.includes('CURRICULUM VITAE');
+        const monogramA = isRealCandidate ? name.slice(0, 2).toUpperCase() : 'CV';
+
         ctx.strokeStyle = 'rgba(161, 161, 170, 0.4)';
         ctx.lineWidth = 3;
         ctx.setLineDash([6, 6]);
@@ -64,29 +67,29 @@
         ctx.fillStyle = '#71717a';
         ctx.font = 'bold 52px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('AS', 512, 378);
+        ctx.fillText(monogramA, 512, 378);
 
         // Title: Raw Student Resume
         ctx.fillStyle = '#a1a1aa';
         ctx.font = 'bold 36px monospace';
-        ctx.fillText('RAW STUDENT RESUME', 512, 510);
+        ctx.fillText('UNSTRUCTURED DOCUMENT ARTIFACT', 512, 510);
 
         // Status Badge
         ctx.strokeStyle = 'rgba(161, 161, 170, 0.3)';
-        ctx.strokeRect(362, 545, 300, 42);
+        ctx.strokeRect(342, 545, 340, 42);
         ctx.fillStyle = '#71717a';
         ctx.font = '600 20px monospace';
-        ctx.fillText('STATUS: UN-ENRICHED', 512, 573);
+        ctx.fillText('STATUS: PENDING LOCAL SYNTHESIS', 512, 573);
 
         // Editorial Muted Text
         ctx.fillStyle = '#52525b';
         ctx.font = '24px -apple-system, BlinkMacSystemFont, sans-serif';
-        ctx.fillText('Generic descriptions · Uncalibrated keywords', 512, 640);
-        ctx.fillText('Hidden technical depth · Missing hierarchy', 512, 680);
+        ctx.fillText('Raw flat text · Unindexed capabilities', 512, 640);
+        ctx.fillText('Static bullet points · Awaiting architectural synthesis', 512, 680);
 
         ctx.font = '18px monospace';
         ctx.fillStyle = '#3f3f46';
-        ctx.fillText('[ SCAN POINTER TO VERIFY TECHNICAL DEPTH ]', 512, 780);
+        ctx.fillText('[ SCAN POINTER TO REVEAL PROFESSIONAL IDENTITY ]', 512, 780);
 
         const tex = new THREE.CanvasTexture(c);
         tex.minFilter = THREE.LinearFilter;
@@ -125,6 +128,11 @@
         }
 
         // Luminous Avatar Badge
+        const isRealCandidate = name && !name.includes('CURRICULUM VITAE');
+        const monogramB = isRealCandidate ? name.slice(0, 2).toUpperCase() : 'ID';
+        const displayName = isRealCandidate ? name : 'SYNTHESIZED IDENTITY';
+        const displayRole = isRealCandidate ? (headline || 'Verified Engineering Profile') : 'ARCHITECTURAL PORTFOLIO SYSTEM';
+
         const avGrad = ctx.createLinearGradient(420, 270, 604, 450);
         avGrad.addColorStop(0, '#7c3aed');
         avGrad.addColorStop(1, '#06b6d4');
@@ -136,38 +144,38 @@
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 56px -apple-system, BlinkMacSystemFont, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('AS', 512, 380);
+        ctx.fillText(monogramB, 512, 380);
 
         // Candidate Name
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 44px -apple-system, BlinkMacSystemFont, sans-serif';
-        ctx.fillText(name || 'Alex Sharma', 512, 505);
+        ctx.fillText(displayName, 512, 505);
 
         // Role / Title
         ctx.fillStyle = '#06b6d4';
         ctx.font = '600 24px monospace';
-        ctx.fillText(headline || 'Full-Stack AI & Cloud Solutions Architect', 512, 545);
+        ctx.fillText(displayRole, 512, 545);
 
         // Status Badge
         ctx.fillStyle = 'rgba(6, 182, 212, 0.15)';
-        ctx.fillRect(332, 580, 360, 44);
+        ctx.fillRect(312, 580, 400, 44);
         ctx.strokeStyle = '#06b6d4';
         ctx.lineWidth = 2;
-        ctx.strokeRect(332, 580, 360, 44);
+        ctx.strokeRect(312, 580, 400, 44);
         ctx.fillStyle = '#38bdf8';
         ctx.font = 'bold 20px monospace';
-        ctx.fillText('STATUS: PROFESSIONAL ENGINE', 512, 609);
+        ctx.fillText('STATUS: VERIFIED PROFESSIONAL', 512, 609);
 
         // Verified Highlights
         ctx.fillStyle = '#e4e4e7';
         ctx.font = '22px -apple-system, sans-serif';
-        ctx.fillText('High-impact production builder · Verified cloud systems', 512, 675);
-        ctx.fillText('Distributed queue dispatch · 0.28s AI enrichment', 512, 715);
+        ctx.fillText('Authentic career capabilities · Verified engineering systems', 512, 675);
+        ctx.fillText('Deterministic PostgreSQL storage · Zero-leakage privacy', 512, 715);
 
         // Telemetry Footer
         ctx.fillStyle = '#10b981';
         ctx.font = '18px monospace';
-        ctx.fillText('● SYSTEM VERIFIED · TELEMETRY ACTIVE', 512, 785);
+        ctx.fillText('● SYSTEM VERIFIED · RELATIONAL INTEGRITY', 512, 785);
 
         const tex = new THREE.CanvasTexture(c);
         tex.minFilter = THREE.LinearFilter;
@@ -175,8 +183,8 @@
         return tex;
       }
 
-      const domName = document.querySelector('.artifact-name')?.textContent || 'Alex Sharma';
-      const domRole = document.querySelector('.artifact-role')?.textContent || 'Full-Stack AI Solutions Architect';
+      const domName = document.querySelector('.artifact-name')?.textContent?.trim() || '';
+      const domRole = document.querySelector('.artifact-role')?.textContent?.trim() || '';
 
       let texA = generateTextureA(domName);
       let texB = generateTextureB(domName, domRole);

@@ -81,43 +81,24 @@
 
     // Fallback if user has no resume/profile yet
     const profile = data?.profile || {
-      name: controls.customName || "Alex Sharma",
-      headline: controls.customHeadline || "Full-Stack AI & Cloud Engineer",
-      bio: controls.customBio || "Crafting intelligent, human-centric web software with resilient architectures.",
-      skills: ["Python", "TypeScript", "React", "PostgreSQL", "Flask", "Tailwind CSS"],
-      education: "B.Tech in Computer Science & Engineering",
-      experience: "Software Engineer Intern @ TechInnovate (2023 - 2024)",
-      achievements: "Winner, National AI Hackathon 2024"
+      name: controls.customName || "Student Portfolio",
+      headline: controls.customHeadline || "Software Engineer",
+      bio: controls.customBio || "Engineering student building intelligent systems and software solutions.",
+      skills: [],
+      education: "",
+      experience: "",
+      achievements: ""
     };
 
     // Overlay real-time inputs
-    const displayName = controls.customName || profile.name || "Alex Sharma";
-    const displayHeadline = controls.customHeadline || profile.headline || "Full-Stack AI Solutions Architect";
-    const displayBio = controls.customBio || profile.bio || "Crafting intelligent, human-centric web software with resilient architectures.";
+    const displayName = controls.customName || profile.name || "Student Portfolio";
+    const displayHeadline = controls.customHeadline || profile.headline || "Software Engineer";
+    const displayBio = controls.customBio || profile.bio || "Engineering student building intelligent systems and software solutions.";
     const projects = (data?.projects && data.projects.length > 0)
       ? data.projects
       : ((window.PortfoliAIWorkspace?.state.projects && window.PortfoliAIWorkspace.state.projects.length > 0)
           ? window.PortfoliAIWorkspace.state.projects
-          : [
-              {
-                id: "1",
-                title: "Distributed Neural Engine",
-                category: "AI & Machine Learning",
-                description: "Low-latency streaming inference cluster processing 10,000+ token/s pipelines with distributed model parallelism.",
-                technologies: ["PyTorch", "CUDA", "FastAPI", "Redis"],
-                github_url: "https://github.com/developer/neural-engine",
-                live_url: "https://neural-engine.dev"
-              },
-              {
-                id: "2",
-                title: "Quantum Graph Visualizer",
-                category: "Creative Engineering",
-                description: "Interactive WebGL GPU-accelerated canvas visualizing topological manifolds in real-time.",
-                technologies: ["Three.js", "WebGL", "TypeScript", "GLSL"],
-                github_url: "https://github.com/developer/quantum-graphs",
-                live_url: "https://quantum-graphs.app"
-              }
-            ]);
+          : []);
 
     const templateClass = `template-${controls.template}`;
     const themeClass = `theme-${controls.theme}`;

@@ -86,23 +86,28 @@
         ctx.strokeRect(40, 40, 944, 1286);
 
         // Avatar monogram
+        const isRealCandidate = candidateName && !candidateName.includes('CURRICULUM VITAE');
+        const displayName = isRealCandidate ? candidateName : 'CURRICULUM VITAE';
+        const displayRole = isRealCandidate ? (headline || 'Software Engineer') : 'UNSTRUCTURED DOCUMENT // ARTIFACT';
+        const monogram = isRealCandidate ? displayName.slice(0, 2).toUpperCase() : 'CV';
+
         ctx.fillStyle = 'rgba(124, 58, 237, 0.2)';
         ctx.fillRect(70, 70, 90, 90);
         ctx.strokeStyle = 'rgba(124, 58, 237, 0.6)';
         ctx.strokeRect(70, 70, 90, 90);
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 36px monospace';
-        ctx.fillText('AS', 95, 128);
+        ctx.fillText(monogram, 95, 128);
 
         // Candidate Name
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 44px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-        ctx.fillText(candidateName || 'Alex Sharma', 185, 110);
+        ctx.font = 'bold 40px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(displayName, 185, 110);
 
         // Headline
         ctx.fillStyle = '#a855f7';
-        ctx.font = '600 24px monospace';
-        ctx.fillText(headline || 'Full-Stack AI & Cloud Solutions Architect', 185, 145);
+        ctx.font = '600 22px monospace';
+        ctx.fillText(displayRole, 185, 145);
 
         // Divider
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
@@ -116,7 +121,12 @@
         ctx.font = '600 20px monospace';
         ctx.fillText('DETECTED ENTITIES // SYSTEM METRICS', 70, 230);
 
-        const skills = ['Python', 'PostgreSQL', 'TypeScript', 'Docker', 'FastAPI', 'PyTorch', 'Distributed Systems'];
+        // Extract real skills from DOM if present
+        const domPills = Array.from(document.querySelectorAll('.artifact-pills .artifact-pill'))
+          .map(p => p.textContent.trim())
+          .filter(Boolean);
+        const skills = domPills.length > 0 ? domPills.slice(0, 6) : ['[ IDENTITY ]', '[ SUMMARY ]', '[ CAPABILITIES ]', '[ CHRONOLOGY ]'];
+
         let sx = 70;
         let sy = 265;
         skills.forEach(skill => {
@@ -142,15 +152,26 @@
         ctx.fillText('EXPERIENCE // PRODUCTION DEPLOYMENTS', 70, sy);
         sy += 38;
 
+        const domExp = document.querySelector('.decomp-track-exp div[style*="color:var(--imm-text-secondary)"]')?.textContent?.trim() || '';
+        const isRealExp = domExp && !domExp.includes('CHRONOLOGICAL DECOMPOSITION');
+
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 24px -apple-system, sans-serif';
-        ctx.fillText('SWE Intern @ ScaleCorp (2023 - 2024)', 70, sy);
-        sy += 30;
-        ctx.fillStyle = '#a1a1aa';
-        ctx.font = '20px -apple-system, sans-serif';
-        ctx.fillText('• Architected asynchronous queue processing with 99.98% reliability.', 70, sy);
-        sy += 28;
-        ctx.fillText('• Optimized vector similarity lookup latency from 240ms to 18ms.', 70, sy);
+        if (isRealExp) {
+          ctx.fillText(domExp.slice(0, 48), 70, sy);
+          sy += 30;
+          ctx.fillStyle = '#a1a1aa';
+          ctx.font = '20px -apple-system, sans-serif';
+          ctx.fillText('• Verified career milestone from student profile record.', 70, sy);
+        } else {
+          ctx.fillText('CHRONOLOGICAL MILESTONES & CAPABILITIES', 70, sy);
+          sy += 30;
+          ctx.fillStyle = '#a1a1aa';
+          ctx.font = '20px -apple-system, sans-serif';
+          ctx.fillText('• Structural extraction of career history & engineering scope.', 70, sy);
+          sy += 28;
+          ctx.fillText('• Sourced directly from local database records upon ingestion.', 70, sy);
+        }
 
         // Verification Footer
         ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
@@ -163,7 +184,7 @@
         ctx.font = '18px monospace';
         ctx.fillText('01 // ID: RESUME_ARTIFACT', 70, 1275);
         ctx.fillStyle = '#10b981';
-        ctx.fillText('● VERIFIED FIDELITY 100%', 720, 1275);
+        ctx.fillText('● ZERO-LEAKAGE LOCAL ENGINE', 670, 1275);
 
         const tex = new THREE.CanvasTexture(texCanvas);
         tex.anisotropy = 4;
@@ -171,8 +192,8 @@
       }
 
       // Initial candidate name from DOM if available
-      const domName = document.querySelector('.artifact-name')?.textContent || 'Alex Sharma';
-      const domRole = document.querySelector('.artifact-role')?.textContent || 'Full-Stack AI Engineer';
+      const domName = document.querySelector('.artifact-name')?.textContent?.trim() || '';
+      const domRole = document.querySelector('.artifact-role')?.textContent?.trim() || '';
       let paperTexture = generatePaperTexture(domName, domRole);
 
       // --- 3. Paper Mesh Construction (Dense Plane for Folding) ---
