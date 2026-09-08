@@ -1218,12 +1218,22 @@
     <!-- 6. ACT IV: THE ARCHETYPE WORKBENCH -->
     <section id="act-archetypes" class="act-runway" data-motion-scene="act-archetypes">
       <div class="act-stage">
+        <!-- Perimeter Telemetry Header -->
+        <div class="act-telemetry-header">
+          <div class="telemetry-pill"><span class="hud-indicator"></span> ACT 04 // ARCHETYPE WORKBENCH</div>
+          <div class="telemetry-pill">CURATION: 5 BESPOKE DESIGN SYSTEMS</div>
+          <div class="telemetry-pill">OVERHEAD: ZERO_RUNTIME_DEPENDENCY</div>
+          <div class="telemetry-pill status-ready">STATUS: DEPLOYABLE</div>
+        </div>
+
         <div class="act4-container">
           <div class="act4-header">
             <div class="micro-label">DESIGN SYSTEM SELECTION // ACT 04</div>
-            <h2 class="display-section" style="font-size:clamp(1.75rem,3.5vw,3rem);">The Archetype Workbench</h2>
-            <p class="editorial" style="margin:0.5rem auto 0;font-size:0.9375rem;">
-              Choose the architectural identity that projects your personal engineering discipline.
+            <h2 class="display-monumental" style="font-size:clamp(1.85rem,3.5vw,3.25rem);letter-spacing:-0.03em;margin:0.25rem 0;">
+              Choose Your Architectural Discipline
+            </h2>
+            <p class="serif-pullquote" style="margin:0.5rem auto 0;max-width:720px;font-size:clamp(1rem,1.4vw,1.2rem);">
+              “Five bespoke design languages engineered for distinct engineering personas—from ruthless monochrome minimalism to deep obsidian radiance.”
             </p>
           </div>
 
@@ -1287,30 +1297,33 @@
       </div>
     </section>
 
-    <!-- 7. ACT V: THE LIVING PORTFOLIO -->
+    <!-- 7. ACT V: THE LIVING PORTFOLIO & VERIFICATION LEDGER -->
     <section id="act-portfolio" class="act-runway" data-motion-scene="act-portfolio" style="min-height:auto;">
       <div class="act-stage" style="height:auto;min-height:100vh;">
         <div class="act5-container">
           <div class="act5-hero-block">
             <div class="micro-label">DEPLOYED PORTFOLIO PREVIEW // ACT 05</div>
-            <h2 class="display-section" style="font-size:clamp(2rem,4vw,3.5rem);margin-bottom:0.75rem;">
+            <h2 class="display-monumental" style="font-size:clamp(2.2rem,4vw,3.75rem);letter-spacing:-0.03em;margin-bottom:0.75rem;">
               The Living Portfolio
             </h2>
-            <p class="editorial" style="margin-inline:auto;">
-              Here is the published engineering portfolio synthesized directly from your extracted credentials.
+            <p class="serif-pullquote" style="margin-inline:auto;max-width:700px;font-size:clamp(1.05rem,1.5vw,1.25rem);">
+              “Here is the published engineering portfolio synthesized directly from your extracted credentials—high-dimensional, verified, and permanent.”
             </p>
           </div>
 
-          <!-- Featured Case Studies -->
+          <!-- Featured Full-Bleed Monograph Case Studies -->
           <div class="act5-case-studies">
             <div class="case-study-card">
               <div>
-                <div class="case-study-badge">CASE STUDY // 01</div>
-                <h3 class="case-study-title">Cloud Infrastructure Scale Engine</h3>
-                <p class="case-study-summary">
+                <div class="case-study-badge">CASE STUDY // 01 · DISTRIBUTED ARCHITECTURE</div>
+                <h3 class="case-study-title" style="font-family:var(--imm-font-monumental);margin-top:0.35rem;">Cloud Infrastructure Scale Engine</h3>
+                <p class="case-study-summary" style="margin-top:0.75rem;">
                   Architected asynchronous job ingestion with sub-millisecond dispatch and PostgreSQL transactional safety. Handles distributed workloads with zero-hallucination fidelity.
                 </p>
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+                <div style="font-family:var(--imm-font-mono);font-size:0.6875rem;color:var(--imm-text-muted);margin-top:0.75rem;">
+                  METRICS: 45,000 RPS · LATENCY: 0.12ms · ACID COMPLIANCE: 100%
+                </div>
+                <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.75rem;">
                   <span class="decomp-chip">Python</span>
                   <span class="decomp-chip">PostgreSQL</span>
                   <span class="decomp-chip">Docker</span>
@@ -1318,19 +1331,22 @@
                 </div>
               </div>
               <div class="case-study-links">
-                <a href="https://github.com" target="_blank" rel="noopener" class="case-study-link">GitHub ↗</a>
-                <a href="#" class="case-study-link">Live System ↗</a>
+                <a href="https://github.com" target="_blank" rel="noopener" class="case-study-link">GitHub Repository ↗</a>
+                <a href="#" class="case-study-link">Live System Architecture ↗</a>
               </div>
             </div>
 
             <div class="case-study-card">
               <div>
-                <div class="case-study-badge">CASE STUDY // 02</div>
-                <h3 class="case-study-title">Autonomous Resume Vector Pipeline</h3>
-                <p class="case-study-summary">
+                <div class="case-study-badge">CASE STUDY // 02 · LOCAL AI PIPELINE</div>
+                <h3 class="case-study-title" style="font-family:var(--imm-font-monumental);margin-top:0.35rem;">Autonomous Resume Vector Pipeline</h3>
+                <p class="case-study-summary" style="margin-top:0.75rem;">
                   Multi-pass deterministic entity categorization and headline synthesis. Built with local intelligence to guarantee 100% privacy and zero data leakage.
                 </p>
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+                <div style="font-family:var(--imm-font-mono);font-size:0.6875rem;color:var(--imm-text-muted);margin-top:0.75rem;">
+                  FIDELITY: DETERMINISTIC MAP · ZERO-LEAKAGE · STRICT ISOLATION
+                </div>
+                <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.75rem;">
                   <span class="decomp-chip">TypeScript</span>
                   <span class="decomp-chip">pdfplumber</span>
                   <span class="decomp-chip">Flask</span>
@@ -1338,20 +1354,74 @@
                 </div>
               </div>
               <div class="case-study-links">
-                <a href="https://github.com" target="_blank" rel="noopener" class="case-study-link">GitHub ↗</a>
-                <a href="#" class="case-study-link">Architecture Doc ↗</a>
+                <a href="https://github.com" target="_blank" rel="noopener" class="case-study-link">GitHub Repository ↗</a>
+                <a href="#" class="case-study-link">Pipeline Spec Doc ↗</a>
               </div>
             </div>
           </div>
 
+          <!-- Engineering Proof & Archival Verification Dossier -->
+          <div class="verification-dossier" style="margin-top:1.5rem;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1rem;flex-wrap:wrap;gap:1rem;">
+              <div>
+                <div class="micro-label">AUDITED LEDGER // VERIFIED CAREER ARTIFACTS</div>
+                <h3 class="display-monumental" style="font-size:clamp(1.5rem,2.5vw,2.25rem);margin:0.25rem 0;">Engineering Proof &amp; Archival Ledger</h3>
+              </div>
+              <span class="hud">● ALL CLAIMS CORROBORATED VIA REPOSITORY &amp; SYSTEM AUDIT</span>
+            </div>
+
+            <div class="verification-ledger">
+              <table class="ledger-table">
+                <thead>
+                  <tr>
+                    <th>TIMELINE</th>
+                    <th>ORGANIZATION</th>
+                    <th>ENGINEERING ROLE &amp; SCOPE</th>
+                    <th>VERIFIED ARCHITECTURAL OUTPUT</th>
+                    <th>STATUS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2023 — 2024</td>
+                    <td style="font-weight:700;color:#fff;">ScaleCorp Global</td>
+                    <td>Distributed Ingestion Architect</td>
+                    <td>Sub-millisecond async job dispatch, 99.99% reliability SLAs</td>
+                    <td><span class="ledger-status-tag">● AUDITED</span></td>
+                  </tr>
+                  <tr>
+                    <td>2021 — 2025</td>
+                    <td style="font-weight:700;color:#fff;">Institute of Technology</td>
+                    <td>B.Tech Computer Science &amp; Eng</td>
+                    <td>Algorithmic Honors, GPA 3.9 / 4.0, Dean's Scholar</td>
+                    <td><span class="ledger-status-tag">● VERIFIED</span></td>
+                  </tr>
+                  <tr>
+                    <td>2024 — 2025</td>
+                    <td style="font-weight:700;color:#fff;">Open Source Core</td>
+                    <td>Lead Maintainer, Vector Pipeline</td>
+                    <td>Deterministic local parsing engine, 1.2M downloads, zero CVEs</td>
+                    <td><span class="ledger-status-tag">● CORROBORATED</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <!-- Action CTA Deck -->
-          <div class="act5-action-deck">
-            <button class="btn btn-primary btn-open-register" style="padding:0.875rem 2rem;font-size:1rem;">
-              Create Your Portfolio Free →
-            </button>
-            <a href="/workspace" class="btn btn-outline" style="padding:0.875rem 2rem;font-size:1rem;">
-              Launch Studio Workspace ↗
-            </a>
+          <div class="act5-action-deck" style="text-align:center;padding:3rem 1.5rem;background:rgba(124,58,237,0.05);border:1px solid var(--imm-border-subtle);border-radius:var(--imm-radius-sm);margin-top:2rem;">
+            <h3 class="display-monumental" style="font-size:clamp(2rem,3.5vw,3rem);margin-bottom:0.75rem;">Synthesize Your Living Portfolio Now.</h3>
+            <p class="serif-pullquote" style="margin:0 auto 1.5rem;max-width:580px;font-size:1.15rem;">
+              “Transform static bullet points into an interactive, high-dimensional engineering showcase that commands recruiter respect.”
+            </p>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+              <button class="btn btn-primary btn-open-register" style="padding:0.875rem 2.25rem;font-size:1rem;">
+                Create Your Portfolio Free →
+              </button>
+              <a href="/workspace" class="btn btn-outline" style="padding:0.875rem 2.25rem;font-size:1rem;">
+                Launch Studio Workspace ↗
+              </a>
+            </div>
           </div>
 
           <footer style="text-align:center;padding-top:3rem;border-top:1px solid var(--imm-border-hairline);margin-top:2rem;">
@@ -1360,7 +1430,7 @@
               <span>Portfoli<span>AI</span></span>
             </div>
             <p style="font-size:0.8125rem;color:var(--imm-text-muted);">
-              PortfoliAI © 2026. Next-Generation Immersive Portfolio Platform.
+              PortfoliAI © 2026. Next-Generation Immersive Portfolio Platform · Architectural Edition.
             </p>
           </footer>
         </div>
