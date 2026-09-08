@@ -54,7 +54,7 @@
 }
 
 .pub-section-title {
-  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-family: var(--imm-font-monumental, 'Syne', sans-serif);
   font-size: 2.25rem;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -222,6 +222,7 @@
 }
 
 .template-minimal .minimal-hero-name {
+  font-family: var(--imm-font-monumental, 'Syne', sans-serif);
   font-size: clamp(3rem, 7.5vw, 6rem);
   font-weight: 900;
   letter-spacing: -0.05em;
@@ -239,11 +240,13 @@
 }
 
 .template-minimal .minimal-headline-block {
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-family: var(--imm-font-serif, 'Newsreader', Georgia, serif);
+  font-style: italic;
+  font-size: 1.6rem;
+  font-weight: 500;
   line-height: 1.4;
   color: #18181b;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .template-minimal.theme-dark .minimal-headline-block {
@@ -516,7 +519,8 @@
 }
 
 .template-glass .glass-hero-name {
-  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  font-family: var(--imm-font-monumental, 'Syne', sans-serif);
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.05;
@@ -527,8 +531,10 @@
 }
 
 .template-glass .glass-hero-headline {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-family: var(--imm-font-serif, 'Newsreader', Georgia, serif);
+  font-style: italic;
+  font-size: 1.35rem;
+  font-weight: 500;
   color: var(--portfolio-accent, #a855f7);
   margin-bottom: 1.25rem;
   letter-spacing: -0.01em;
@@ -721,7 +727,8 @@
 }
 
 .template-modern .modern-hero-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-family: var(--imm-font-monumental, 'Syne', sans-serif);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.1;
@@ -730,8 +737,10 @@
 }
 
 .template-modern .modern-hero-subtitle {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-family: var(--imm-font-serif, 'Newsreader', Georgia, serif);
+  font-style: italic;
+  font-size: 1.35rem;
+  font-weight: 500;
   color: #38bdf8;
   margin-bottom: 1.25rem;
 }
@@ -937,6 +946,10 @@
   padding: 8rem 0 5rem;
   text-align: center;
   position: relative;
+}
+
+.template-dark .dark-name {
+  font-family: var(--imm-font-monumental, 'Syne', sans-serif);
 }
 
 .template-dark .dark-core-orb {
