@@ -218,9 +218,48 @@ html:has(#immersiveNarrative) {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  padding: 4.5rem var(--imm-space-lg) 2.5rem;
+  padding: 4rem var(--imm-space-lg) 3.5rem;
   background-color: var(--imm-bg-void);
   will-change: transform, opacity;
+}
+
+/* Perimeter Telemetry Sub-header */
+.act-telemetry-header {
+  position: absolute;
+  top: 4.25rem;
+  left: var(--imm-space-lg);
+  right: var(--imm-space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--imm-border-hairline);
+  background: rgba(10, 10, 16, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--imm-radius-xs);
+  font-family: var(--imm-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--imm-text-muted);
+  z-index: var(--imm-z-overlay);
+}
+
+.telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.telemetry-pill.status-ready {
+  color: var(--imm-accent-emerald);
+}
+
+@media (max-width: 768px) {
+  .act-telemetry-header {
+    display: none;
+  }
 }
 
 /* ==========================================================================
@@ -245,7 +284,7 @@ html:has(#immersiveNarrative) {
 }
 
 .act1-headline {
-  font-size: clamp(2.75rem, 5.5vw, 6.5rem);
+  font-size: clamp(2.2rem, 4.2vw, 4.5rem);
   line-height: 0.94;
   font-weight: 800;
   letter-spacing: -0.04em;
@@ -419,6 +458,32 @@ html:has(#immersiveNarrative) {
   animation: rotatePulse 12s linear infinite;
 }
 
+.singularity-orbit-ring {
+  position: absolute;
+  inset: -28px;
+  border-radius: 50%;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  pointer-events: none;
+  animation: rotateClockwise 20s linear infinite;
+}
+
+.singularity-orbit-ring::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--imm-accent-cyan);
+  box-shadow: 0 0 10px var(--imm-accent-cyan);
+}
+
+@keyframes rotateClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 @keyframes rotatePulse {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -429,15 +494,15 @@ html:has(#immersiveNarrative) {
   position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  background: rgba(16, 16, 24, 0.75);
+  gap: 0.4rem;
+  background: rgba(16, 16, 24, 0.82);
   border: 1px solid var(--imm-border-subtle);
   border-radius: var(--imm-radius-xs);
-  padding: 1rem 1.25rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   box-shadow: var(--imm-shadow-md);
-  max-width: 280px;
+  max-width: 230px;
   z-index: var(--imm-z-overlay);
   will-change: transform, opacity;
 }
@@ -447,37 +512,37 @@ html:has(#immersiveNarrative) {
   justify-content: space-between;
   align-items: center;
   font-family: var(--imm-font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.65rem;
   letter-spacing: 0.12em;
   color: var(--imm-accent-active);
   text-transform: uppercase;
   border-bottom: 1px solid var(--imm-border-hairline);
-  padding-bottom: 0.35rem;
+  padding-bottom: 0.3rem;
 }
 
 .decomp-track-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .decomp-chip {
   font-family: var(--imm-font-mono);
-  font-size: 0.6875rem;
-  padding: 0.2rem 0.5rem;
+  font-size: 0.65rem;
+  padding: 0.15rem 0.45rem;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--imm-border-hairline);
   border-radius: var(--imm-radius-xs);
   color: var(--imm-text-primary);
 }
 
-.track-skills { top: 12%; left: 8%; }
-.track-exp { top: 12%; right: 8%; }
-.track-edu { bottom: 12%; left: 8%; }
-.track-proj { bottom: 12%; right: 8%; }
+.track-skills { top: 2%; left: 0%; }
+.track-exp { top: 2%; right: 0%; }
+.track-edu { bottom: 2%; left: 0%; }
+.track-proj { bottom: 2%; right: 0%; }
 
 /* ==========================================================================
-   5. ACT III — THE DUAL IDENTITY
+   5. ACT III — THE DUAL IDENTITY & LATENT UNDERSTANDING
    ========================================================================== */
 .act3-container {
   width: 100%;
@@ -495,7 +560,7 @@ html:has(#immersiveNarrative) {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: var(--imm-font-display);
+  font-family: var(--imm-font-monumental);
   font-size: clamp(6rem, 16vw, 18rem);
   font-weight: 900;
   line-height: 0.85;
@@ -506,6 +571,171 @@ html:has(#immersiveNarrative) {
   user-select: none;
   pointer-events: none;
   z-index: var(--imm-z-type-bg);
+}
+
+/* Asymmetric 2-Column Monograph Split */
+.act3-split-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: center;
+  width: 100%;
+  max-width: var(--imm-container-wide);
+  margin-inline: auto;
+  position: relative;
+  z-index: var(--imm-z-subject);
+}
+
+.act3-editorial-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.act3-portal-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Odometer 2x2 Matrix */
+.odometer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.odometer-card {
+  padding: 1rem 1.15rem;
+  background: rgba(16, 16, 24, 0.75);
+  border: 1px solid var(--imm-border-subtle);
+  border-radius: var(--imm-radius-xs);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color var(--imm-duration-fast) ease, box-shadow var(--imm-duration-fast) ease;
+}
+
+.odometer-card:hover {
+  border-color: var(--imm-border-accent);
+  box-shadow: 0 0 24px rgba(var(--imm-accent-active-rgb), 0.15);
+}
+
+.odometer-card .odometer-figure {
+  font-size: clamp(1.6rem, 2.2vw, 2.25rem);
+  line-height: 1;
+  margin-bottom: 0.35rem;
+  color: #ffffff;
+}
+
+.odometer-label {
+  font-family: var(--imm-font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: var(--imm-text-muted);
+  text-transform: uppercase;
+}
+
+/* Dynamic Entity Burst Stream */
+.entity-burst-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.entity-burst-item {
+  font-family: var(--imm-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--imm-text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--imm-border-hairline);
+  border-radius: var(--imm-radius-xs);
+  padding: 0.35rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(8px);
+}
+
+.entity-burst-item .burst-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--imm-accent-cyan);
+  box-shadow: 0 0 8px var(--imm-accent-cyan);
+  flex-shrink: 0;
+}
+
+/* Concentric Radar Circle Portal */
+.radar-portal-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radar-concentric-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(124, 58, 237, 0.2);
+  pointer-events: none;
+}
+
+.radar-concentric-ring.ring-1 {
+  width: 530px;
+  height: 530px;
+  border-color: rgba(124, 58, 237, 0.25);
+  animation: rotatePulse 45s linear infinite;
+}
+
+.radar-concentric-ring.ring-2 {
+  width: 590px;
+  height: 590px;
+  border-color: rgba(6, 182, 212, 0.18);
+  animation: rotateClockwise 60s linear infinite reverse;
+}
+
+.radar-concentric-ring.ring-3 {
+  width: 650px;
+  height: 650px;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.radar-sweep-line {
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: conic-gradient(from 0deg at 50% 50%, rgba(124, 58, 237, 0.15) 0deg, transparent 60deg, transparent 360deg);
+  animation: rotateClockwise 8s linear infinite;
+}
+
+@media (max-width: 991px) {
+  .act3-split-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .act3-portal-column {
+    order: 2;
+  }
+  .act3-editorial-column {
+    order: 1;
+    text-align: center;
+  }
+  .odometer-grid {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+  .entity-burst-stream {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+  .radar-concentric-ring {
+    display: none;
+  }
 }
 
 .identity-focal-stage {

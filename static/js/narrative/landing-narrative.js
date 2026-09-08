@@ -211,6 +211,45 @@
         identityLayerPro.style.setProperty('--reveal-y', '50%');
       });
 
+      // Odometer Figure Animation Engine
+      let odometersTriggered = false;
+      function triggerOdometers() {
+        if (odometersTriggered) return;
+        odometersTriggered = true;
+
+        const figures = document.querySelectorAll('.odometer-figure[data-odometer-target]');
+        figures.forEach(fig => {
+          const target = parseFloat(fig.getAttribute('data-odometer-target')) || 0;
+          const prefix = fig.getAttribute('data-prefix') || '';
+          const suffix = fig.getAttribute('data-suffix') || '';
+          const isDecimal = String(target).includes('.');
+
+          if (window.gsap) {
+            const proxy = { val: 0 };
+            window.gsap.to(proxy, {
+              val: target,
+              duration: 1.6,
+              ease: 'power2.out',
+              onUpdate: () => {
+                const displayVal = isDecimal ? proxy.val.toFixed(1) : Math.round(proxy.val);
+                fig.textContent = `${prefix}${displayVal}${suffix}`;
+              }
+            });
+          } else {
+            fig.textContent = `${prefix}${target}${suffix}`;
+          }
+        });
+
+        // Stagger in entity burst items
+        const burstItems = document.querySelectorAll('.entity-burst-item');
+        if (burstItems.length > 0 && window.gsap) {
+          window.gsap.fromTo(burstItems, 
+            { opacity: 0, x: -12 },
+            { opacity: 1, x: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out' }
+          );
+        }
+      }
+
       motion.registerScene('act-3-identity', {
         element: '#act-identity',
         isSticky: true,
@@ -219,7 +258,15 @@
           if (reducedMotion || isMobile) {
             if (act3Stage) { act3Stage.style.opacity = '1'; act3Stage.style.transform = 'none'; }
             if (identityStage) identityStage.style.transform = 'scale(1)';
+            triggerOdometers();
             return;
+          }
+
+          // Trigger dynamic odometer telemetry
+          if (progress > 0.04) {
+            triggerOdometers();
+          } else if (progress <= 0.01) {
+            odometersTriggered = false;
           }
 
           // Cinematic Ingress (0.0 to 0.18) & Egress (0.82 to 1.0)
