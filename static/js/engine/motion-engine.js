@@ -412,6 +412,23 @@
           this.measureElementGeometry(scene.element);
         }
       });
+      if (typeof window.ScrollTrigger !== 'undefined') {
+        window.ScrollTrigger.refresh();
+      }
+    }
+
+    /**
+     * Version B: GSAP & ScrollTrigger Hybrid Bridge
+     * Enables GSAP ScrollTrigger to coordinate with PortfoliAIMotion's master RAF and WebGL stage.
+     */
+    initGSAPBridge() {
+      if (typeof window === 'undefined' || !window.gsap) return null;
+      const gsap = window.gsap;
+      const ScrollTrigger = window.ScrollTrigger;
+      if (ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+      }
+      return { gsap, ScrollTrigger };
     }
 
     /**
