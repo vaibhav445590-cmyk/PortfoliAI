@@ -1128,7 +1128,7 @@ html:has(#immersiveNarrative) {
 /* ==========================================================================
    8. RESPONSIVE BREAKPOINTS FOR ACTS I–V
    ========================================================================== */
-@media (max-width: 1024px) {
+@media (max-width: 960px) {
   .act1-grid {
     grid-template-columns: 1fr;
     gap: var(--imm-space-xl);
@@ -1151,6 +1151,10 @@ html:has(#immersiveNarrative) {
 
 @media (max-width: 767px) {
   .imm-hud-links {
+    display: none;
+  }
+
+  .imm-hud-act-badge {
     display: none;
   }
 
