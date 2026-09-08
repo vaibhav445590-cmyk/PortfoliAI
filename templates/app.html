@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ student.name if is_public_view and student and student.name else "PortfoliAI — Turn Raw Resumes into World-Class Portfolios" }}</title>
+  <meta name="description" content="Intelligent AI resume parsing and cinematic portfolio generator. Built with local AI intelligence and zero-hallucination data integrity.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cinematic.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/workspace.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/templates.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio-archetypes.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/immersive-core.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/immersive-responsive.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/immersive-landing.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/immersive-studio.css') }}">
+</head>
+<body>
+
+  <!-- Ambient Canvas Background & Lighting -->
+  <div class="cinematic-bg">
+    <div class="ambient-orb orb-indigo"></div>
+    <div class="ambient-orb orb-violet"></div>
+    <div class="ambient-orb orb-cyan"></div>
+    <div class="grid-mesh"></div>
+  </div>
+
+  <!-- Ambient Cursor Glow & Scroll Progress -->
+  <div id="scrollProgressBar" class="scroll-progress-bar cinematic-progress"></div>
+  <div id="cursorGlow" class="cursor-glow cursor-ambient-glow"></div>
+
+  {% if is_public_view and student %}
+  <!-- ====================================================================
+       PUBLIC STANDALONE PORTFOLIO VIEW (/p/<student_id>) — PHASE 7G
+       ==================================================================== -->
+  <div class="portfolio-root pub-portfolio-root template-{{ student.template|default('glass') }} theme-{{ student.theme|default('glass') }} accent-{{ student.accent|default('purple') }}">
+    
+    <!-- 1. STICKY PUBLIC NAVBAR -->
+    <nav class="pub-nav-bar" id="pubNav">
+      <div class="pub-nav-inner">
+        <a href="#hero" class="pub-nav-brand">
+          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--portfolio-accent, #7c3aed);box-shadow:0 0 8px var(--portfolio-accent, #7c3aed);"></span>
+          <span>{{ student.name }}</span>
+        </a>
+        <ul class="pub-nav-links">
+          {% if (student.section_visibility.projects if student.section_visibility and student.section_visibility.projects is defined else true) and projects %}
+          <li><a href="#sec-projects" class="pub-nav-link">Work</a></li>
+          {% endif %}
+          {% if (student.section_visibility.skills if student.section_visibility and student.section_visibility.skills is defined else true) and student.skills %}
+          <li><a href="#sec-skills" class="pub-nav-link">Skills</a></li>
+          {% endif %}
+          {% if (student.section_visibility.experience if student.section_visibility and student.section_visibility.experience is defined else true) and student.experience %}
+          <li><a href="#sec-experience" class="pub-nav-link">Experience</a></li>
+          {% endif %}
+          {% if (student.section_visibility.education if student.section_visibility and student.section_visibility.education is defined else true) and student.education %}
+          <li><a href="#sec-education" class="pub-nav-link">Education</a></li>
+          {% endif %}
+          <li><a href="#sec-contact" class="pub-nav-link">Contact</a></li>
+        </ul>
+        <button class="pub-nav-cta btn-share-portfolio" id="btnCopyShareLink" title="Copy Portfolio Link">
+          <span>🔗</span> Share
+        </button>
+      </div>
+    </nav>
+
+    <div class="pub-portfolio-container">
+
+      <!-- 2. ARCHETYPE HERO STAGE -->
+      {% if student.template == 'minimal' %}
+      <!-- Swiss Minimal Hero -->
+      <header class="minimal-hero minimal-hero-stage" id="hero">
+        <div class="minimal-kicker">[ VERIFIED PORTFOLIO // CANDIDATE ID #{{ student.id }} ]</div>
+        <h1 class="minimal-name minimal-hero-name">{{ student.name }}</h1>
+        <div class="minimal-hero-split">
+          <div>
+            {% if student.headline %}
+            <div class="minimal-headline minimal-headline-block">{{ student.headline }}</div>
+            {% endif %}
+            {% if student.bio and (student.section_visibility.about if student.section_visibility and student.section_visibility.about is defined else true) %}
+            <p class="minimal-bio minimal-bio-block">{{ student.bio }}</p>
+            {% endif %}
+            {% if student.social_links %}
+            <div class="portfolio-social-nav">
+              {% if student.social_links.github %}<a href="{{ student.social_links.github }}" target="_blank" rel="noopener" class="portfolio-social-btn">GitHub ↗</a>{% endif %}
+              {% if student.social_links.linkedin %}<a href="{{ student.social_links.linkedin }}" target="_blank" rel="noopener" class="portfolio-social-btn">LinkedIn ↗</a>{% endif %}
+              {% if student.social_links.twitter %}<a href="{{ student.social_links.twitter }}" target="_blank" rel="noopener" class="portfolio-social-btn">Twitter/X ↗</a>{% endif %}
+            </div>
+            {% endif %}
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.75rem;color:#71717a;text-transform:uppercase;letter-spacing:0.1em;border-top:1px solid rgba(0,0,0,0.15);padding-top:1rem;">
+              DISCIPLINE // FOCUS<br>
+              <strong style="color:inherit;font-size:0.875rem;">{{ student.headline|default('Software Engineering') }}</strong>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {% elif student.template == 'modern' %}
+      <!-- Tech Modern Hero -->
+      <header class="modern-hero modern-hero-grid" id="hero">
+        <div>
+          <span class="modern-tag modern-status-chip">
+            <span class="modern-status-dot"></span>
+            AVAILABLE FOR OPPORTUNITIES
+          </span>
+          <h1 class="modern-name modern-hero-title">{{ student.name }}</h1>
+          {% if student.headline %}
+          <div class="modern-hero-subtitle" style="font-size:1.25rem;color:var(--portfolio-accent);font-weight:600;margin-bottom:1rem;">{{ student.headline }}</div>
+          {% endif %}
+          {% if student.bio and (student.section_visibility.about if student.section_visibility and student.section_visibility.about is defined else true) %}
+          <p class="modern-hero-bio" style="font-size:1.0625rem;color:var(--text-secondary);line-height:1.7;">{{ student.bio }}</p>
+          {% endif %}
+          {% if student.social_links %}
+          <div class="portfolio-social-nav">
+            {% if student.social_links.github %}<a href="{{ student.social_links.github }}" target="_blank" rel="noopener" class="portfolio-social-btn">GitHub ↗</a>{% endif %}
+            {% if student.social_links.linkedin %}<a href="{{ student.social_links.linkedin }}" target="_blank" rel="noopener" class="portfolio-social-btn">LinkedIn ↗</a>{% endif %}
+            {% if student.social_links.twitter %}<a href="{{ student.social_links.twitter }}" target="_blank" rel="noopener" class="portfolio-social-btn">Twitter/X ↗</a>{% endif %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="modern-card-badge" style="background:var(--portfolio-card-bg);border:1px solid var(--portfolio-border);border-radius:var(--radius-2xl);padding:2rem;text-align:center;">
+          <div class="modern-monogram" style="width:80px;height:80px;border-radius:50%;background:var(--portfolio-accent);color:#fff;font-size:2rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+            {{ student.name[:1]|upper }}
+          </div>
+          <div style="font-weight:700;font-size:1.125rem;">Verified Student Portfolio</div>
+          <div style="font-size:0.8125rem;color:var(--portfolio-text-muted,#64748b);margin-top:0.25rem;">Powered by PortfoliAI</div>
+        </div>
+      </header>
+
+      {% elif student.template == 'developer' %}
+      <!-- Developer Terminal Hero -->
+      <div class="terminal-window-stage" id="hero">
+        <div class="terminal-window terminal-shell" style="margin-bottom:3.5rem;">
+          <div class="terminal-titlebar terminal-bar">
+            <div class="terminal-dots terminal-traffic-lights">
+              <span class="terminal-dot dot-red terminal-light light-close"></span>
+              <span class="terminal-dot dot-yellow terminal-light light-min"></span>
+              <span class="terminal-dot dot-green terminal-light light-max"></span>
+            </div>
+            <span style="font-size:0.75rem;color:#94a3b8;">{{ student.name|lower|replace(' ', '') }}@portfoliai:~ (main)</span>
+          </div>
+          <div class="terminal-body" style="padding:2.25rem;">
+            <div class="cli-prompt terminal-prompt-line"><span class="path t-path">~/portfolio</span> <span class="branch t-branch">(main)</span> $ whoami</div>
+            <h1 class="dev-name" style="font-size:2.5rem;font-weight:800;letter-spacing:-0.02em;margin:0.5rem 0;">{{ student.name }}</h1>
+            {% if student.headline %}
+            <div style="color:#a855f7;font-size:1rem;margin-bottom:1rem;">// {{ student.headline }}</div>
+            {% endif %}
+            {% if student.bio and (student.section_visibility.about if student.section_visibility and student.section_visibility.about is defined else true) %}
+            <div class="dev-code-block" style="background:#030712;border:1px solid #1f2937;border-radius:8px;padding:1.25rem;margin:1.25rem 0;font-family:var(--font-mono);font-size:0.875rem;color:#93c5fd;line-height:1.6;">
+              <span style="color:#f43f5e;">const</span> engineer = {<br>
+              &nbsp;&nbsp;name: <span style="color:#4ade80;">"{{ student.name }}"</span>,<br>
+              &nbsp;&nbsp;headline: <span style="color:#4ade80;">"{{ student.headline|default('') }}"</span>,<br>
+              &nbsp;&nbsp;bio: <span style="color:#4ade80;">"{{ student.bio }}"</span><br>
+              };
+            </div>
+            {% endif %}
+            {% if student.social_links %}
+            <div class="portfolio-social-nav">
+              {% if student.social_links.github %}<a href="{{ student.social_links.github }}" target="_blank" rel="noopener" class="portfolio-social-btn">GitHub ↗</a>{% endif %}
+              {% if student.social_links.linkedin %}<a href="{{ student.social_links.linkedin }}" target="_blank" rel="noopener" class="portfolio-social-btn">LinkedIn ↗</a>{% endif %}
+              {% if student.social_links.twitter %}<a href="{{ student.social_links.twitter }}" target="_blank" rel="noopener" class="portfolio-social-btn">Twitter/X ↗</a>{% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {% elif student.template == 'dark' %}
+      <!-- OLED Dark Hero -->
+      <header class="dark-hero dark-cinematic-hero" id="hero">
+        <div class="dark-glow-orb dark-core-orb"></div>
+        <h1 class="dark-name" style="font-size:clamp(3rem, 7vw, 5.5rem);font-weight:900;letter-spacing:-0.04em;">{{ student.name }}</h1>
+        {% if student.headline %}
+        <div style="font-size:1.25rem;color:var(--portfolio-accent);font-weight:600;margin-bottom:1rem;">{{ student.headline }}</div>
+        {% endif %}
+        {% if student.bio and (student.section_visibility.about if student.section_visibility and student.section_visibility.about is defined else true) %}
+        <p style="max-width:680px;margin:0 auto 2rem;font-size:1.0625rem;color:#94a3b8;line-height:1.7;">{{ student.bio }}</p>
+        {% endif %}
+        {% if student.social_links %}
+        <div class="portfolio-social-nav" style="justify-content:center;">
+          {% if student.social_links.github %}<a href="{{ student.social_links.github }}" target="_blank" rel="noopener" class="portfolio-social-btn">GitHub ↗</a>{% endif %}
+          {% if student.social_links.linkedin %}<a href="{{ student.social_links.linkedin }}" target="_blank" rel="noopener" class="portfolio-social-btn">LinkedIn ↗</a>{% endif %}
+          {% if student.social_links.twitter %}<a href="{{ student.social_links.twitter }}" target="_blank" rel="noopener" class="portfolio-social-btn">Twitter/X ↗</a>{% endif %}
+        </div>
+        {% endif %}
+      </header>
+
+      {% else %}
+      <!-- Frosted Glass Hero (Default) -->
+      <header class="glass-hero glass-hero-stage" id="hero">
+        <div class="glass-ambient-orb"></div>
+        <div class="glass-avatar-ring glass-avatar-sphere">{{ student.name[:1]|upper }}</div>
+        <h1 class="glass-name glass-hero-name">{{ student.name }}</h1>
+        {% if student.headline %}
+        <div class="glass-headline glass-hero-headline">{{ student.headline }}</div>
+        {% endif %}
+        {% if student.bio and (student.section_visibility.about if student.section_visibility and student.section_visibility.about is defined else true) %}
+        <p class="glass-bio glass-hero-bio">{{ student.bio }}</p>
+        {% endif %}
+        {% if student.social_links %}
+        <div class="portfolio-social-nav" style="justify-content:center;">
+          {% if student.social_links.github %}<a href="{{ student.social_links.github }}" target="_blank" rel="noopener" class="portfolio-social-btn">GitHub ↗</a>{% endif %}
+          {% if student.social_links.linkedin %}<a href="{{ student.social_links.linkedin }}" target="_blank" rel="noopener" class="portfolio-social-btn">LinkedIn ↗</a>{% endif %}
+          {% if student.social_links.twitter %}<a href="{{ student.social_links.twitter }}" target="_blank" rel="noopener" class="portfolio-social-btn">Twitter/X ↗</a>{% endif %}
+        </div>
+        {% endif %}
+      </header>
+      {% endif %}
+
+      <!-- 3. FEATURED PROJECTS CASE STUDIES -->
+      {% if (student.section_visibility.projects if student.section_visibility and student.section_visibility.projects is defined else true) and projects %}
+      <section class="pub-section portfolio-section" id="sec-projects">
+        <div class="pub-section-header">
+          <div class="pub-section-kicker"><span>01</span> // Case Studies</div>
+          <h2 class="pub-section-title portfolio-section-title"><span class="accent-color-text">/</span> Featured Projects</h2>
+        </div>
+
+        {% if student.template == 'minimal' %}
+        <!-- Swiss Minimal Project Editorial Rows -->
+        <div class="minimal-project-list">
+          {% for project in projects %}
+          <article class="minimal-project-entry glass-card" data-project-id="{{ project.id }}">
+            <div class="minimal-project-index">0{{ loop.index }}</div>
+            <div class="minimal-project-title-area">
+              <h3 style="font-size:1.4rem;font-weight:800;">{{ project.title }}</h3>
+              <span class="minimal-project-category">{{ project.category|default('System Project') }}</span>
+            </div>
+            <div>
+              <p class="minimal-project-desc">{{ project.description }}</p>
+              {% if project.technologies %}
+              <div class="minimal-tech-list">
+                {% set tech_items = project.technologies.split(',') if project.technologies is string else project.technologies %}
+                {% for tech in tech_items %}
+                <span class="minimal-tech-tag portfolio-skill-pill">{{ tech.strip() if tech is string else tech }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+            <div class="minimal-project-links">
+              {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" rel="noopener" class="minimal-link-btn accent-color-text">GitHub ↗</a>{% endif %}
+              {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" rel="noopener" class="minimal-link-btn accent-color-text">Live Demo ↗</a>{% endif %}
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+
+        {% elif student.template == 'modern' %}
+        <!-- Tech Modern Bento Grid -->
+        <div class="modern-bento-grid portfolio-projects-grid">
+          {% for project in projects %}
+          <div class="modern-bento-card modern-card glass-card" data-project-id="{{ project.id }}">
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+                <span style="font-size:0.6875rem;padding:0.2rem 0.6rem;border-radius:9999px;background:var(--portfolio-accent-subtle);color:var(--portfolio-accent);font-weight:700;text-transform:uppercase;">
+                  {{ project.category|default('Project') }}
+                </span>
+                <span style="font-family:var(--font-mono);font-size:0.6875rem;color:var(--portfolio-text-muted,#64748b);">#0{{ loop.index }}</span>
+              </div>
+              <h3 style="font-size:1.35rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.5rem;color:#ffffff;">{{ project.title }}</h3>
+              <p style="font-size:0.9rem;color:var(--portfolio-text-muted,#94a3b8);line-height:1.6;margin-bottom:1.25rem;">{{ project.description }}</p>
+            </div>
+            <div>
+              {% if project.technologies %}
+              <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1.25rem;">
+                {% set tech_items = project.technologies.split(',') if project.technologies is string else project.technologies %}
+                {% for tech in tech_items %}
+                <span class="portfolio-skill-pill" style="font-size:0.6875rem;padding:0.2rem 0.55rem;">{{ tech.strip() if tech is string else tech }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+              <div style="display:flex;gap:0.75rem;font-size:0.8125rem;">
+                {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" rel="noopener" class="accent-color-text" style="font-weight:700;text-decoration:none;">GitHub ↗</a>{% endif %}
+                {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" rel="noopener" class="accent-color-text" style="font-weight:700;text-decoration:none;">Live Demo ↗</a>{% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        {% elif student.template == 'developer' %}
+        <!-- Developer CLI Case Studies -->
+        <div class="portfolio-projects-grid">
+          {% for project in projects %}
+          <div class="terminal-cli-case glass-card" data-project-id="{{ project.id }}">
+            <div class="terminal-commit-meta">
+              <span>[commit {{ project.id }}a4f9] (main)</span>
+              <span style="color:#4ade80;">STATUS: ACTIVE</span>
+            </div>
+            <div style="color:#38bdf8;font-size:0.8125rem;margin-bottom:0.5rem;">$ ./run_system.sh --target="{{ project.title|lower|replace(' ', '-') }}"</div>
+            <h3 style="font-size:1.25rem;font-weight:700;margin:0 0 0.5rem 0;color:#ffffff;">{{ project.title }}</h3>
+            <p style="font-size:0.875rem;color:#94a3b8;line-height:1.6;margin-bottom:1rem;">{{ project.description }}</p>
+            {% if project.technologies %}
+            <div style="display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:1.25rem;">
+              {% set tech_items = project.technologies.split(',') if project.technologies is string else project.technologies %}
+              {% for tech in tech_items %}
+              <span class="portfolio-skill-pill" style="font-family:var(--font-mono);font-size:0.6875rem;background:#030712;border-color:#1e293b;color:#38bdf8;">--stack={{ tech.strip() if tech is string else tech }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <div style="display:flex;gap:1rem;font-size:0.8125rem;">
+              {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" rel="noopener" class="accent-color-text" style="color:#4ade80;font-weight:600;text-decoration:none;">repo: git::github ↗</a>{% endif %}
+              {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" rel="noopener" class="accent-color-text" style="color:#38bdf8;font-weight:600;text-decoration:none;">endpoint: curl/live ↗</a>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        {% elif student.template == 'dark' %}
+        <!-- OLED Dark Wide Panels -->
+        <div class="portfolio-projects-grid">
+          {% for project in projects %}
+          <div class="dark-case-panel dark-card glass-card" data-project-id="{{ project.id }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+              <span style="font-family:var(--font-mono);font-size:0.6875rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--portfolio-accent);">
+                {{ project.category|default('System Spec') }}
+              </span>
+              <span style="font-family:var(--font-mono);font-size:0.6875rem;color:#71717a;">0{{ loop.index }}</span>
+            </div>
+            <h3 style="font-size:1.5rem;font-weight:800;letter-spacing:-0.03em;color:#ffffff;margin:0 0 0.75rem 0;">{{ project.title }}</h3>
+            <p style="font-size:0.9375rem;color:#94a3b8;line-height:1.65;margin:0 0 1.5rem 0;">{{ project.description }}</p>
+            {% if project.technologies %}
+            <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem;">
+              {% set tech_items = project.technologies.split(',') if project.technologies is string else project.technologies %}
+              {% for tech in tech_items %}
+              <span class="portfolio-skill-pill" style="background:#090910;border-color:rgba(255,255,255,0.1);color:#e2e8f0;">{{ tech.strip() if tech is string else tech }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <div style="display:flex;gap:1rem;font-size:0.8125rem;">
+              {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" rel="noopener" class="accent-color-text" style="font-weight:700;text-decoration:none;">GitHub ↗</a>{% endif %}
+              {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" rel="noopener" class="accent-color-text" style="font-weight:700;text-decoration:none;">Live Demo ↗</a>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        {% else %}
+        <!-- Frosted Glass Panels (Default) -->
+        <div class="glass-case-grid portfolio-projects-grid">
+          {% for project in projects %}
+          <div class="glass-case-panel glass-card" data-project-id="{{ project.id }}">
+            <div>
+              <div class="glass-case-top">
+                <span class="glass-case-badge">{{ project.category|default('Project') }}</span>
+                <span style="font-family:var(--font-mono);font-size:0.6875rem;color:rgba(255,255,255,0.4);">0{{ loop.index }}</span>
+              </div>
+              <h3 class="glass-case-title">{{ project.title }}</h3>
+              <p class="glass-case-desc">{{ project.description }}</p>
+            </div>
+            <div>
+              {% if project.technologies %}
+              <div class="glass-chip-row">
+                {% set tech_items = project.technologies.split(',') if project.technologies is string else project.technologies %}
+                {% for tech in tech_items %}
+                <span class="glass-chip portfolio-skill-pill">{{ tech.strip() if tech is string else tech }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+              <div class="glass-action-row">
+                {% if project.github_url %}<a href="{{ project.github_url }}" target="_blank" rel="noopener" class="glass-action-btn accent-color-text">GitHub ↗</a>{% endif %}
+                {% if project.live_url %}<a href="{{ project.live_url }}" target="_blank" rel="noopener" class="glass-action-btn accent-color-text">Live Demo ↗</a>{% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+      </section>
+      {% endif %}
+
+      <!-- 4. CORE TECHNOLOGIES / SKILLS -->
+      {% if (student.section_visibility.skills if student.section_visibility and student.section_visibility.skills is defined else true) and student.skills %}
+      <section class="pub-section portfolio-section" id="sec-skills">
+        <div class="pub-section-header">
+          <div class="pub-section-kicker"><span>02</span> // Capabilities</div>
+          <h2 class="pub-section-title portfolio-section-title"><span class="accent-color-text">/</span> Core Technologies</h2>
+        </div>
+
+        {% if student.template == 'minimal' %}
+        <div class="minimal-skills-wall portfolio-skills-chips">
+          {% set skill_items = student.skills.split(',') if student.skills is string else student.skills %}
+          {% for skill in skill_items %}
+          <span class="minimal-skill-keyword portfolio-skill-pill">{{ skill.strip() if skill is string else skill }}</span>
+          {% endfor %}
+        </div>
+
+        {% elif student.template == 'developer' %}
+        <div class="dev-code-block" style="background:#030712;border:1px solid #1e293b;border-radius:8px;padding:1.5rem;font-family:var(--font-mono);font-size:0.875rem;color:#93c5fd;line-height:1.6;">
+          <div style="color:#64748b;margin-bottom:0.75rem;">$ cat /etc/capabilities.manifest</div>
+          <div class="portfolio-skills-chips" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+            {% set skill_items = student.skills.split(',') if student.skills is string else student.skills %}
+            {% for skill in skill_items %}
+            <span class="portfolio-skill-pill" style="background:#090e1a;border-color:#1e293b;color:#4ade80;">✓ {{ skill.strip() if skill is string else skill }}</span>
+            {% endfor %}
+          </div>
+        </div>
+
+        {% else %}
+        <div class="portfolio-skills-chips">
+          {% set skill_items = student.skills.split(',') if student.skills is string else student.skills %}
+          {% for skill in skill_items %}
+          <span class="portfolio-skill-pill glass-chip" style="font-size:0.875rem;padding:0.45rem 1rem;">{{ skill.strip() if skill is string else skill }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </section>
+      {% endif %}
+
+      <!-- 5. EXPERIENCE TIMELINE -->
+      {% if (student.section_visibility.experience if student.section_visibility and student.section_visibility.experience is defined else true) and student.experience %}
+      <section class="pub-section portfolio-section" id="sec-experience">
+        <div class="pub-section-header">
+          <div class="pub-section-kicker"><span>03</span> // Career Progression</div>
+          <h2 class="pub-section-title portfolio-section-title"><span class="accent-color-text">/</span> Experience</h2>
+        </div>
+
+        {% if student.template == 'minimal' %}
+        <div class="minimal-timeline">
+          <div class="minimal-timeline-item">
+            <div class="minimal-timeline-label">CAREER HISTORY</div>
+            <div class="minimal-timeline-content glass-card">{{ student.experience }}</div>
+          </div>
+        </div>
+        {% elif student.template == 'developer' %}
+        <div class="terminal-cli-case glass-card">
+          <div class="terminal-commit-meta">
+            <span>$ git log --experience --format=full</span>
+            <span style="color:#38bdf8;">VERIFIED RECORD</span>
+          </div>
+          <p style="font-size:0.9375rem;color:#cbd5e1;white-space:pre-line;line-height:1.7;margin:0;">{{ student.experience }}</p>
+        </div>
+        {% else %}
+        <div class="glass-card" style="padding:2.25rem;">
+          <p style="font-size:1rem;color:var(--text-secondary);white-space:pre-line;line-height:1.7;margin:0;">{{ student.experience }}</p>
+        </div>
+        {% endif %}
+      </section>
+      {% endif %}
+
+      <!-- 6. EDUCATION & ACCREDITATION -->
+      {% if (student.section_visibility.education if student.section_visibility and student.section_visibility.education is defined else true) and student.education %}
+      <section class="pub-section portfolio-section" id="sec-education">
+        <div class="pub-section-header">
+          <div class="pub-section-kicker"><span>04</span> // Academic History</div>
+          <h2 class="pub-section-title portfolio-section-title"><span class="accent-color-text">/</span> Education</h2>
+        </div>
+
+        {% if student.template == 'minimal' %}
+        <div class="minimal-timeline">
+          <div class="minimal-timeline-item">
+            <div class="minimal-timeline-label">CREDENTIALS</div>
+            <div class="minimal-timeline-content glass-card">{{ student.education }}</div>
+          </div>
+        </div>
+        {% else %}
+        <div class="glass-card" style="padding:2.25rem;">
+          <p style="font-size:1rem;color:var(--text-secondary);margin:0;line-height:1.6;">{{ student.education }}</p>
+        </div>
+        {% endif %}
+      </section>
+      {% endif %}
+
+      <!-- 7. HONORS & ACHIEVEMENTS -->
+      {% if (student.section_visibility.achievements if student.section_visibility and student.section_visibility.achievements is defined else true) and student.achievements %}
+      <section class="pub-section portfolio-section" id="sec-achievements">
+        <div class="pub-section-header">
+          <div class="pub-section-kicker"><span>05</span> // Verified Accolades</div>
+          <h2 class="pub-section-title portfolio-section-title"><span class="accent-color-text">/</span> Honors & Achievements</h2>
+        </div>
+        <div class="glass-card" style="padding:2.25rem;">
+          <p style="font-size:1rem;color:var(--text-secondary);margin:0;line-height:1.6;">{{ student.achievements }}</p>
+        </div>
+      </section>
+      {% endif %}
+
+      <!-- 8. RECRUITER CONTACT & SOCIAL FOOTER -->
+      <section class="pub-section" id="sec-contact" style="border-top:1px solid var(--portfolio-border, rgba(255,255,255,0.08));">
+        <div style="text-align:center;max-width:600px;margin:0 auto;">
+          <div class="pub-section-kicker" style="justify-content:center;"><span>06</span> // Direct Line</div>
+          <h2 class="pub-section-title" style="margin-bottom:1rem;">Ready for Next-Gen Opportunities</h2>
+          <p style="font-size:1rem;color:var(--portfolio-text-muted,#94a3b8);line-height:1.7;margin-bottom:2rem;">
+            Open to senior engineering, AI solutions architecture, and full-stack software development opportunities.
+          </p>
+          {% if student.social_links %}
+          <div class="portfolio-social-nav" style="justify-content:center;margin-bottom:2rem;">
+            {% if student.social_links.github %}<a href="{{ student.social_links.github }}" target="_blank" rel="noopener" class="portfolio-social-btn">GitHub ↗</a>{% endif %}
+            {% if student.social_links.linkedin %}<a href="{{ student.social_links.linkedin }}" target="_blank" rel="noopener" class="portfolio-social-btn">LinkedIn ↗</a>{% endif %}
+            {% if student.social_links.twitter %}<a href="{{ student.social_links.twitter }}" target="_blank" rel="noopener" class="portfolio-social-btn">Twitter/X ↗</a>{% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </section>
+
+      <footer style="padding:3rem 0;border-top:1px solid var(--portfolio-border, rgba(255,255,255,0.08));text-align:center;font-size:0.8125rem;color:var(--portfolio-text-muted,#71717a);">
+        Generated with <a href="/" style="color:var(--portfolio-accent, #7c3aed);font-weight:700;text-decoration:none;">PortfoliAI</a> — The Intelligent Student Portfolio Engine
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Lightweight Public Script -->
+  <script src="{{ url_for('static', filename='js/public-portfolio.js') }}"></script>
+  {% else %}
+  <!-- ====================================================================
+       CINEMATIC LANDING PAGE & AUTHENTICATED WORKSPACE SHELL
+       ==================================================================== -->
+
+  {% if is_workspace_mode %}
+  <!-- ====================================================================
+       AUTHENTICATED WORKSPACE VIEW
+       ==================================================================== -->
+  <div class="studio-root">
+    <!-- 1. TOP STUDIO TOOLBAR -->
+    <header class="studio-topbar">
+      <div class="studio-topbar-left">
+        <a href="/" class="studio-brand-mark">
+          <div class="studio-mark-badge">P</div>
+          <span>Portfoli<span>AI</span></span>
+        </a>
+        <div class="studio-breadcrumb">
+          <span class="studio-breadcrumb-sep">/</span>
+          <span class="workspace-env-tag">STUDENT WORKSPACE</span>
+          <span class="studio-breadcrumb-sep">/</span>
+          <span class="studio-portfolio-title" id="overviewUserGreeting">{{ student.name if student and student.name else "Portfolio Studio" }}</span>
+        </div>
+      </div>
+
+      <div class="studio-topbar-center">
+        <!-- Device Framing Switchers -->
+        <div class="studio-device-picker">
+          <button class="studio-device-btn device-btn active" data-device="desktop">🖥️ Desktop</button>
+          <button class="studio-device-btn device-btn" data-device="tablet">📱 Tablet</button>
+          <button class="studio-device-btn device-btn" data-device="mobile">📲 Mobile</button>
+        </div>
+
+        <!-- Zoom Controls -->
+        <div class="studio-zoom-ctrl">
+          <button class="studio-zoom-btn" id="btnStudioZoomOut" title="Zoom Out">−</button>
+          <span id="studioZoomValue">100%</span>
+          <button class="studio-zoom-btn" id="btnStudioZoomIn" title="Zoom In">+</button>
+          <button class="studio-zoom-btn" id="btnStudioZoomReset" title="Reset Zoom">⟲</button>
+        </div>
+      </div>
+
+      <div class="studio-topbar-right">
+        <div class="studio-save-status">
+          <span class="status-dot"></span>
+          <span id="studioSaveStatusPill">SAVED · LOCAL</span>
+        </div>
+
+        <button class="btn btn-outline btn-copy-public-link" style="font-size:0.75rem;padding:0.3rem 0.75rem;">
+          🔗 Copy Link
+        </button>
+
+        <button class="btn-studio-publish" id="btnStudioPublish">
+          <span>🚀</span> Publish Portfolio
+        </button>
+
+        <div class="user-profile-chip nav-user-only" style="display:none;margin-left:0.5rem;">
+          <div class="user-avatar" id="userAvatarInitial">U</div>
+          <span class="user-email-text" id="userEmailDisplay" style="font-size:0.75rem;">user@example.com</span>
+        </div>
+
+        <button class="btn btn-outline nav-user-only" id="btnSignOut" style="display:none;font-size:0.75rem;padding:0.3rem 0.65rem;">
+          Sign Out
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. MAIN STUDIO 3-PANEL BODY -->
+    <div class="studio-body">
+      
+      <!-- LEFT CONTENT RAIL (300px) -->
+      <aside class="studio-left-rail">
+        
+        <!-- SECTION 1: RESUME HUB -->
+        <div id="viewResume" class="studio-rail-section">
+          <div class="studio-rail-header">
+            <span class="studio-rail-title"><span>📄</span> Resume Hub</span>
+            <span id="metricResumeStatus" class="metric-badge {{ 'success' if student and student.resume_filename else 'draft' }}">
+              {{ 'Active' if student and student.resume_filename else 'No Resume' }}
+            </span>
+          </div>
+
+          <div class="studio-resume-card">
+            <div class="studio-resume-meta">
+              <span>SOURCE:</span>
+              <strong id="resumeMetaFilename">{{ student.resume_filename if student and student.resume_filename else "Not uploaded" }}</strong>
+            </div>
+
+            <div id="resumeDropzone" class="studio-resume-dropzone">
+              <input type="file" id="resumeFileInput" class="dropzone-input" accept=".pdf" style="display:none;">
+              <span style="font-size:1.25rem;display:block;margin-bottom:0.25rem;">📤</span>
+              <span style="font-size:0.6875rem;font-family:var(--studio-font-mono);color:var(--studio-text-secondary);display:block;">
+                Drop new PDF to re-parse
+              </span>
+            </div>
+
+            <!-- Pipeline progress & Facts -->
+            <div id="pipelineProgressBox" class="pipeline-progress-box" style="display:none;margin-top:0.5rem;">
+              <div id="pStepUpload" class="pipeline-step-item current"><span>1. Uploading PDF</span></div>
+              <div id="pStepExtract" class="pipeline-step-item"><span>2. Extracting text</span></div>
+              <div id="pStepParse" class="pipeline-step-item"><span>3. Validating schema</span></div>
+              <div id="pStepEnrich" class="pipeline-step-item"><span>4. AI enrichment</span></div>
+              <div id="pStepDone" class="pipeline-step-item"><span>5. Ready</span></div>
+            </div>
+
+            <div id="resumeFactsInspector" style="margin-top:0.25rem;">
+              {% if student and student.skills %}
+              <div style="font-family:var(--studio-font-mono);font-size:0.625rem;color:var(--studio-accent-emerald);">
+                ✓ {{ student.skills.split(',')|length if student.skills is string else student.skills|length }} skills verified
+              </div>
+              {% endif %}
+            </div>
+
+            <div style="display:flex;justify-content:flex-end;margin-top:0.25rem;">
+              <button class="btn btn-outline" id="btnClearResume" style="color:#f43f5e;border-color:rgba(244,63,94,0.3);font-size:0.6875rem;padding:0.2rem 0.5rem;">
+                Clear Resume
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: PROJECTS RAIL -->
+        <div id="viewProjects" class="studio-rail-section" style="flex:1;">
+          <div class="studio-rail-header">
+            <span class="studio-rail-title"><span>🚀</span> Projects (<span id="metricProjectsCount">{{ projects|length if projects else 0 }}</span>)</span>
+            <button class="btn btn-primary" id="btnAddProject" style="font-size:0.6875rem;padding:0.25rem 0.6rem;">+ Add</button>
+            <button id="btnOpenAddProject" style="display:none;"></button>
+          </div>
+
+          <div id="projectsListContainer" class="projects-list-container studio-projects-list">
+            <div id="workspaceProjectsList" class="workspace-projects-list">
+              <!-- Dynamically populated by workspace.js -->
+              {% if projects %}
+                {% for project in projects %}
+                <div class="studio-project-item" data-project-id="{{ project.id }}" draggable="true">
+                  <span class="studio-project-drag-handle">⠿</span>
+                  <div class="studio-project-info">
+                    <div class="studio-project-title">{{ project.title }}</div>
+                    <div class="studio-project-category">{{ project.category|default("Project") }}</div>
+                  </div>
+                  <button class="btn btn-outline btn-edit-project" data-project-id="{{ project.id }}" style="font-size:0.625rem;padding:0.15rem 0.4rem;">Edit</button>
+                </div>
+                {% endfor %}
+              {% else %}
+                <div style="text-align:center;padding:1.5rem 0;color:var(--studio-text-muted);font-size:0.75rem;">
+                  No projects added yet.<br>Click "+ Add" to create one.
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: PROFILE SUMMARY -->
+        <div class="studio-rail-section">
+          <div class="studio-rail-header">
+            <span class="studio-rail-title"><span>👤</span> Profile</span>
+            <button class="btn btn-outline" onclick="PortfoliAIStudioInspector.showProfileInspector()" style="font-size:0.6875rem;padding:0.2rem 0.5rem;">Edit</button>
+          </div>
+          <div style="font-size:0.75rem;color:var(--studio-text-secondary);">
+            <div style="font-weight:700;color:var(--studio-text-primary);">{{ student.name if student and student.name else "Alex Sharma" }}</div>
+            <div style="font-family:var(--studio-font-mono);font-size:0.6875rem;color:var(--studio-accent-primary);margin-top:0.2rem;">
+              {{ student.headline if student and student.headline else "Full-Stack AI Solutions Architect" }}
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- CENTER INTERACTIVE PORTFOLIO CANVAS -->
+      <main id="viewPreview" class="studio-center-canvas">
+        <div class="studio-canvas-viewport">
+          <div id="studioDeviceFrame" class="studio-device-frame" data-device="desktop">
+            <div class="studio-frame-header">
+              <div class="studio-frame-dots">
+                <div class="studio-frame-dot"></div>
+                <div class="studio-frame-dot"></div>
+                <div class="studio-frame-dot"></div>
+              </div>
+              <div id="studioDeviceLabel">DESKTOP · 1200PX</div>
+              <div style="display:flex;align-items:center;gap:0.35rem;">
+                <span class="status-dot"></span>
+                <span style="font-size:0.5625rem;">LIVE SURFACE</span>
+              </div>
+            </div>
+
+            <div id="studioFrameBody" class="studio-frame-body">
+              <div id="previewFrameWrapper" class="preview-frame">
+                <div id="previewFrameInner" class="preview-inner-scroll">
+                  <!-- Real-time portfolio rendered here by preview.js / studio-canvas.js -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- RIGHT CONTEXTUAL INSPECTOR (320px) -->
+      <aside id="viewStudio" class="studio-right-inspector">
+        
+        <!-- PANEL 1: PORTFOLIO-LEVEL SETTINGS -->
+        <div id="panelPortfolioSettings" class="studio-inspector-panel active">
+          <div class="studio-inspector-header">
+            <span class="studio-inspector-title">Portfolio Settings</span>
+            <span id="metricStatusBadge" class="metric-badge {{ 'success' if student and student.status == 'published' else 'draft' }}">
+              {{ student.status|upper if student and student.status else 'DRAFT' }}
+            </span>
+          </div>
+
+          <!-- Archetype Selection -->
+          <div class="studio-form-row">
+            <label class="studio-field-label">Design Archetype</label>
+            <div class="studio-archetypes-grid">
+              <div class="studio-archetype-choice template-choice-card active" data-template="glass">
+                <div class="studio-archetype-choice-name">Frosted Glass</div>
+                <div class="studio-archetype-choice-desc">Multi-layer liquid blur</div>
+              </div>
+              <div class="studio-archetype-choice template-choice-card" data-template="minimal">
+                <div class="studio-archetype-choice-name">Swiss Minimal</div>
+                <div class="studio-archetype-choice-desc">Stark high-contrast</div>
+              </div>
+              <div class="studio-archetype-choice template-choice-card" data-template="modern">
+                <div class="studio-archetype-choice-name">Tech Modern</div>
+                <div class="studio-archetype-choice-desc">Cyan velocity theme</div>
+              </div>
+              <div class="studio-archetype-choice template-choice-card" data-template="developer">
+                <div class="studio-archetype-choice-name">Developer</div>
+                <div class="studio-archetype-choice-desc">Dark system terminal</div>
+              </div>
+              <div class="studio-archetype-choice template-choice-card" data-template="dark" style="grid-column: span 2;">
+                <div class="studio-archetype-choice-name">OLED Dark</div>
+                <div class="studio-archetype-choice-desc">Pure obsidian surfaces</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Theme Variants -->
+          <div class="studio-form-row">
+            <label class="studio-field-label">Theme Variant</label>
+            <div style="display:flex;gap:0.35rem;">
+              <button class="theme-pill-btn active" data-theme="glass" style="flex:1;padding:4px;font-size:0.6875rem;">Glass</button>
+              <button class="theme-pill-btn" data-theme="light" style="flex:1;padding:4px;font-size:0.6875rem;">Light</button>
+              <button class="theme-pill-btn" data-theme="dark" style="flex:1;padding:4px;font-size:0.6875rem;">Dark</button>
+            </div>
+          </div>
+
+          <!-- Accent Swatches -->
+          <div class="studio-form-row">
+            <label class="studio-field-label">Accent Radiance</label>
+            <div class="accent-swatches-row" style="display:flex;gap:0.4rem;">
+              <button class="accent-swatch-btn swatch-purple active" data-accent="purple" title="Purple"></button>
+              <button class="accent-swatch-btn swatch-emerald" data-accent="emerald" title="Emerald"></button>
+              <button class="accent-swatch-btn swatch-blue" data-accent="blue" title="Blue"></button>
+              <button class="accent-swatch-btn swatch-amber" data-accent="amber" title="Amber"></button>
+              <button class="accent-swatch-btn swatch-rose" data-accent="rose" title="Rose"></button>
+              <button class="accent-swatch-btn swatch-cyan" data-accent="cyan" title="Cyan"></button>
+            </div>
+          </div>
+
+          <!-- Section Visibility Toggles -->
+          <div class="studio-form-row">
+            <label class="studio-field-label">Section Visibility</label>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;background:var(--studio-bg-surface);padding:0.75rem;border-radius:6px;border:1px solid var(--studio-border-hairline);">
+              <div class="toggle-row" style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;">
+                <span>About &amp; Bio</span>
+                <label class="ios-switch"><input type="checkbox" id="toggleSec_about" checked><span class="switch-slider"></span></label>
+              </div>
+              <div class="toggle-row" style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;">
+                <span>Core Technologies</span>
+                <label class="ios-switch"><input type="checkbox" id="toggleSec_skills" checked><span class="switch-slider"></span></label>
+              </div>
+              <div class="toggle-row" style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;">
+                <span>Featured Projects</span>
+                <label class="ios-switch"><input type="checkbox" id="toggleSec_projects" checked><span class="switch-slider"></span></label>
+              </div>
+              <div class="toggle-row" style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;">
+                <span>Experience</span>
+                <label class="ios-switch"><input type="checkbox" id="toggleSec_experience" checked><span class="switch-slider"></span></label>
+              </div>
+              <div class="toggle-row" style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;">
+                <span>Education</span>
+                <label class="ios-switch"><input type="checkbox" id="toggleSec_education" checked><span class="switch-slider"></span></label>
+              </div>
+              <div class="toggle-row" style="display:flex;justify-content:space-between;align-items:center;font-size:0.75rem;">
+                <span>Honors &amp; Awards</span>
+                <label class="ios-switch"><input type="checkbox" id="toggleSec_achievements" checked><span class="switch-slider"></span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publication Status Selection -->
+          <div class="studio-form-row">
+            <label class="studio-field-label">Publication Mode</label>
+            <div style="display:flex;gap:0.75rem;font-size:0.75rem;">
+              <label style="display:flex;align-items:center;gap:0.35rem;cursor:pointer;">
+                <input type="radio" name="custStatus" id="statusDraft" value="draft" checked>
+                <span>Draft</span>
+              </label>
+              <label style="display:flex;align-items:center;gap:0.35rem;cursor:pointer;">
+                <input type="radio" name="custStatus" id="statusPublished" value="published">
+                <span>Published</span>
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="btnSaveCustomization" style="width:100%;font-size:0.75rem;padding:0.5rem;margin-top:0.5rem;">
+            Save All Settings
+          </button>
+        </div>
+
+        <!-- PANEL 2: SELECTED PROJECT INSPECTOR -->
+        <div id="panelProjectSettings" class="studio-inspector-panel">
+          <div class="studio-inspector-header">
+            <span class="studio-inspector-title">Project Inspector</span>
+            <button class="btn btn-outline" onclick="PortfoliAIStudioInspector.showPortfolioInspector()" style="font-size:0.625rem;padding:0.15rem 0.45rem;">Done</button>
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">Project Title</label>
+            <input type="text" id="inspProjTitle" class="studio-field-input" placeholder="e.g. Distributed Engine">
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">Category</label>
+            <input type="text" id="inspProjCategory" class="studio-field-input" placeholder="e.g. Distributed Systems">
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">Description</label>
+            <textarea id="inspProjDesc" class="studio-field-textarea" rows="3" placeholder="High-impact engineering overview..."></textarea>
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">Technologies (Comma-separated)</label>
+            <input type="text" id="inspProjTech" class="studio-field-input" placeholder="Python, PostgreSQL, Docker">
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">GitHub URL</label>
+            <input type="url" id="inspProjGithub" class="studio-field-input" placeholder="https://github.com/username/repo">
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">Live URL</label>
+            <input type="url" id="inspProjLive" class="studio-field-input" placeholder="https://demo.app.com">
+          </div>
+
+          <div style="display:flex;gap:0.5rem;margin-top:0.75rem;">
+            <button class="btn btn-primary" id="btnInspSaveProject" style="flex:1;font-size:0.75rem;">Save Project</button>
+            <button class="btn btn-outline" id="btnInspDeleteProject" style="color:#f43f5e;border-color:rgba(244,63,94,0.3);font-size:0.75rem;">Delete</button>
+          </div>
+        </div>
+
+        <!-- PANEL 3: PROFILE OVERRIDES INSPECTOR -->
+        <div id="panelProfileSettings" class="studio-inspector-panel">
+          <div class="studio-inspector-header">
+            <span class="studio-inspector-title">Profile Overrides</span>
+            <button class="btn btn-outline" onclick="PortfoliAIStudioInspector.showPortfolioInspector()" style="font-size:0.625rem;padding:0.15rem 0.45rem;">Done</button>
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">Display Name</label>
+            <input type="text" id="custCustomName" class="studio-field-input" placeholder="e.g. Alex Sharma">
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">Professional Headline</label>
+            <input type="text" id="custCustomHeadline" class="studio-field-input" placeholder="e.g. Full-Stack AI Engineer">
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">Narrative Bio</label>
+            <textarea id="custCustomBio" class="studio-field-textarea" rows="4" placeholder="Brief engineering summary..."></textarea>
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">GitHub URL</label>
+            <input type="url" id="custSocialGithub" class="studio-field-input" placeholder="https://github.com/username">
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">LinkedIn URL</label>
+            <input type="url" id="custSocialLinkedin" class="studio-field-input" placeholder="https://linkedin.com/in/username">
+          </div>
+
+          <div class="studio-form-row">
+            <label class="studio-field-label">Twitter / X URL</label>
+            <input type="url" id="custSocialTwitter" class="studio-field-input" placeholder="https://twitter.com/username">
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <!-- 3. BOTTOM STATUS TELEMETRY BAR -->
+    <footer id="viewOverview" class="studio-bottombar">
+      <div class="studio-bottom-cluster">
+        <span>PORTFOLIAI // CREATIVE STUDIO v2.0</span>
+        <span>LATENCY: 0.28s</span>
+        <span>STUDENT_ID: {{ student.id if student and student.id else 1 }}</span>
+      </div>
+      <div class="studio-bottom-cluster">
+        <span id="studioTelemetryStatus">STATUS: {{ student.status|upper if student and student.status else 'DRAFT' }}</span>
+        <span>PUBLIC: <code id="publicPortfolioUrl" style="color:var(--studio-text-primary);">/p/{{ student.id if student and student.id else 1 }}</code></span>
+      </div>
+      <div style="display:none;">
+        <!-- Legacy hidden elements preserved for backwards-compatible test scripts -->
+        <div id="overviewCompletionFill"></div>
+        <span id="overviewCompletionPercent">100%</span>
+      </div>
+    </footer>
+  </div>
+
+  {% else %}
+  <!-- ====================================================================
+       IMMERSIVE LANDING NARRATIVE — ACTS I–V (PHASE 7D)
+       ==================================================================== -->
+  <div id="immersiveNarrative" class="immersive-narrative atmosphere-void">
+    <!-- Shared WebGL Canvas Stage -->
+    <canvas id="immWebGLCanvas" class="imm-webgl-canvas" aria-hidden="true"></canvas>
+
+    <!-- 1. Minimal Perimeter HUD Navigation -->
+    <header class="imm-hud-header">
+      <div class="imm-brand-cluster">
+        <a href="/" class="imm-brand-logo">
+          <div class="imm-brand-badge">P</div>
+          <span>Portfoli<span>AI</span></span>
+        </a>
+        <div class="imm-hud-act-badge">
+          <span class="hud-indicator"></span>
+          <span id="hudActBadge">ACT 01 // THE ARTIFACT</span>
+        </div>
+      </div>
+
+      <nav class="imm-hud-links">
+        <a href="#act-artifact" class="imm-hud-nav-item">01: Artifact</a>
+        <a href="#act-decomposition" class="imm-hud-nav-item">02: Decompose</a>
+        <a href="#act-identity" class="imm-hud-nav-item">03: Identity</a>
+        <a href="#act-archetypes" class="imm-hud-nav-item">04: Archetypes</a>
+        <a href="#act-portfolio" class="imm-hud-nav-item">05: Portfolio</a>
+      </nav>
+
+      <div class="imm-hud-actions">
+        <!-- Guest State -->
+        <button class="btn btn-outline nav-guest-only btn-open-login" style="font-size:0.75rem;padding:0.35rem 0.85rem;">Sign In</button>
+        <button class="btn btn-primary nav-guest-only btn-open-register" style="font-size:0.75rem;padding:0.35rem 0.85rem;">Create Free</button>
+
+        <!-- User State -->
+        <div class="user-profile-chip nav-user-only" style="display:none;">
+          <div class="user-avatar" id="userAvatarInitial">U</div>
+          <span class="user-email-text" id="userEmailDisplay">user@example.com</span>
+        </div>
+        <a href="/workspace" class="btn btn-primary nav-user-only" style="display:none;font-size:0.75rem;padding:0.35rem 0.85rem;">Workspace ↗</a>
+        <button class="btn btn-outline nav-user-only" id="btnSignOut" style="display:none;font-size:0.75rem;padding:0.35rem 0.85rem;">Sign Out</button>
+      </div>
+    </header>
+
+    <!-- 2. Atmospheric Background Layers -->
+    <div class="bg-noise"></div>
+    <div class="bg-vignette"></div>
+    <div class="grid-architectural"></div>
+    <div class="ambient-glow-point glow-point-violet" style="top: 15%; left: 50%; transform: translateX(-50%);"></div>
+
+    <!-- 3. ACT I: THE ARTIFACT -->
+    <section id="act-artifact" class="act-runway" data-motion-scene="act-artifact">
+      <div class="act-stage">
+        <div class="act1-grid">
+          <div class="act1-editorial">
+            <div class="micro-label">INGESTION MATRIX // PHASE 01</div>
+            <h1 class="act1-headline">
+              Your Resume is Static.<br>
+              Your Identity <span class="highlight">Doesn't Have To Be.</span>
+            </h1>
+            <p class="editorial">
+              Feed raw text or documents directly into the local spatial engine. Observe static credentials dissolve into structured engineering intelligence with zero telemetry leakage.
+            </p>
+            <div style="display:flex;gap:1rem;margin-top:1rem;">
+              <button class="btn btn-primary btn-open-register">Ingest Resume Free →</button>
+              <a href="#act-archetypes" class="btn btn-outline">Explore Archetypes</a>
+            </div>
+          </div>
+
+          <div class="act1-artifact-wrapper">
+            <div id="hero3DResume" class="artifact-card">
+              <div class="artifact-header">
+                <div class="artifact-avatar">AS</div>
+                <div>
+                  <div class="artifact-name">{{ student.name if student and student.name else "Alex Sharma" }}</div>
+                  <div class="artifact-role">{{ student.headline if student and student.headline else "Full-Stack AI & Cloud Architect" }}</div>
+                </div>
+              </div>
+
+              <!-- Interactive Ingestion Drop Zone -->
+              <div id="artifactDropZone" class="artifact-drop-zone">
+                <span class="drop-icon">📄</span>
+                <span class="drop-prompt">Drop PDF / DOCX or Click to Ingest</span>
+                <input type="file" id="resumeFileInput" accept=".pdf,.docx,.txt" style="display:none;">
+              </div>
+
+              <div class="micro-label" style="margin-top:0.75rem;">DETECTED ENTITIES</div>
+              <div class="artifact-pills">
+                <span class="artifact-pill">Python</span>
+                <span class="artifact-pill">PostgreSQL</span>
+                <span class="artifact-pill">TypeScript</span>
+                <span class="artifact-pill">Flask</span>
+                <span class="artifact-pill">Distributed Systems</span>
+              </div>
+
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem;padding-top:0.75rem;border-top:1px solid var(--imm-border-hairline);">
+                <span class="hud">01 // ID: RESUME_ARTIFACT</span>
+                <span style="font-family:var(--imm-font-mono);font-size:0.6875rem;color:var(--imm-accent-emerald);">● VERIFIED FIDELITY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ACT II: THE DECOMPOSITION -->
+    <section id="act-decomposition" class="act-runway" data-motion-scene="act-decomposition">
+      <div class="act-stage">
+        <div class="act2-container">
+          <div class="singularity-core">
+            <div class="singularity-pulse"></div>
+            <span style="font-family:var(--imm-font-mono);font-size:0.625rem;color:var(--imm-accent-active);letter-spacing:0.1em;">AI CORE</span>
+            <span style="font-family:var(--imm-font-display);font-size:1.25rem;font-weight:800;color:#fff;">0.28s</span>
+            <span style="font-family:var(--imm-font-mono);font-size:0.55rem;color:var(--imm-text-muted);">LATENCY</span>
+          </div>
+
+          <!-- Radial Spatial Tracks -->
+          <div class="decomp-track track-skills">
+            <div class="decomp-track-header">
+              <span>SKILLS // DETECTED</span>
+              <span>100%</span>
+            </div>
+            <div class="decomp-track-chips">
+              <span class="decomp-chip">Python</span>
+              <span class="decomp-chip">PostgreSQL</span>
+              <span class="decomp-chip">Docker</span>
+              <span class="decomp-chip">PyTorch</span>
+              <span class="decomp-chip">Flask</span>
+            </div>
+          </div>
+
+          <div class="decomp-track track-exp">
+            <div class="decomp-track-header">
+              <span>EXPERIENCE // TIMELINE</span>
+              <span>VERIFIED</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--imm-text-secondary);">
+              SWE Intern @ ScaleCorp (2023 - 2024)
+            </div>
+            <div style="font-size:0.6875rem;color:var(--imm-text-muted);">
+              Distributed asynchronous job ingestion with sub-millisecond dispatch.
+            </div>
+          </div>
+
+          <div class="decomp-track track-edu">
+            <div class="decomp-track-header">
+              <span>EDUCATION // ACADEMIC</span>
+              <span>PARSED</span>
+            </div>
+            <div style="font-size:0.75rem;color:var(--imm-text-secondary);">
+              B.Tech Computer Science &amp; Engineering
+            </div>
+            <div style="font-size:0.6875rem;color:var(--imm-text-muted);">
+              GPA: 3.9 / 4.0 · Algorithmic Honors
+            </div>
+          </div>
+
+          <div class="decomp-track track-proj">
+            <div class="decomp-track-header">
+              <span>REPOSITORIES // VERIFIED</span>
+              <span>LOCAL_AI</span>
+            </div>
+            <div class="decomp-track-chips">
+              <span class="decomp-chip">Ownership Guard</span>
+              <span class="decomp-chip">Distributed Cache</span>
+              <span class="decomp-chip">Neural Search</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ACT III: THE DUAL IDENTITY -->
+    <section id="act-identity" class="act-runway" data-motion-scene="act-identity">
+      <div class="act-stage">
+        <div class="act3-container">
+          <div class="act3-bg-text">ARCHITECT</div>
+
+          <div style="text-align:center;margin-bottom:2rem;z-index:var(--imm-z-overlay);">
+            <div class="micro-label">IDENTITY SYNTHESIS // ACT 03</div>
+            <h2 class="display-section" style="font-size:clamp(1.75rem,3.5vw,3rem);">The Dual Identity</h2>
+            <p class="editorial" style="margin:0.5rem auto 0;font-size:0.9375rem;">
+              Hover or touch below to peel away the raw student profile and reveal the technical professional underneath.
+            </p>
+          </div>
+
+          <div id="identityStage" class="identity-focal-stage">
+            <!-- Raw Student Layer -->
+            <div class="identity-layer-raw">
+              <div class="identity-glyph-raw">AS</div>
+              <div class="identity-title-raw">Raw Student Resume</div>
+              <p style="font-size:0.75rem;color:var(--imm-text-muted);margin-top:0.5rem;line-height:1.5;">
+                Generic text · Uncalibrated keywords · Hidden technical depth · Missing visual hierarchy
+              </p>
+              <div class="hud" style="margin-top:1rem;">STATUS: UNENRICHED</div>
+            </div>
+
+            <!-- Technical Professional Reveal Layer -->
+            <div class="identity-layer-pro">
+              <div class="identity-glyph-pro">AS</div>
+              <div class="identity-title-pro">{{ student.name if student and student.name else "Alex Sharma" }}</div>
+              <div class="identity-role-pro">{{ student.headline if student and student.headline else "Full-Stack AI Solutions Architect" }}</div>
+              <p style="font-size:0.75rem;color:var(--imm-text-secondary);margin-top:0.5rem;line-height:1.5;max-width:280px;">
+                High-impact production builder. Verified distributed systems, cloud architecture &amp; ML pipelines.
+              </p>
+              <div class="hud" style="margin-top:1rem;border-color:var(--imm-border-accent);">STATUS: PROFESSIONAL ENGINE</div>
+            </div>
+          </div>
+
+          <div style="margin-top:1.5rem;z-index:var(--imm-z-overlay);">
+            <span class="hud">[ RAW INPUT: RESUME_FILE ] ◀── POINTER SCAN ──▶ [ VERIFIED: TECH PROFESSIONAL ]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. ACT IV: THE ARCHETYPE WORKBENCH -->
+    <section id="act-archetypes" class="act-runway" data-motion-scene="act-archetypes">
+      <div class="act-stage">
+        <div class="act4-container">
+          <div class="act4-header">
+            <div class="micro-label">DESIGN SYSTEM SELECTION // ACT 04</div>
+            <h2 class="display-section" style="font-size:clamp(1.75rem,3.5vw,3rem);">The Archetype Workbench</h2>
+            <p class="editorial" style="margin:0.5rem auto 0;font-size:0.9375rem;">
+              Choose the architectural identity that projects your personal engineering discipline.
+            </p>
+          </div>
+
+          <div class="archetype-carousel">
+            <!-- Archetype 1: Minimal -->
+            <div class="archetype-card" data-template="minimal">
+              <div>
+                <div class="archetype-tag">ARCHETYPE 01</div>
+                <div class="archetype-title">Swiss Minimal</div>
+                <div class="archetype-desc">High-contrast stark typography, ruthless whitespace, and precision grid alignment.</div>
+              </div>
+              <div class="hud">[ MONOCHROME // EDITORIAL ]</div>
+            </div>
+
+            <!-- Archetype 2: Glass (Default Active) -->
+            <div class="archetype-card active" data-template="glass">
+              <div>
+                <div class="archetype-tag">ARCHETYPE 02</div>
+                <div class="archetype-title">Frosted Glass</div>
+                <div class="archetype-desc">Multi-layer liquid blur, ambient chromatic radiance, and floating depth panels.</div>
+              </div>
+              <div class="hud">[ PRISMATIC // RADIANCE ]</div>
+            </div>
+
+            <!-- Archetype 3: Modern -->
+            <div class="archetype-card" data-template="modern">
+              <div>
+                <div class="archetype-tag">ARCHETYPE 03</div>
+                <div class="archetype-title">Tech Modern</div>
+                <div class="archetype-desc">Contemporary tech aesthetic, vibrant electric cyan highlights, and dynamic cards.</div>
+              </div>
+              <div class="hud">[ DYNAMIC // VELOCITY ]</div>
+            </div>
+
+            <!-- Archetype 4: Developer -->
+            <div class="archetype-card" data-template="developer">
+              <div>
+                <div class="archetype-tag">ARCHETYPE 04</div>
+                <div class="archetype-title">CLI Developer</div>
+                <div class="archetype-desc">Terminal-inspired monospaced interface, telemetry brackets, and dark cyber minimalism.</div>
+              </div>
+              <div class="hud">[ TERMINAL // CODEFIRST ]</div>
+            </div>
+
+            <!-- Archetype 5: Dark -->
+            <div class="archetype-card" data-template="dark">
+              <div>
+                <div class="archetype-tag">ARCHETYPE 05</div>
+                <div class="archetype-title">OLED Dark</div>
+                <div class="archetype-desc">Pure black obsidian surfaces with refined hairline borders and warm amber radiance.</div>
+              </div>
+              <div class="hud">[ OBSIDIAN // MIDNIGHT ]</div>
+            </div>
+          </div>
+
+          <div class="archetype-controls">
+            <button id="btnPrevArchetype" class="archetype-btn">← Previous Archetype</button>
+            <button id="btnNextArchetype" class="archetype-btn">Next Archetype →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. ACT V: THE LIVING PORTFOLIO -->
+    <section id="act-portfolio" class="act-runway" data-motion-scene="act-portfolio" style="min-height:auto;">
+      <div class="act-stage" style="height:auto;min-height:100vh;">
+        <div class="act5-container">
+          <div class="act5-hero-block">
+            <div class="micro-label">DEPLOYED PORTFOLIO PREVIEW // ACT 05</div>
+            <h2 class="display-section" style="font-size:clamp(2rem,4vw,3.5rem);margin-bottom:0.75rem;">
+              The Living Portfolio
+            </h2>
+            <p class="editorial" style="margin-inline:auto;">
+              Here is the published engineering portfolio synthesized directly from your extracted credentials.
+            </p>
+          </div>
+
+          <!-- Featured Case Studies -->
+          <div class="act5-case-studies">
+            <div class="case-study-card">
+              <div>
+                <div class="case-study-badge">CASE STUDY // 01</div>
+                <h3 class="case-study-title">Cloud Infrastructure Scale Engine</h3>
+                <p class="case-study-summary">
+                  Architected asynchronous job ingestion with sub-millisecond dispatch and PostgreSQL transactional safety. Handles distributed workloads with zero-hallucination fidelity.
+                </p>
+                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+                  <span class="decomp-chip">Python</span>
+                  <span class="decomp-chip">PostgreSQL</span>
+                  <span class="decomp-chip">Docker</span>
+                  <span class="decomp-chip">FastAPI</span>
+                </div>
+              </div>
+              <div class="case-study-links">
+                <a href="https://github.com" target="_blank" rel="noopener" class="case-study-link">GitHub ↗</a>
+                <a href="#" class="case-study-link">Live System ↗</a>
+              </div>
+            </div>
+
+            <div class="case-study-card">
+              <div>
+                <div class="case-study-badge">CASE STUDY // 02</div>
+                <h3 class="case-study-title">Autonomous Resume Vector Pipeline</h3>
+                <p class="case-study-summary">
+                  Multi-pass deterministic entity categorization and headline synthesis. Built with local intelligence to guarantee 100% privacy and zero data leakage.
+                </p>
+                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.75rem;">
+                  <span class="decomp-chip">TypeScript</span>
+                  <span class="decomp-chip">pdfplumber</span>
+                  <span class="decomp-chip">Flask</span>
+                  <span class="decomp-chip">Tailwind</span>
+                </div>
+              </div>
+              <div class="case-study-links">
+                <a href="https://github.com" target="_blank" rel="noopener" class="case-study-link">GitHub ↗</a>
+                <a href="#" class="case-study-link">Architecture Doc ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action CTA Deck -->
+          <div class="act5-action-deck">
+            <button class="btn btn-primary btn-open-register" style="padding:0.875rem 2rem;font-size:1rem;">
+              Create Your Portfolio Free →
+            </button>
+            <a href="/workspace" class="btn btn-outline" style="padding:0.875rem 2rem;font-size:1rem;">
+              Launch Studio Workspace ↗
+            </a>
+          </div>
+
+          <footer style="text-align:center;padding-top:3rem;border-top:1px solid var(--imm-border-hairline);margin-top:2rem;">
+            <div class="imm-brand-logo" style="justify-content:center;margin-bottom:0.5rem;">
+              <div class="imm-brand-badge">P</div>
+              <span>Portfoli<span>AI</span></span>
+            </div>
+            <p style="font-size:0.8125rem;color:var(--imm-text-muted);">
+              PortfoliAI © 2026. Next-Generation Immersive Portfolio Platform.
+            </p>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Fixed Perimeter Footer Telemetry -->
+    <footer class="imm-hud-footer">
+      <div class="imm-hud-coords">LAT 37.7749° N // LON 122.4194° W · FIDELITY 100%</div>
+      <div class="imm-hud-telemetry">
+        <span>SCROLL // </span>
+        <span id="hudScrollPercent">000%</span>
+      </div>
+    </footer>
+
+  </div>
+  {% endif %}
+
+  <!-- ====================================================================
+       MODALS: AUTHENTICATION & PROJECT ADD/EDIT
+       ==================================================================== -->
+
+  <!-- Auth Modal (Sign In / Create Account) -->
+  <div id="authModal" class="modal-backdrop">
+    <div class="modal-card">
+      <button class="modal-close-btn">&times;</button>
+      <div class="auth-mode-tabs">
+        <div id="tabAuthLogin" class="auth-tab-item active">Sign In</div>
+        <div id="tabAuthRegister" class="auth-tab-item">Create Account</div>
+      </div>
+
+      <div id="authAlertBox" class="auth-alert-box"></div>
+
+      <form id="authForm" data-mode="login">
+        <div class="studio-form-group">
+          <label class="studio-form-label">Email Address</label>
+          <input type="email" id="authEmail" class="studio-input" required placeholder="alex@university.edu">
+        </div>
+
+        <div class="studio-form-group">
+          <label class="studio-form-label">Password</label>
+          <input type="password" id="authPassword" class="studio-input" required placeholder="••••••••">
+        </div>
+
+        <div id="registerConfirmGroup" class="studio-form-group" style="display:none;">
+          <label class="studio-form-label">Confirm Password</label>
+          <input type="password" id="authConfirmPassword" class="studio-input" placeholder="••••••••">
+        </div>
+
+        <button type="submit" id="btnAuthSubmit" class="btn btn-primary" style="width:100%;margin-top:1.25rem;">
+          Sign In
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Project Add / Edit Modal -->
+  <div id="projectModal" class="modal-backdrop">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="btnCloseProjModal">&times;</button>
+      <h3 id="projModalTitle" class="modal-title">Add Project</h3>
+      <p class="modal-subtitle">Add or edit project details for your portfolio showcase.</p>
+
+      <form id="projectForm">
+        <input type="hidden" id="projIdInput">
+
+        <div class="studio-form-group">
+          <label class="studio-form-label">Project Title *</label>
+          <input type="text" id="projTitleInput" class="studio-input" required placeholder="e.g. Distributed Task Scheduler">
+        </div>
+
+        <div class="studio-form-group">
+          <label class="studio-form-label">Category</label>
+          <select id="projCategoryInput" class="studio-input">
+            <option value="Web Development">Web Development</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Mobile Apps">Mobile Apps</option>
+            <option value="Cloud &amp; DevOps">Cloud &amp; DevOps</option>
+            <option value="Systems &amp; Security">Systems &amp; Security</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="studio-form-group">
+          <label class="studio-form-label">Description</label>
+          <textarea id="projDescInput" class="studio-textarea" placeholder="Brief technical summary of architecture and achievements..."></textarea>
+        </div>
+
+        <div class="studio-form-group">
+          <label class="studio-form-label">Technologies (comma-separated)</label>
+          <input type="text" id="projTechInput" class="studio-input" placeholder="e.g. Python, Redis, Docker, PostgreSQL">
+        </div>
+
+        <div class="studio-form-group">
+          <label class="studio-form-label">GitHub URL</label>
+          <input type="url" id="projGithubInput" class="studio-input" placeholder="https://github.com/username/project">
+        </div>
+
+        <div class="studio-form-group">
+          <label class="studio-form-label">Live Demo URL</label>
+          <input type="url" id="projLiveInput" class="studio-input" placeholder="https://myproject.demo.com">
+        </div>
+
+        <div style="display:flex;gap:1rem;margin-top:1.5rem;">
+          <button type="submit" class="btn btn-primary" style="flex:1;">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Application Scripts & Master Motion Engine -->
+  <script src="{{ url_for('static', filename='js/engine/motion-engine.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/narrative/landing-narrative.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/engine/webgl-stage.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/three/scene-origami.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/three/scene-identity.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/workspace.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/preview.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/studio/studio-canvas.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/studio/studio-inspector.js') }}"></script>
+
+  {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,665 @@
+/* ==========================================================================
+   PORTFOLIAI — CREATIVE PORTFOLIO STUDIO WORKSPACE (PHASE 7F)
+   High-end production tool architecture:
+   Top Toolbar · Left Content Rail · Center Portfolio Canvas · Right Inspector
+   ========================================================================== */
+
+:root {
+  --studio-bg-void: #050508;
+  --studio-bg-panel: rgba(10, 10, 16, 0.88);
+  --studio-bg-surface: rgba(18, 18, 28, 0.7);
+  --studio-border-hairline: rgba(255, 255, 255, 0.08);
+  --studio-border-subtle: rgba(255, 255, 255, 0.14);
+  --studio-border-accent: rgba(124, 58, 237, 0.5);
+  --studio-accent-primary: #7c3aed;
+  --studio-accent-cyan: #06b6d4;
+  --studio-accent-emerald: #10b981;
+  --studio-text-primary: #f4f4f5;
+  --studio-text-secondary: #a1a1aa;
+  --studio-text-muted: #71717a;
+  --studio-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --studio-font-display: "Cabinet Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --studio-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Studio Root Frame */
+.studio-root {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: var(--studio-bg-void);
+  color: var(--studio-text-primary);
+  font-family: var(--studio-font-sans);
+  position: relative;
+  user-select: none;
+}
+
+/* ==========================================================================
+   1. TOP STUDIO TOOLBAR
+   ========================================================================== */
+.studio-topbar {
+  height: 48px;
+  background: var(--studio-bg-panel);
+  border-bottom: 1px solid var(--studio-border-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 100;
+  flex-shrink: 0;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-sizing: border-box;
+}
+
+.studio-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.studio-brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--studio-text-primary);
+  font-family: var(--studio-font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.studio-mark-badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--studio-accent-primary), var(--studio-accent-cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.studio-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--studio-font-mono);
+  font-size: 0.6875rem;
+  color: var(--studio-text-muted);
+}
+
+.studio-breadcrumb-sep {
+  color: var(--studio-border-subtle);
+}
+
+.studio-portfolio-title {
+  color: var(--studio-text-primary);
+  font-weight: 600;
+}
+
+/* Topbar Center: Device Framing & Viewport Switchers */
+.studio-topbar-center {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.studio-device-picker {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--studio-border-hairline);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.studio-device-btn {
+  background: transparent;
+  border: none;
+  color: var(--studio-text-muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-family: var(--studio-font-mono);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.studio-device-btn:hover {
+  color: var(--studio-text-primary);
+}
+
+.studio-device-btn.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.studio-zoom-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--studio-border-hairline);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-family: var(--studio-font-mono);
+  font-size: 0.6875rem;
+  color: var(--studio-text-secondary);
+}
+
+.studio-zoom-btn {
+  background: transparent;
+  border: none;
+  color: var(--studio-text-muted);
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  transition: color 0.15s;
+}
+
+.studio-zoom-btn:hover {
+  color: var(--studio-text-primary);
+}
+
+/* Topbar Right: Status & Actions */
+.studio-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.studio-save-status {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--studio-font-mono);
+  font-size: 0.6875rem;
+  color: var(--studio-text-muted);
+  letter-spacing: 0.05em;
+}
+
+.studio-save-status .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--studio-accent-emerald);
+}
+
+.btn-studio-publish {
+  background: linear-gradient(135deg, var(--studio-accent-primary), #6366f1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--studio-font-sans);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.35);
+}
+
+.btn-studio-publish:hover {
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.6);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   2. MAIN STUDIO BODY & 3-PANEL ARCHITECTURE
+   ========================================================================== */
+.studio-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+/* LEFT CONTENT RAIL (300px) */
+.studio-left-rail {
+  width: 300px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--studio-border-hairline);
+  background: var(--studio-bg-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 20;
+  box-sizing: border-box;
+}
+
+.studio-rail-section {
+  border-bottom: 1px solid var(--studio-border-hairline);
+  padding: 1rem;
+}
+
+.studio-rail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.studio-rail-title {
+  font-family: var(--studio-font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--studio-accent-primary);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Resume Hub Card */
+.studio-resume-card {
+  background: var(--studio-bg-surface);
+  border: 1px solid var(--studio-border-hairline);
+  border-radius: 6px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.studio-resume-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--studio-font-mono);
+  font-size: 0.6875rem;
+  color: var(--studio-text-secondary);
+}
+
+.studio-resume-dropzone {
+  border: 1px dashed var(--studio-border-subtle);
+  border-radius: 4px;
+  padding: 0.75rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.studio-resume-dropzone:hover,
+.studio-resume-dropzone.drop-active {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: var(--studio-accent-primary);
+}
+
+/* Project Reorder List */
+.studio-projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.studio-project-item {
+  background: var(--studio-bg-surface);
+  border: 1px solid var(--studio-border-hairline);
+  border-radius: 6px;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.studio-project-item:hover {
+  border-color: var(--studio-border-subtle);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.studio-project-item.selected {
+  border-color: var(--studio-accent-primary);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);
+  background: rgba(124, 58, 237, 0.06);
+}
+
+.studio-project-item.dragging {
+  opacity: 0.4;
+  border-style: dashed;
+}
+
+.studio-project-drag-handle {
+  cursor: grab;
+  color: var(--studio-text-muted);
+  padding: 0 0.25rem;
+  font-size: 0.875rem;
+}
+
+.studio-project-info {
+  flex: 1;
+  margin: 0 0.5rem;
+  overflow: hidden;
+}
+
+.studio-project-title {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.studio-project-category {
+  font-family: var(--studio-font-mono);
+  font-size: 0.625rem;
+  color: var(--studio-text-muted);
+}
+
+/* ==========================================================================
+   3. CENTER INTERACTIVE PORTFOLIO CANVAS
+   ========================================================================== */
+.studio-center-canvas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #030305;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.studio-canvas-viewport {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  padding: 2.5rem 1.5rem;
+  position: relative;
+}
+
+/* Floating Device Frame */
+.studio-device-frame {
+  background: #09090f;
+  border: 1px solid var(--studio-border-hairline);
+  border-radius: 12px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease-out;
+  transform-origin: center top;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.studio-device-frame[data-device="desktop"] { width: 1200px; max-width: 95%; }
+.studio-device-frame[data-device="tablet"] { width: 768px; }
+.studio-device-frame[data-device="mobile"] { width: 390px; }
+
+.studio-frame-header {
+  height: 32px;
+  background: #0f0f18;
+  border-bottom: 1px solid var(--studio-border-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.85rem;
+  font-family: var(--studio-font-mono);
+  font-size: 0.625rem;
+  color: var(--studio-text-muted);
+}
+
+.studio-frame-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.studio-frame-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.studio-frame-body {
+  width: 100%;
+  min-height: 720px;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--studio-bg-void);
+  position: relative;
+}
+
+/* ==========================================================================
+   4. RIGHT CONTEXTUAL INSPECTOR (320px)
+   ========================================================================== */
+.studio-right-inspector {
+  width: 320px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--studio-border-hairline);
+  background: var(--studio-bg-panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 20;
+  box-sizing: border-box;
+}
+
+.studio-inspector-panel {
+  display: none;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem;
+}
+
+.studio-inspector-panel.active {
+  display: flex;
+}
+
+.studio-inspector-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--studio-border-hairline);
+  padding-bottom: 0.75rem;
+}
+
+.studio-inspector-title {
+  font-family: var(--studio-font-display);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+
+.studio-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.studio-field-label {
+  font-family: var(--studio-font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--studio-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.studio-field-input,
+.studio-field-textarea {
+  background: var(--studio-bg-surface);
+  border: 1px solid var(--studio-border-hairline);
+  border-radius: 4px;
+  padding: 0.5rem 0.65rem;
+  color: var(--studio-text-primary);
+  font-size: 0.8125rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.studio-field-input:focus,
+.studio-field-textarea:focus {
+  border-color: var(--studio-accent-primary);
+}
+
+/* Archetype Grid Selection */
+.studio-archetypes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.studio-archetype-choice {
+  background: var(--studio-bg-surface);
+  border: 1px solid var(--studio-border-hairline);
+  border-radius: 6px;
+  padding: 0.6rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.studio-archetype-choice:hover {
+  border-color: var(--studio-border-subtle);
+}
+
+.studio-archetype-choice.active {
+  border-color: var(--studio-accent-primary);
+  background: rgba(124, 58, 237, 0.1);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.25);
+}
+
+.studio-archetype-choice-name {
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.studio-archetype-choice-desc {
+  font-size: 0.625rem;
+  color: var(--studio-text-muted);
+}
+
+/* ==========================================================================
+   5. BOTTOM TELEMETRY BAR
+   ========================================================================== */
+.studio-bottombar {
+  height: 28px;
+  background: #07070b;
+  border-top: 1px solid var(--studio-border-hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  font-family: var(--studio-font-mono);
+  font-size: 0.625rem;
+  color: var(--studio-text-muted);
+  flex-shrink: 0;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.studio-bottom-cluster {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .studio-left-rail { width: 260px; }
+  .studio-right-inspector { width: 280px; }
+}
+
+@media (max-width: 900px) {
+  .studio-left-rail {
+    position: absolute;
+    left: 0;
+    top: 48px;
+    bottom: 28px;
+    z-index: 50;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  .studio-left-rail.open {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .studio-right-inspector {
+    position: absolute;
+    right: 0;
+    top: 48px;
+    bottom: 28px;
+    z-index: 50;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+  }
+  .studio-right-inspector.open {
+    transform: translateX(0);
+  }
+}
+
+/* ==========================================================================
+   7. LIVE PREVIEW FRAME & ARCHETYPE RENDERING OVERRIDES
+   ========================================================================== */
+.studio-device-frame .preview-frame {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  max-width: 100% !important;
+  min-height: 100% !important;
+}
+
+.studio-device-frame .preview-inner-scroll {
+  min-height: 720px;
+  background: var(--studio-bg-void);
+}
+
+.studio-device-frame .portfolio-root {
+  min-height: 720px;
+  background: #09090f;
+  color: #f1f5f9;
+}
+
+.studio-device-frame .portfolio-root.template-glass {
+  background: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.15), transparent 70%), #09090f;
+}
+
+.studio-device-frame .portfolio-root.template-minimal {
+  background: #0f1117;
+  color: #f8fafc;
+}
+
+.studio-device-frame .portfolio-root.template-modern {
+  background: #050814;
+}
+
+.studio-device-frame .portfolio-root.template-developer {
+  background: #020617;
+}
+
+.studio-device-frame .portfolio-root.template-dark {
+  background: #000000;
+}
+

@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>PortfoliAI — Your Resume. Reimagined.</title>
+
+    <meta
+        name="description"
+        content="PortfoliAI transforms your resume into a beautiful, personalized portfolio website."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <!-- SCROLL PROGRESS -->
+<div class="scroll-progress">
+    <div class="scroll-progress-bar"></div>
+</div>
+
+    <!-- =========================
+         LIQUID BACKGROUND
+    ========================== -->
+
+    <div class="liquid-bg">
+        <div class="blob blob-purple"></div>
+        <div class="blob blob-blue"></div>
+        <div class="blob blob-violet"></div>
+        <div class="blob blob-indigo"></div>
+    </div>
+
+    <div class="grid-overlay"></div>
+    <div class="cursor-glow"></div>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar-wrap">
+        <nav class="navbar liquid-glass">
+
+            <a href="#top" class="logo">
+
+                <span class="logo-mark">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+
+                <span>
+                    Portfoli<span class="gradient-text">AI</span>
+                </span>
+
+            </a>
+
+
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How it works</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#projects">Projects</a>
+            </div>
+
+
+            <a href="#demo" class="nav-cta glass-button">
+                Create portfolio
+                <span>↗</span>
+            </a>
+
+
+            <button
+                class="mobile-menu"
+                aria-label="Menu"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </nav>
+    </header>
+
+
+
+    <main id="top">
+
+        <!-- =========================
+             HERO
+        ========================== -->
+
+        <section class="hero section">
+
+            <div class="hero-copy reveal">
+
+                <div class="eyebrow liquid-glass">
+
+                    <span class="live-dot"></span>
+
+                    AI-powered portfolio builder
+
+                    <span class="eyebrow-shine"></span>
+
+                </div>
+
+
+                <h1>
+                    Your resume.
+                    <span class="gradient-text">
+                        Reimagined.
+                    </span>
+                </h1>
+
+
+                <p class="hero-text">
+                    Turn your existing resume into a polished,
+                    personalized portfolio website — without
+                    entering the same information twice.
+                </p>
+
+
+                <div class="hero-actions">
+
+                    <a href="#demo" class="primary-button">
+                        <span>Create my portfolio</span>
+                        <b>↗</b>
+                    </a>
+
+                    <a
+                        href="#how-it-works"
+                        class="glass-button secondary"
+                    >
+                        See how it works
+                        <span>↓</span>
+                    </a>
+
+                </div>
+
+
+                <div class="hero-note">
+
+                    <div class="mini-avatars">
+                        <span>V</span>
+                        <span>A</span>
+                        <span>R</span>
+                    </div>
+
+                    <span>
+                        Built for students, creators & developers
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 HERO GLASS SYSTEM
+            ========================== -->
+
+            <div class="hero-visual reveal">
+
+                <div class="liquid-aura"></div>
+
+                <div class="glass-orb orb-one"></div>
+                <div class="glass-orb orb-two"></div>
+
+                <!-- =========================
+     3D GLASS RESUME
+========================== -->
+
+<div class="resume-3d-scene" aria-hidden="true">
+
+    <div class="resume-3d-object">
+
+        <!-- FRONT -->
+        <div class="resume-face resume-front">
+
+            <div class="resume-glow"></div>
+
+            <div class="resume-topbar">
+                <span class="resume-brand">PortfoliAI</span>
+
+                <span class="resume-status">
+                    <i></i>
+                    AI READY
+                </span>
+            </div>
+
+            <div class="resume-profile">
+
+                <div class="resume-avatar">
+                    <span>{{ student.name[0]|upper if student and student.name else 'V' }}</span>
+                </div>
+
+                <div>
+                    <div class="resume-name">
+                        {{ student.name if student and student.name else 'Your Resume' }}
+                    </div>
+
+                    <div class="resume-role">
+                        {{ student.headline if student and student.headline else 'BCA · Developer · Creator' }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="resume-line resume-line-large"></div>
+            <div class="resume-line"></div>
+            <div class="resume-line resume-line-short"></div>
+
+            <div class="resume-section-title">
+                EXPERIENCE
+            </div>
+
+            <div class="resume-experience">
+
+                <div class="resume-exp-dot"></div>
+
+                <div class="resume-exp-content">
+
+                    <strong>
+                        Your next chapter
+                    </strong>
+
+                    <span>
+                        Projects · Skills · Education
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="resume-section-title">
+                SKILLS
+            </div>
+
+            <div class="resume-skills">
+
+                <span>Python</span>
+                <span>AI</span>
+                <span>Web</span>
+                <span>SQL</span>
+
+            </div>
+
+            <div class="resume-footer">
+
+                <span>RESUME.PDF</span>
+
+                <span class="resume-page">
+                    01 / 01
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACK -->
+        <div class="resume-face resume-back">
+
+            <div class="resume-back-content">
+
+                <div class="resume-back-icon">
+                    ✦
+                </div>
+
+                <strong>
+                    PortfoliAI
+                </strong>
+
+                <span>
+                    Resume → Intelligence → Portfolio
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- 3D EDGES -->
+        <div class="resume-face resume-left"></div>
+        <div class="resume-face resume-right"></div>
+        <div class="resume-face resume-top"></div>
+        <div class="resume-face resume-bottom"></div>
+
+    </div>
+
+    <div class="resume-shadow"></div>
+
+</div>
+
+            
+
+                <div class="ai-window liquid-glass">
+
+                    <div class="glass-reflection"></div>
+
+
+                    <div class="window-header">
+
+                        <div class="window-dots">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                        </div>
+
+                        <span>
+                            PortfoliAI / generator
+                        </span>
+
+                        <div class="live-status">
+                            <i></i>
+                            Live
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="workflow">
+
+                        <!-- STEP 1 -->
+
+                        <div class="workflow-item active">
+
+                            <div class="workflow-icon pdf">
+                                PDF
+                            </div>
+
+                            <div class="workflow-info">
+
+                                <small>01</small>
+
+                                <strong>
+                                    Resume uploaded
+                                </strong>
+
+                                <span>
+                                    {{ student.resume_filename if student else 'resume.pdf' }}
+                                </span>
+
+                            </div>
+
+                            <div class="done">
+                                ✓
+                            </div>
+
+                        </div>
+
+
+                        <div class="connection">
+                            <span></span>
+                        </div>
+
+
+                        <!-- STEP 2 -->
+
+                        <div class="workflow-item">
+
+                            <div class="workflow-icon ai">
+                                ✦
+                            </div>
+
+                            <div class="workflow-info">
+
+                                <small>02</small>
+
+                                <strong>
+                                    AI understands you
+                                </strong>
+
+                                <span>
+                                    Extracting your story...
+                                </span>
+
+                            </div>
+
+                            <div class="loader-ring"></div>
+
+                        </div>
+
+
+                        <div class="connection">
+                            <span></span>
+                        </div>
+
+
+                        <!-- STEP 3 -->
+
+                        <div class="workflow-item">
+
+                            <div class="workflow-icon website">
+                                ◈
+                            </div>
+
+                            <div class="workflow-info">
+
+                                <small>03</small>
+
+                                <strong>
+                                    Portfolio generated
+                                </strong>
+
+                                <span>
+                                    Ready to publish
+                                </span>
+
+                            </div>
+
+                            <div class="done blue">
+                                ↗
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="progress-box">
+
+                        <div class="progress-title">
+
+                            <span>
+                                Building your portfolio
+                            </span>
+
+                            <strong class="progress-number">
+                                78%
+                            </strong>
+
+                        </div>
+
+                        <div class="progress-track">
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FLOATING GLASS -->
+
+                <div class="floating-glass glass-card-one liquid-glass">
+
+                    <div class="float-icon purple-icon">
+                        ✦
+                    </div>
+
+                    <div>
+                        <strong>AI Analysis</strong>
+                        <span>Profile understood</span>
+                    </div>
+
+                    <b>✓</b>
+
+                </div>
+
+
+                <div class="floating-glass glass-card-two liquid-glass">
+
+                    <div class="float-icon blue-icon">
+                        ↗
+                    </div>
+
+                    <div>
+                        <strong>Portfolio ready</strong>
+                        <span>Personalized for you</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             TECH STRIP
+        ========================== -->
+
+        <section class="tech-section section-small">
+
+            <div class="tech-label">
+                POWERED BY
+            </div>
+
+            <div class="tech-list">
+                <span>Python</span>
+                <span>Flask</span>
+                <span>PostgreSQL</span>
+                <span>AI</span>
+                <span>HTML</span>
+                <span>CSS</span>
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             HOW IT WORKS
+        ========================== -->
+
+        <section id="how-it-works" class="section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-label">
+                    HOW IT WORKS
+                </span>
+
+                <h2 class="text-reveal">
+                    From resume to
+                    <span class="gradient-text">
+                        portfolio.
+                    </span>
+                </h2>
+
+                <p>
+                    Three simple steps. One beautiful result.
+                </p>
+
+            </div>
+
+
+
+            <div class="steps-grid">
+
+
+                <!-- STEP CARD 1 -->
+
+                <article class="step-card liquid-glass reveal">
+
+                    <span class="number">
+                        01
+                    </span>
+
+                    <div class="step-big-icon">
+                        ↑
+                    </div>
+
+                    <h3>
+                        Upload your resume
+                    </h3>
+
+                    <p>
+                        Drop your existing PDF resume.
+                        No forms. No repetitive typing.
+                    </p>
+
+
+                    <!-- REAL UPLOAD -->
+
+                    <form
+                        id="resumeForm"
+                        action="{{ url_for('upload_resume') }}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                    >
+
+                        <input
+                            type="file"
+                            id="resumeInput"
+                            name="resume"
+                            accept=".pdf,application/pdf"
+                            hidden
+                        >
+
+                        <button
+                            type="button"
+                            class="fake-file glass-inner"
+                            id="resumePicker"
+                        >
+
+                            <div class="pdf-small">
+                                PDF
+                            </div>
+
+                            <div class="file-details">
+
+                                <strong id="fileName">
+                                    {{ student.resume_filename if student and student.resume_filename else 'resume.pdf' }}
+                                </strong>
+
+                                <span id="fileSize">
+                                    Click to choose your PDF
+                                </span>
+
+                            </div>
+
+                            <b id="uploadCheck">
+                                ✓
+                            </b>
+
+                        </button>
+
+                    </form>
+
+                </article>
+
+
+
+                <!-- STEP CARD 2 -->
+
+                <article class="step-card liquid-glass reveal">
+
+                    <span class="number">
+                        02
+                    </span>
+
+                    <div class="step-big-icon ai-big">
+                        ✦
+                    </div>
+
+                    <h3>
+                        AI understands you
+                    </h3>
+
+                    <p>
+                        PortfoliAI extracts your skills,
+                        education, projects and experience.
+                    </p>
+
+                    <div class="ai-tags">
+                        <span>Skills ✓</span>
+                        <span>Projects ✓</span>
+                        <span>Education ✓</span>
+                        <span>Experience ✓</span>
+                    </div>
+
+                </article>
+
+
+
+                <!-- STEP CARD 3 -->
+
+                <article class="step-card liquid-glass reveal">
+
+                    <span class="number">
+                        03
+                    </span>
+
+                    <div class="step-big-icon website-big">
+                        ◈
+                    </div>
+
+                    <h3>
+                        Get your portfolio
+                    </h3>
+
+                    <p>
+                        Your information becomes a polished,
+                        responsive personal website.
+                    </p>
+
+                    <div class="mini-browser">
+
+                        <div class="browser-bar">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                        </div>
+
+                        <div class="browser-content">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+                <!-- =========================
+             FEATURES
+        ========================== -->
+
+        <section id="features" class="section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-label">
+                    WHY PORTFOLIAI
+                </span>
+
+                <h2 class="text-reveal">
+                    More than a
+                    <span class="gradient-text">
+                        template.
+                    </span>
+                </h2>
+
+                <p>
+                    Designed to make your work look as good
+                    as the work itself.
+                </p>
+
+            </div>
+
+
+
+            <div class="bento-grid">
+
+
+                <!-- LARGE FEATURE -->
+
+                <article class="bento large liquid-glass reveal">
+
+                    <div class="bento-copy">
+
+                        <span class="number">
+                            01
+                        </span>
+
+                        <h3>
+                            AI-powered
+                            personalization
+                        </h3>
+
+                        <p>
+                            Your portfolio isn't generated from
+                            a generic template. Your resume becomes
+                            the source of your digital identity.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="ai-system">
+
+                        <div class="system-core">
+                            ✦
+                        </div>
+
+                        <div class="system-ring ring-a"></div>
+                        <div class="system-ring ring-b"></div>
+
+                        <span class="system-pill pill-a">
+                            Skills
+                        </span>
+
+                        <span class="system-pill pill-b">
+                            Projects
+                        </span>
+
+                        <span class="system-pill pill-c">
+                            Experience
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- FEATURE 2 -->
+
+                <article class="bento liquid-glass reveal">
+
+                    <span class="number">
+                        02
+                    </span>
+
+                    <div class="feature-icon">
+                        ◇
+                    </div>
+
+                    <h3>
+                        Beautiful by default
+                    </h3>
+
+                    <p>
+                        Premium typography, liquid surfaces,
+                        depth and subtle motion.
+                    </p>
+
+                    <div class="light-lines"></div>
+
+                </article>
+
+
+
+                <!-- FEATURE 3 -->
+
+                <article class="bento liquid-glass reveal">
+
+                    <span class="number">
+                        03
+                    </span>
+
+                    <div class="feature-icon blue-feature">
+                        ↗
+                    </div>
+
+                    <h3>
+                        Fully responsive
+                    </h3>
+
+                    <p>
+                        Your portfolio looks beautiful on
+                        laptops, tablets and phones.
+                    </p>
+
+                    <div class="phone-preview">
+
+                        <div class="phone-screen">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- WIDE FEATURE -->
+
+                <article class="bento wide liquid-glass reveal">
+
+                    <div>
+
+                        <span class="number">
+                            04
+                        </span>
+
+                        <h3>
+                            Everything in one place.
+                        </h3>
+
+                        <p>
+                            Skills, education, projects and
+                            achievements — automatically organized.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="data-pills">
+
+                        <span>
+                            <b>01</b>
+                            Education
+                        </span>
+
+                        <span>
+                            <b>02</b>
+                            Skills
+                        </span>
+
+                        <span>
+                            <b>03</b>
+                            Projects
+                        </span>
+
+                        <span>
+                            <b>04</b>
+                            Experience
+                        </span>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             PORTFOLIO PREVIEW
+        ========================== -->
+
+        <section id="portfolio" class="section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-label">
+                    GENERATED PORTFOLIO
+                </span>
+
+                <h2 class="text-reveal">
+                    Your story.
+                    <span class="gradient-text">
+                        Beautifully told.
+                    </span>
+                </h2>
+
+                <p>
+                    Here's what your generated portfolio can look like.
+                </p>
+
+            </div>
+
+
+
+            <div class="portfolio-preview liquid-glass reveal">
+
+                <div class="portfolio-glare"></div>
+
+
+                <div class="portfolio-nav">
+
+                    <strong>
+                        {{ student.name if student else 'Your Name' }}
+                    </strong>
+
+                    <div>
+                        <span>About</span>
+                        <span>Projects</span>
+                        <span>Skills</span>
+                    </div>
+
+                    <small>
+                        <i></i>
+                        Available
+                    </small>
+
+                </div>
+
+
+
+                <div class="portfolio-body">
+
+                    <div class="profile-column">
+
+                        <div class="profile-avatar">
+
+                            {% if student %}
+                                {{ student.name[0]|upper }}
+                            {% else %}
+                                V
+                            {% endif %}
+
+                        </div>
+
+                        <span>
+                            {{ student.headline if student and student.headline else 'BCA Student · Developer' }}
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="profile-main">
+
+                        <small class="hello">
+                            HELLO, I'M
+                        </small>
+
+                        <h3>
+                            {{ student.name if student else 'Your Name' }}
+                            <em>.</em>
+                        </h3>
+
+                        <p>
+                            {{ student.bio if student else
+                            'A passionate student building projects and learning technology.' }}
+                        </p>
+
+
+
+                        <div class="profile-buttons">
+
+                            <a href="#projects">
+                                View projects ↗
+                            </a>
+
+                            {% if student and student.email %}
+                                <a href="mailto:{{ student.email }}">
+                                    Get in touch
+                                </a>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="portfolio-stats">
+
+                    <div>
+
+                        <span>
+                            Education
+                        </span>
+
+                        <strong>
+                            {{ student.education if student else 'BCA' }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Projects
+                        </span>
+
+                        <strong>
+                            {{ projects|length }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Skills
+                        </span>
+
+                        <strong>
+                            {{
+                                student.skills.split(',')|length
+                                if student and student.skills
+                                else 0
+                            }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             PROJECTS
+        ========================== -->
+
+        <section id="projects" class="section">
+
+            <div class="section-heading reveal">
+
+                <span class="section-label">
+                    PROJECTS
+                </span>
+
+                <h2 class="text-reveal">
+                    Things I've
+                    <span class="gradient-text">
+                        built.
+                    </span>
+                </h2>
+
+            </div>
+
+
+
+            <div class="projects-grid">
+
+                {% if projects %}
+
+                    {% for project in projects %}
+
+                    <article class="project-card liquid-glass reveal">
+
+                        <div class="project-top">
+
+                            <span>
+                                0{{ loop.index }}
+                            </span>
+
+                            {% if project.github_url %}
+
+                            <a
+                                href="{{ project.github_url }}"
+                                target="_blank"
+                                rel="noopener"
+                            >
+                                GitHub ↗
+                            </a>
+
+                            {% endif %}
+
+                        </div>
+
+
+
+                        <div class="project-visual">
+
+                            <div class="project-light"></div>
+
+                            <div class="project-browser">
+
+                                <div class="project-browser-top">
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                </div>
+
+                                <div class="project-lines">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="project-info">
+
+                            <h3>
+                                {{ project.title }}
+                            </h3>
+
+                            <p>
+                                {{ project.description }}
+                            </p>
+
+
+
+                            <div class="project-tags">
+
+                                {% for tech in project.technologies.split(',') %}
+
+                                <span>
+                                    {{ tech.strip() }}
+                                </span>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <article class="empty-project liquid-glass">
+
+                        <div>
+                            ✦
+                        </div>
+
+                        <h3>
+                            Your projects will appear here.
+                        </h3>
+
+                        <p>
+                            Add projects to PostgreSQL and
+                            PortfoliAI will display them automatically.
+                        </p>
+
+                    </article>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+                <!-- =========================
+             CTA
+        ========================== -->
+
+        <section id="demo" class="section">
+
+            <div class="final-card liquid-glass reveal">
+
+                <div class="final-content">
+
+                    <span class="section-label">
+                        READY WHEN YOU ARE
+                    </span>
+
+                    <h2 class="text-reveal">
+                        Your resume is only
+                        <span class="gradient-text">
+                            the beginning.
+                        </span>
+                    </h2>
+
+                    <p>
+                        Give your resume a place to live.
+                        Build a portfolio that actually represents you.
+                    </p>
+
+
+                    <button
+                        class="generate-button"
+                        id="generateButton"
+                        type="button"
+                    >
+
+                        <span>
+                            Generate portfolio
+                        </span>
+
+                        <b>
+                            ✦
+                        </b>
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="final-visual">
+
+                    <div class="final-liquid"></div>
+
+                    <div class="final-ring final-ring-one"></div>
+                    <div class="final-ring final-ring-two"></div>
+                    <div class="final-ring final-ring-three"></div>
+
+                    <div class="final-core">
+                        ✦
+                    </div>
+
+                    <span class="final-badge badge-resume">
+                        Resume
+                    </span>
+
+                    <span class="final-badge badge-ai">
+                        AI
+                    </span>
+
+                    <span class="final-badge badge-portfolio">
+                        Portfolio
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-top">
+
+            <div>
+
+                <a href="#top" class="logo">
+
+                    <span class="logo-mark">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </span>
+
+                    Portfoli<span class="gradient-text">AI</span>
+
+                </a>
+
+                <p>
+                    Your resume. Reimagined.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="#how-it-works">
+                    How it works
+                </a>
+
+                <a href="#portfolio">
+                    Portfolio
+                </a>
+
+                <a href="#projects">
+                    Projects
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 PortfoliAI
+            </span>
+
+            <span>
+                Built with Python · Flask · PostgreSQL
+            </span>
+
+        </div>
+
+    </footer>
+
+
+
+    <script
+        src="{{ url_for('static', filename='js/main.js') }}"
+    ></script>
+
+</body>
+
+</html>
