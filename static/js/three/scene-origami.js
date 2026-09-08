@@ -323,12 +323,22 @@
           material.opacity = fade;
           coreLight.intensity = coreLight.intensity * fade;
 
-          // Damped pointer tilt
+          // Continuous camera dolly: tracks forward as paper folds into data core
+          if (!reducedMotion) {
+            const targetCamZ = 6.2 - progress * 1.1;
+            camera.position.z += (targetCamZ - camera.position.z) * 0.12;
+          } else {
+            camera.position.z = 6.2;
+          }
+
+          // Damped pointer tilt & dynamic core spin
           if (!reducedMotion) {
             const targetRotX = (pointer.dampedY || 0) * -0.22;
             const targetRotY = (pointer.dampedX || 0) * 0.28;
+            // Add subtle axial spin as origami condenses into data core
+            const coreSpin = (progress > 0.60) ? (progress - 0.60) / 0.40 : 0;
             origamiGroup.rotation.x = targetRotX;
-            origamiGroup.rotation.y = targetRotY;
+            origamiGroup.rotation.y = targetRotY + (localTime * coreSpin * 0.6);
 
             // Subtle continuous floating breathing
             origamiGroup.position.y = Math.sin(localTime * 1.5) * 0.06;

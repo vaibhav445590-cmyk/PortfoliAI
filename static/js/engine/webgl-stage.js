@@ -244,10 +244,10 @@
           }
         }
 
-        // Prevent WebGL scene bleed: fade out during egress, and skip rendering completely once past egress
+        // Maintain continuous visibility throughout the act runway; only softly fade at the true boundary (progress > 0.94)
         let egressFade = 1.0;
-        if (progress > 0.82) {
-          egressFade = Math.max(0, 1 - (progress - 0.82) / 0.18);
+        if (progress > 0.94) {
+          egressFade = Math.max(0, 1 - (progress - 0.94) / 0.06);
         }
         if (egressFade <= 0.005) {
           // Completely occluded/egressed: do not render to avoid bleeding over subsequent acts

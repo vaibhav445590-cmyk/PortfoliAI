@@ -96,7 +96,9 @@
       }
 
       // Act I Motion Scene
+      // Act I Motion Scene
       const act1Stage = document.querySelector('#act-artifact .act-stage');
+      const act1Editorial = document.querySelector('.act1-editorial');
       motion.registerScene('act-1-artifact', {
         element: '#act-artifact',
         isSticky: true,
@@ -105,30 +107,36 @@
           if (reducedMotion || isMobile) {
             resumeCard.style.transform = 'none';
             if (act1Stage) { act1Stage.style.opacity = '1'; act1Stage.style.transform = 'none'; }
+            if (act1Editorial) { act1Editorial.style.opacity = '1'; act1Editorial.style.transform = 'none'; }
             return;
           }
 
           // Pointer Tilt (smooth damped cursor response)
-          const tiltX = (pointer.dampedY || 0) * -10;
-          const tiltY = (pointer.dampedX || 0) * 10;
+          const tiltX = (pointer.dampedY || 0) * -8;
+          const tiltY = (pointer.dampedX || 0) * 8;
 
-          // Scroll Scrubbing: document recedes smoothly as Act I progresses
-          const scrollScale = 1 - progress * 0.12;
-          const scrollY = progress * 30;
+          // Scroll Scrubbing: document recedes smoothly and centers as origami collapses into data core
+          const scrollScale = 1 - progress * 0.08;
+          const scrollY = progress * 20;
 
           resumeCard.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(${scrollScale.toFixed(3)}, ${scrollScale.toFixed(3)}, 1) translateY(${scrollY.toFixed(1)}px)`;
 
-          // Cinematic Egress (Fade & glide out in final 18% of scroll)
-          if (act1Stage) {
-            if (progress > 0.82) {
-              const egress = (progress - 0.82) / 0.18;
-              const eased = motion.utils.easing.easeInOutQuad(egress);
-              act1Stage.style.opacity = (1 - eased).toFixed(3);
-              act1Stage.style.transform = `scale3d(${1 - eased * 0.05}, ${1 - eased * 0.05}, 1) translateY(${(-eased * 35).toFixed(1)}px)`;
+          // Editorial text smoothly glides up and softens in final 30% of scroll to guide gaze directly to glowing core
+          if (act1Editorial) {
+            if (progress > 0.70) {
+              const fade = motion.utils.clamp((progress - 0.70) / 0.25, 0, 1);
+              const eased = motion.utils.easing.easeInOutQuad(fade);
+              act1Editorial.style.opacity = (1 - eased * 0.65).toFixed(3);
+              act1Editorial.style.transform = `translateY(${(-eased * 24).toFixed(1)}px)`;
             } else {
-              act1Stage.style.opacity = '1';
-              act1Stage.style.transform = 'none';
+              act1Editorial.style.opacity = '1';
+              act1Editorial.style.transform = 'none';
             }
+          }
+
+          // Stage maintains full opacity — Act 2 slides up seamlessly over it
+          if (act1Stage) {
+            act1Stage.style.opacity = '1';
           }
         }
       });
@@ -145,7 +153,7 @@
       motion.registerScene('act-2-decomposition', {
         element: '#act-decomposition',
         isSticky: true,
-        onTick: ({ progress, reducedMotion }) => {
+        onTick: ({ progress, pointer, reducedMotion }) => {
           const isMobile = window.innerWidth < 768;
           if (reducedMotion || isMobile) {
             if (act2Stage) { act2Stage.style.opacity = '1'; act2Stage.style.transform = 'none'; }
@@ -154,37 +162,38 @@
             return;
           }
 
-          // Cinematic Ingress (0.0 to 0.18) & Egress (0.82 to 1.0)
+          // Stage maintains solid opacity — zero blackouts/dead zones
           if (act2Stage) {
-            if (progress < 0.18) {
-              const ingress = progress / 0.18;
-              const eased = motion.utils.easing.easeOutQuad(ingress);
-              act2Stage.style.opacity = eased.toFixed(3);
-              act2Stage.style.transform = `scale3d(${0.95 + eased * 0.05}, ${0.95 + eased * 0.05}, 1)`;
-            } else if (progress > 0.82) {
-              const egress = (progress - 0.82) / 0.18;
-              const eased = motion.utils.easing.easeInOutQuad(egress);
-              act2Stage.style.opacity = (1 - eased).toFixed(3);
-              act2Stage.style.transform = `scale3d(${1 - eased * 0.05}, ${1 - eased * 0.05}, 1) translateY(${(-eased * 35).toFixed(1)}px)`;
-            } else {
-              act2Stage.style.opacity = '1';
-              act2Stage.style.transform = 'none';
-            }
+            act2Stage.style.opacity = '1';
           }
 
           // Singularity node pulses and scales across active progress
-          const normP = motion.utils.clamp((progress - 0.08) / 0.84, 0, 1);
-          const coreScale = 0.85 + Math.sin(normP * Math.PI) * 0.35;
+          const normP = motion.utils.clamp((progress - 0.05) / 0.90, 0, 1);
+          const coreScale = 0.92 + Math.sin(normP * Math.PI) * 0.28;
           singularityCore.style.transform = `scale(${coreScale.toFixed(3)})`;
 
-          // Staggered expansion of radial tracks
+          // Outer pulse ring expands toward end of Act 2, projecting outward into the Act 3 radar portal
+          const orbitRing = singularityCore.querySelector('.singularity-orbit-ring');
+          if (orbitRing) {
+            if (progress > 0.70) {
+              const expand = (progress - 0.70) / 0.30;
+              const ringScale = 1.0 + expand * 1.5;
+              orbitRing.style.transform = `scale(${ringScale.toFixed(3)})`;
+              orbitRing.style.opacity = (1 - expand * 0.4).toFixed(3);
+            } else {
+              orbitRing.style.transform = 'scale(1)';
+              orbitRing.style.opacity = '1';
+            }
+          }
+
+          // Staggered expansion of radial tracks from center outward
           decompTracks.forEach((track, idx) => {
-            const trackOffset = 0.12 + (idx * 0.10);
-            const trackProgress = motion.utils.clamp((progress - trackOffset) / 0.55, 0, 1);
+            const trackOffset = 0.08 + (idx * 0.09);
+            const trackProgress = motion.utils.clamp((progress - trackOffset) / 0.50, 0, 1);
             const eased = motion.utils.easing.easeOutExpo(trackProgress);
 
             track.style.opacity = eased.toFixed(3);
-            track.style.transform = `scale(${0.88 + eased * 0.12}) translateY(${(1 - eased) * 20}px)`;
+            track.style.transform = `scale(${0.86 + eased * 0.14}) translateY(${(1 - eased) * 22}px)`;
           });
         }
       });
@@ -253,7 +262,7 @@
       motion.registerScene('act-3-identity', {
         element: '#act-identity',
         isSticky: true,
-        onTick: ({ progress, reducedMotion }) => {
+        onTick: ({ progress, pointer, reducedMotion }) => {
           const isMobile = window.innerWidth < 768;
           if (reducedMotion || isMobile) {
             if (act3Stage) { act3Stage.style.opacity = '1'; act3Stage.style.transform = 'none'; }
@@ -263,33 +272,22 @@
           }
 
           // Trigger dynamic odometer telemetry
-          if (progress > 0.04) {
+          if (progress > 0.02) {
             triggerOdometers();
-          } else if (progress <= 0.01) {
+          } else if (progress <= 0.005) {
             odometersTriggered = false;
           }
 
-          // Cinematic Ingress (0.0 to 0.18) & Egress (0.82 to 1.0)
+          // Stage maintains solid opacity
           if (act3Stage) {
-            if (progress < 0.18) {
-              const ingress = progress / 0.18;
-              const eased = motion.utils.easing.easeOutQuad(ingress);
-              act3Stage.style.opacity = eased.toFixed(3);
-              act3Stage.style.transform = `scale3d(${0.95 + eased * 0.05}, ${0.95 + eased * 0.05}, 1)`;
-            } else if (progress > 0.82) {
-              const egress = (progress - 0.82) / 0.18;
-              const eased = motion.utils.easing.easeInOutQuad(egress);
-              act3Stage.style.opacity = (1 - eased).toFixed(3);
-              act3Stage.style.transform = `scale3d(${1 - eased * 0.05}, ${1 - eased * 0.05}, 1) translateY(${(-eased * 35).toFixed(1)}px)`;
-            } else {
-              act3Stage.style.opacity = '1';
-              act3Stage.style.transform = 'none';
-            }
+            act3Stage.style.opacity = '1';
           }
 
-          // Subtle breathing scale on the identity stage
-          const scale = 0.96 + Math.sin(progress * Math.PI) * 0.06;
-          identityStage.style.transform = `scale(${scale.toFixed(3)})`;
+          // Concentric radar portal subtle breathing and pointer tracking
+          const scale = 0.98 + Math.sin(progress * Math.PI) * 0.04;
+          const tiltX = (pointer.dampedY || 0) * -5;
+          const tiltY = (pointer.dampedX || 0) * 5;
+          identityStage.style.transform = `perspective(800px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
         }
       });
     }
@@ -359,29 +357,31 @@
       motion.registerScene('act-4-archetypes', {
         element: '#act-archetypes',
         isSticky: true,
-        onTick: ({ progress, reducedMotion }) => {
+        onTick: ({ progress, pointer, reducedMotion }) => {
           const isMobile = window.innerWidth < 768;
           if (reducedMotion || isMobile) {
             if (act4Stage) { act4Stage.style.opacity = '1'; act4Stage.style.transform = 'none'; }
             return;
           }
 
-          // Cinematic Ingress (0.0 to 0.18) & Egress (0.82 to 1.0)
           if (act4Stage) {
-            if (progress < 0.18) {
-              const ingress = progress / 0.18;
-              const eased = motion.utils.easing.easeOutQuad(ingress);
-              act4Stage.style.opacity = eased.toFixed(3);
-              act4Stage.style.transform = `scale3d(${0.95 + eased * 0.05}, ${0.95 + eased * 0.05}, 1)`;
-            } else if (progress > 0.82) {
-              const egress = (progress - 0.82) / 0.18;
-              const eased = motion.utils.easing.easeInOutQuad(egress);
-              act4Stage.style.opacity = (1 - eased).toFixed(3);
-              act4Stage.style.transform = `scale3d(${1 - eased * 0.05}, ${1 - eased * 0.05}, 1) translateY(${(-eased * 35).toFixed(1)}px)`;
-            } else {
-              act4Stage.style.opacity = '1';
-              act4Stage.style.transform = 'none';
+            act4Stage.style.opacity = '1';
+          }
+
+          // Subtle pointer tilt on the active card for tactile physical feel
+          const activeCard = document.querySelector('.archetype-card.active');
+          if (activeCard) {
+            const tiltX = (pointer.dampedY || 0) * -6;
+            const tiltY = (pointer.dampedX || 0) * 8;
+            // As user scrolls towards the end of Act 4, active card smoothly expands toward camera
+            let zBonus = 80;
+            let scaleBonus = 1.06;
+            if (progress > 0.75) {
+              const expand = (progress - 0.75) / 0.25;
+              zBonus += expand * 40;
+              scaleBonus += expand * 0.06;
             }
+            activeCard.style.transform = `translate3d(0, 0, ${zBonus}px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale(${scaleBonus.toFixed(3)})`;
           }
         }
       });

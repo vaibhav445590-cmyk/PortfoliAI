@@ -944,6 +944,37 @@ html:has(#immersiveNarrative) {
   color: var(--imm-text-secondary);
 }
 
+/* Distinct Archetype Tactile Accents */
+.archetype-card[data-template="minimal"] .archetype-tag { color: #f4f4f5; }
+.archetype-card[data-template="minimal"].active {
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.2), var(--imm-shadow-cinematic);
+}
+
+.archetype-card[data-template="glass"] .archetype-tag { color: var(--imm-accent-violet); }
+.archetype-card[data-template="glass"].active {
+  border-color: var(--imm-accent-active);
+  box-shadow: 0 0 50px rgba(124, 58, 237, 0.35), var(--imm-shadow-cinematic);
+}
+
+.archetype-card[data-template="modern"] .archetype-tag { color: var(--imm-accent-cyan); }
+.archetype-card[data-template="modern"].active {
+  border-color: var(--imm-accent-cyan);
+  box-shadow: 0 0 45px rgba(6, 182, 212, 0.35), var(--imm-shadow-cinematic);
+}
+
+.archetype-card[data-template="developer"] .archetype-tag { color: #10b981; }
+.archetype-card[data-template="developer"].active {
+  border-color: #10b981;
+  box-shadow: 0 0 45px rgba(16, 185, 129, 0.3), var(--imm-shadow-cinematic);
+}
+
+.archetype-card[data-template="dark"] .archetype-tag { color: #f59e0b; }
+.archetype-card[data-template="dark"].active {
+  border-color: #f59e0b;
+  box-shadow: 0 0 45px rgba(245, 158, 11, 0.3), var(--imm-shadow-cinematic);
+}
+
 .archetype-controls {
   display: flex;
   gap: 1rem;
