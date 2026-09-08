@@ -1,0 +1,929 @@
+/* ==========================================================================
+   PORTFOLIAI — IMMERSIVE LANDING NARRATIVE (PHASE 7D)
+   Acts I–V: The Artifact · Decomposition · Dual Identity · Archetypes · Living Portfolio
+   Built on Phase 7B Design Tokens & Phase 7C Motion Engine
+   ========================================================================== */
+
+/* ==========================================================================
+   1. PERIMETER HUD NAVIGATION & TELEMETRY
+   ========================================================================== */
+.imm-hud-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  z-index: var(--imm-z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--imm-space-lg);
+  background: rgba(5, 5, 8, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--imm-border-hairline);
+  box-sizing: border-box;
+}
+
+.imm-brand-cluster {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.imm-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--imm-text-primary);
+  font-family: var(--imm-font-display);
+  font-weight: 800;
+  font-size: 1.125rem;
+  letter-spacing: -0.02em;
+}
+
+.imm-brand-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--imm-radius-xs);
+  background: linear-gradient(135deg, var(--imm-accent-violet), var(--imm-accent-cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.875rem;
+  color: #ffffff;
+}
+
+.imm-hud-act-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0.6rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--imm-border-hairline);
+  border-radius: var(--imm-radius-xs);
+  font-family: var(--imm-font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--imm-accent-active);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.imm-hud-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.imm-hud-nav-item {
+  color: var(--imm-text-muted);
+  text-decoration: none;
+  font-family: var(--imm-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color var(--imm-duration-fast) var(--imm-ease-expo-out);
+}
+
+.imm-hud-nav-item:hover,
+.imm-hud-nav-item.active {
+  color: var(--imm-text-primary);
+}
+
+.imm-hud-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.imm-hud-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  z-index: var(--imm-z-hud);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--imm-space-lg);
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.imm-hud-coords,
+.imm-hud-telemetry {
+  font-family: var(--imm-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--imm-text-muted);
+  background: rgba(5, 5, 8, 0.6);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--imm-radius-xs);
+  border: 1px solid var(--imm-border-hairline);
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   2. IMMERSIVE NARRATIVE ROOT & RUNWAYS
+   ========================================================================== */
+.imm-webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+body.webgl-active .act1-artifact-wrapper .artifact-card {
+  background: rgba(16, 16, 24, 0.15);
+  border-color: rgba(124, 58, 237, 0.25);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.webgl-active .act1-artifact-wrapper .artifact-header,
+body.webgl-active .act1-artifact-wrapper .micro-label,
+body.webgl-active .act1-artifact-wrapper .artifact-pills,
+body.webgl-active .act1-artifact-wrapper .artifact-card > div:last-child {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.webgl-active .artifact-drop-zone {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(124, 58, 237, 0.4);
+  position: relative;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+body.webgl-active .identity-focal-stage .identity-layer-raw,
+body.webgl-active .identity-focal-stage .identity-layer-pro {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.webgl-fallback .act1-artifact-wrapper .artifact-card {
+  background: rgba(16, 16, 24, 0.82);
+  border-color: var(--imm-border-subtle);
+  backdrop-filter: blur(24px);
+}
+
+body.webgl-fallback .identity-focal-stage .identity-layer-raw,
+body.webgl-fallback .identity-focal-stage .identity-layer-pro {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+html:has(#immersiveNarrative) {
+  scroll-behavior: auto !important;
+}
+
+.immersive-narrative {
+  position: relative;
+  background-color: var(--imm-bg-void);
+  color: var(--imm-text-primary);
+  width: 100%;
+  overflow-x: clip;
+}
+
+.act-runway {
+  position: relative;
+  width: 100%;
+  min-height: 220vh;
+  box-sizing: border-box;
+}
+
+#act-artifact { z-index: 1; }
+#act-decomposition { z-index: 2; }
+#act-identity { z-index: 3; }
+#act-archetypes { z-index: 4; }
+#act-portfolio { z-index: 5; min-height: auto; }
+
+.act-stage {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 4.5rem var(--imm-space-lg) 2.5rem;
+  background-color: var(--imm-bg-void);
+  will-change: transform, opacity;
+}
+
+/* ==========================================================================
+   3. ACT I — THE ARTIFACT
+   ========================================================================== */
+.act1-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: var(--imm-space-2xl);
+  align-items: center;
+  width: 100%;
+  max-width: var(--imm-container-wide);
+  margin-inline: auto;
+  position: relative;
+  z-index: var(--imm-z-subject);
+}
+
+.act1-editorial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--imm-space-md);
+}
+
+.act1-headline {
+  font-size: clamp(2.75rem, 5.5vw, 6.5rem);
+  line-height: 0.94;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--imm-text-primary);
+  margin: 0;
+}
+
+.act1-headline span.highlight {
+  color: var(--imm-accent-active);
+  text-shadow: 0 0 35px rgba(var(--imm-accent-active-rgb), 0.4);
+}
+
+.act1-artifact-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+}
+
+/* Floating Resume Document Artifact */
+.artifact-card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(16, 16, 24, 0.82);
+  border: 1px solid var(--imm-border-subtle);
+  border-radius: var(--imm-radius-sm);
+  padding: 1.75rem;
+  box-shadow: var(--imm-shadow-cinematic), 0 0 40px rgba(var(--imm-accent-active-rgb), 0.15);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transform-style: preserve-3d;
+  transition: border-color var(--imm-duration-standard) var(--imm-ease-expo-out),
+              box-shadow var(--imm-duration-standard) var(--imm-ease-expo-out);
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.artifact-card:hover {
+  border-color: var(--imm-accent-active);
+  box-shadow: var(--imm-shadow-cinematic), var(--imm-glow-focused);
+}
+
+.artifact-card.drop-active {
+  border-color: var(--imm-accent-cyan) !important;
+  box-shadow: 0 0 50px rgba(6, 182, 212, 0.4) !important;
+  transform: scale(1.02);
+}
+
+.artifact-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--imm-border-hairline);
+}
+
+.artifact-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--imm-radius-xs);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--imm-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--imm-font-mono);
+  font-weight: 700;
+  color: var(--imm-text-primary);
+}
+
+.artifact-name {
+  font-family: var(--imm-font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--imm-text-primary);
+}
+
+.artifact-role {
+  font-family: var(--imm-font-mono);
+  font-size: 0.75rem;
+  color: var(--imm-accent-active);
+  letter-spacing: 0.04em;
+}
+
+/* Ingestion Drop Zone */
+.artifact-drop-zone {
+  margin: 1.25rem 0;
+  padding: 1.25rem;
+  border: 1px dashed var(--imm-border-medium);
+  border-radius: var(--imm-radius-xs);
+  background: rgba(255, 255, 255, 0.02);
+  text-align: center;
+  transition: all var(--imm-duration-fast) var(--imm-ease-expo-out);
+}
+
+.artifact-drop-zone:hover {
+  background: rgba(var(--imm-accent-active-rgb), 0.05);
+  border-color: var(--imm-accent-active);
+}
+
+.drop-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.drop-prompt {
+  font-family: var(--imm-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--imm-text-secondary);
+  text-transform: uppercase;
+  display: block;
+}
+
+.artifact-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.artifact-pill {
+  font-family: var(--imm-font-mono);
+  font-size: 0.6875rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--imm-radius-xs);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--imm-border-hairline);
+  color: var(--imm-text-secondary);
+}
+
+/* ==========================================================================
+   4. ACT II — THE DECOMPOSITION
+   ========================================================================== */
+.act2-container {
+  width: 100%;
+  max-width: var(--imm-container-wide);
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Center Singularity Coordinate */
+.singularity-core {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--imm-accent-violet) 0%, rgba(124, 58, 237, 0.1) 70%, transparent 100%);
+  border: 1px solid var(--imm-border-accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 50px rgba(var(--imm-accent-active-rgb), 0.4);
+  z-index: var(--imm-z-subject);
+  transform-origin: center center;
+}
+
+.singularity-pulse {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px dashed rgba(var(--imm-accent-active-rgb), 0.4);
+  animation: rotatePulse 12s linear infinite;
+}
+
+@keyframes rotatePulse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Radial Decomposition Tracks */
+.decomp-track {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: rgba(16, 16, 24, 0.75);
+  border: 1px solid var(--imm-border-subtle);
+  border-radius: var(--imm-radius-xs);
+  padding: 1rem 1.25rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--imm-shadow-md);
+  max-width: 280px;
+  z-index: var(--imm-z-overlay);
+  will-change: transform, opacity;
+}
+
+.decomp-track-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--imm-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--imm-accent-active);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--imm-border-hairline);
+  padding-bottom: 0.35rem;
+}
+
+.decomp-track-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.decomp-chip {
+  font-family: var(--imm-font-mono);
+  font-size: 0.6875rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--imm-border-hairline);
+  border-radius: var(--imm-radius-xs);
+  color: var(--imm-text-primary);
+}
+
+.track-skills { top: 12%; left: 8%; }
+.track-exp { top: 12%; right: 8%; }
+.track-edu { bottom: 12%; left: 8%; }
+.track-proj { bottom: 12%; right: 8%; }
+
+/* ==========================================================================
+   5. ACT III — THE DUAL IDENTITY
+   ========================================================================== */
+.act3-container {
+  width: 100%;
+  max-width: var(--imm-container-wide);
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.act3-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--imm-font-display);
+  font-size: clamp(6rem, 16vw, 18rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.028);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  z-index: var(--imm-z-type-bg);
+}
+
+.identity-focal-stage {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  max-width: 90vw;
+  max-height: 90vw;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--imm-border-subtle);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+  z-index: var(--imm-z-subject);
+  background: var(--imm-bg-deep);
+}
+
+/* Layer 1: Raw Student Wireframe */
+.identity-layer-raw {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  text-align: center;
+  background: radial-gradient(circle, #12121c 0%, #08080c 100%);
+}
+
+.identity-glyph-raw {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 1px dashed var(--imm-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--imm-font-mono);
+  font-size: 1.5rem;
+  color: var(--imm-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.identity-title-raw {
+  font-family: var(--imm-font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  color: var(--imm-text-muted);
+  text-transform: uppercase;
+}
+
+/* Layer 2: Technical Professional Reveal (Masked by pointer) */
+.identity-layer-pro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  text-align: center;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, #0d0d16 80%);
+  /* Interactive pointer reveal via mask-image / clip-path */
+  clip-path: circle(140px at var(--reveal-x, 50%) var(--reveal-y, 50%));
+  transition: clip-path 0.05s ease-out;
+  border: 1px solid var(--imm-border-accent);
+}
+
+.identity-glyph-pro {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--imm-accent-violet), var(--imm-accent-cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--imm-font-display);
+  font-weight: 800;
+  font-size: 1.75rem;
+  color: #ffffff;
+  box-shadow: var(--imm-glow-focused);
+  margin-bottom: 1.5rem;
+}
+
+.identity-title-pro {
+  font-family: var(--imm-font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--imm-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.identity-role-pro {
+  font-family: var(--imm-font-mono);
+  font-size: 0.8125rem;
+  color: var(--imm-accent-cyan);
+  letter-spacing: 0.08em;
+  margin-top: 0.35rem;
+}
+
+/* ==========================================================================
+   6. ACT IV — THE ARCHETYPE WORKBENCH
+   ========================================================================== */
+.act4-container {
+  width: 100%;
+  max-width: var(--imm-container-wide);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.act4-header {
+  text-align: center;
+  margin-bottom: var(--imm-space-xl);
+  z-index: var(--imm-z-overlay);
+}
+
+.archetype-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.archetype-card {
+  position: absolute;
+  width: 280px;
+  height: 360px;
+  background: rgba(16, 16, 24, 0.85);
+  border: 1px solid var(--imm-border-subtle);
+  border-radius: var(--imm-radius-sm);
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform var(--imm-duration-slow) var(--imm-ease-expo-out),
+              opacity var(--imm-duration-slow) var(--imm-ease-expo-out),
+              border-color var(--imm-duration-fast) var(--imm-ease-expo-out),
+              box-shadow var(--imm-duration-fast) var(--imm-ease-expo-out);
+  box-shadow: var(--imm-shadow-lg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  user-select: none;
+}
+
+.archetype-card.active {
+  transform: translate3d(0, 0, 80px) scale(1.06);
+  opacity: 1;
+  border-color: var(--imm-accent-active);
+  box-shadow: var(--imm-shadow-cinematic), var(--imm-glow-focused);
+  z-index: 5;
+}
+
+.archetype-card.prev {
+  transform: translate3d(-240px, 0, -60px) rotateY(18deg) scale(0.92);
+  opacity: 0.55;
+  z-index: 2;
+}
+
+.archetype-card.next {
+  transform: translate3d(240px, 0, -60px) rotateY(-18deg) scale(0.92);
+  opacity: 0.55;
+  z-index: 2;
+}
+
+.archetype-card.far-prev {
+  transform: translate3d(-420px, 0, -180px) rotateY(32deg) scale(0.82);
+  opacity: 0.25;
+  z-index: 1;
+}
+
+.archetype-card.far-next {
+  transform: translate3d(420px, 0, -180px) rotateY(-32deg) scale(0.82);
+  opacity: 0.25;
+  z-index: 1;
+}
+
+.archetype-tag {
+  font-family: var(--imm-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--imm-accent-active);
+  text-transform: uppercase;
+}
+
+.archetype-title {
+  font-family: var(--imm-font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--imm-text-primary);
+  margin: 0.5rem 0;
+}
+
+.archetype-desc {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--imm-text-secondary);
+}
+
+.archetype-controls {
+  display: flex;
+  gap: 1rem;
+  margin-top: var(--imm-space-xl);
+  z-index: var(--imm-z-overlay);
+}
+
+.archetype-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--imm-border-subtle);
+  color: var(--imm-text-primary);
+  font-family: var(--imm-font-mono);
+  font-size: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--imm-radius-xs);
+  cursor: pointer;
+  transition: all var(--imm-duration-fast) var(--imm-ease-expo-out);
+}
+
+.archetype-btn:hover {
+  background: var(--imm-accent-active);
+  border-color: var(--imm-accent-active);
+}
+
+/* ==========================================================================
+   7. ACT V — THE LIVING PORTFOLIO
+   ========================================================================== */
+.act5-container {
+  width: 100%;
+  max-width: var(--imm-container-wide);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--imm-space-2xl);
+  padding-block: var(--imm-space-2xl);
+}
+
+.act5-hero-block {
+  text-align: center;
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.act5-case-studies {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--imm-space-xl);
+}
+
+.case-study-card {
+  background: rgba(16, 16, 24, 0.75);
+  border: 1px solid var(--imm-border-subtle);
+  border-radius: var(--imm-radius-sm);
+  padding: var(--imm-space-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--imm-space-md);
+  box-shadow: var(--imm-shadow-md);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all var(--imm-duration-standard) var(--imm-ease-expo-out);
+}
+
+.case-study-card:hover {
+  border-color: var(--imm-accent-active);
+  transform: translateY(-4px);
+  box-shadow: var(--imm-shadow-lg), 0 0 30px rgba(var(--imm-accent-active-rgb), 0.2);
+}
+
+.case-study-badge {
+  font-family: var(--imm-font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--imm-accent-cyan);
+  text-transform: uppercase;
+}
+
+.case-study-title {
+  font-family: var(--imm-font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--imm-text-primary);
+  margin: 0;
+}
+
+.case-study-summary {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--imm-text-secondary);
+}
+
+.case-study-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.case-study-link {
+  font-family: var(--imm-font-mono);
+  font-size: 0.75rem;
+  text-decoration: none;
+  color: var(--imm-text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color var(--imm-duration-fast) var(--imm-ease-expo-out);
+}
+
+.case-study-link:hover {
+  color: var(--imm-accent-active);
+}
+
+.act5-action-deck {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: var(--imm-space-xl);
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE BREAKPOINTS FOR ACTS I–V
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .act1-grid {
+    grid-template-columns: 1fr;
+    gap: var(--imm-space-xl);
+    text-align: center;
+  }
+
+  .act1-editorial {
+    align-items: center;
+  }
+
+  .act5-case-studies {
+    grid-template-columns: 1fr;
+  }
+
+  .archetype-card.far-prev,
+  .archetype-card.far-next {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .imm-hud-links {
+    display: none;
+  }
+
+  .imm-hud-coords {
+    display: none;
+  }
+
+  .act-stage {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 80vh;
+    padding-inline: 1rem;
+    padding-block: 5rem 3rem;
+  }
+
+  .act-runway {
+    min-height: auto;
+  }
+
+  .artifact-card {
+    max-width: 100%;
+  }
+
+  .identity-focal-stage {
+    width: 320px;
+    height: 320px;
+  }
+
+  .track-skills, .track-exp, .track-edu, .track-proj {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .act2-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .singularity-core {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .archetype-carousel {
+    height: 320px;
+  }
+
+  .archetype-card {
+    width: 240px;
+    height: 300px;
+  }
+
+  .archetype-card.prev {
+    transform: translate3d(-140px, 0, -40px) scale(0.85);
+  }
+
+  .archetype-card.next {
+    transform: translate3d(140px, 0, -40px) scale(0.85);
+  }
+}

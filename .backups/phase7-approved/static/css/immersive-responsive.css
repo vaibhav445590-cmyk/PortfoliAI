@@ -1,0 +1,237 @@
+/* ==========================================================================
+   PORTFOLIAI — IMMERSIVE RESPONSIVE & ACCESSIBILITY FOUNDATION (PHASE 7B)
+   Adaptive Viewports (1440px+ · 1024px · 768px · <=767px · <=390px)
+   WCAG 2.1 AA Focus States · prefers-reduced-motion Neutralization
+   ========================================================================== */
+
+/* ==========================================================================
+   1. DESKTOP FOUNDATION (>= 1440px)
+   ========================================================================== */
+@media (min-width: 1440px) {
+  :root {
+    --imm-perimeter-pad: clamp(2.5rem, 4vw, 4.5rem);
+  }
+
+  .spatial-perimeter {
+    padding: var(--imm-perimeter-pad);
+  }
+
+  .spatial-split-asymmetric {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: var(--imm-space-3xl);
+  }
+
+  .spatial-split-asymmetric-rev {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+    gap: var(--imm-space-3xl);
+  }
+}
+
+/* ==========================================================================
+   2. LAPTOP FOUNDATION (1024px – 1439px)
+   ========================================================================== */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  :root {
+    --imm-perimeter-pad: clamp(1.75rem, 3vw, 2.75rem);
+  }
+
+  .spatial-perimeter {
+    padding: var(--imm-perimeter-pad);
+  }
+
+  .spatial-split-asymmetric {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: var(--imm-space-xl);
+  }
+
+  .spatial-split-asymmetric-rev {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: var(--imm-space-xl);
+  }
+}
+
+/* ==========================================================================
+   3. TABLET FOUNDATION (768px – 1023px)
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --imm-perimeter-pad: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  .spatial-perimeter {
+    padding: var(--imm-perimeter-pad);
+  }
+
+  .spatial-split-asymmetric,
+  .spatial-split-asymmetric-rev {
+    grid-template-columns: 1fr;
+    gap: var(--imm-space-xl);
+  }
+
+  .spatial-negative-space {
+    padding-block: var(--imm-space-2xl);
+    min-height: 25vh;
+  }
+
+  .spatial-coord-marker {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   4. MOBILE FOUNDATION (<= 767px)
+   Graceful collapse of monumental & asymmetric compositions
+   ========================================================================== */
+@media (max-width: 767px) {
+  :root {
+    --imm-perimeter-pad: 1.25rem;
+  }
+
+  .spatial-full {
+    min-height: 100dvh;
+    padding-inline: 1rem;
+    padding-block: 1.5rem;
+  }
+
+  .spatial-perimeter {
+    position: relative;
+    inset: auto;
+    padding: 0;
+    margin-bottom: var(--imm-space-md);
+  }
+
+  .perimeter-top,
+  .perimeter-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .spatial-split-asymmetric,
+  .spatial-split-asymmetric-rev {
+    display: flex;
+    flex-direction: column;
+    gap: var(--imm-space-lg);
+  }
+
+  .spatial-negative-space {
+    padding-block: var(--imm-space-xl);
+    min-height: auto;
+  }
+
+  .spatial-coord-marker {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 0.6rem;
+  }
+
+  .hud {
+    font-size: 0.625rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .spatial-container,
+  .spatial-container-narrative {
+    padding-inline: 1rem;
+  }
+
+  /* Flatten 3D spatial transforms on mobile for smooth performance */
+  .depth-stage {
+    perspective: none;
+    transform-style: flat;
+  }
+
+  .plane-deep,
+  .plane-foreground {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   5. ULTRA-COMPACT MOBILE (<= 390px)
+   ========================================================================== */
+@media (max-width: 390px) {
+  :root {
+    --imm-perimeter-pad: 0.875rem;
+  }
+
+  .display-hero {
+    font-size: clamp(2.5rem, 12vw, 3.25rem);
+    letter-spacing: -0.035em;
+  }
+
+  .display-section {
+    font-size: clamp(1.85rem, 8vw, 2.25rem);
+  }
+
+  .hud {
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+  }
+
+  .micro-label {
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* ==========================================================================
+   6. ACCESSIBILITY FOUNDATION: PREFERS-REDUCED-MOTION
+   Disables decorative motion, respects vestibular safety, preserves readability
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Neutralize 3D camera and plane translations */
+  .depth-stage {
+    perspective: none !important;
+    transform-style: flat !important;
+  }
+
+  .plane-deep,
+  .plane-mid,
+  .plane-foreground {
+    transform: none !important;
+  }
+
+  /* Keep reveal items immediately visible */
+  .motion-reveal-ready,
+  .motion-dissolve-ready {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  /* Static ambient glow with reduced intensity */
+  .ambient-glow-point {
+    filter: blur(40px) !important;
+    opacity: 0.10 !important;
+  }
+}
+
+/* ==========================================================================
+   7. ACCESSIBILITY: KEYBOARD FOCUS RING SPECIFICATION
+   WCAG 2.1 AA Compliant High-Contrast Focus Indicators
+   ========================================================================== */
+:focus-visible {
+  outline: 2px solid var(--imm-accent-active);
+  outline-offset: 3px;
+  border-radius: var(--imm-radius-xs);
+}
+
+.atmosphere-void :focus-visible {
+  outline-color: var(--imm-accent-active);
+  box-shadow: 0 0 10px rgba(var(--imm-accent-active-rgb), 0.5);
+}
+
+.atmosphere-chalk :focus-visible {
+  outline-color: #050508;
+}

@@ -1,0 +1,519 @@
+/* ==========================================================================
+   PORTFOLIAI — PORTFOLIO TEMPLATES STYLESHEET
+   Phase 6: Five Distinct Archetypes (Glass, Minimal, Modern, Developer, Dark)
+   Plus Dynamic Theme Variants & Accent Systems
+   ========================================================================== */
+
+/* ==========================================================================
+   BASE PORTFOLIO CANONICAL WRAPPER
+   ========================================================================== */
+.portfolio-root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.portfolio-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+/* Common Section Styling */
+.portfolio-section {
+  margin-bottom: 4rem;
+}
+
+.portfolio-section-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   DYNAMIC ACCENT SYSTEM
+   ========================================================================== */
+.portfolio-root.accent-emerald {
+  --portfolio-accent: #10b981;
+  --portfolio-accent-subtle: rgba(16, 185, 129, 0.1);
+  --portfolio-accent-border: rgba(16, 185, 129, 0.25);
+}
+
+.portfolio-root.accent-blue {
+  --portfolio-accent: #3b82f6;
+  --portfolio-accent-subtle: rgba(59, 130, 246, 0.1);
+  --portfolio-accent-border: rgba(59, 130, 246, 0.25);
+}
+
+.portfolio-root.accent-purple {
+  --portfolio-accent: #8b5cf6;
+  --portfolio-accent-subtle: rgba(139, 92, 246, 0.1);
+  --portfolio-accent-border: rgba(139, 92, 246, 0.25);
+}
+
+.portfolio-root.accent-amber {
+  --portfolio-accent: #f59e0b;
+  --portfolio-accent-subtle: rgba(245, 158, 11, 0.1);
+  --portfolio-accent-border: rgba(245, 158, 11, 0.25);
+}
+
+.portfolio-root.accent-rose {
+  --portfolio-accent: #f43f5e;
+  --portfolio-accent-subtle: rgba(244, 63, 94, 0.1);
+  --portfolio-accent-border: rgba(244, 63, 94, 0.25);
+}
+
+.portfolio-root.accent-cyan {
+  --portfolio-accent: #06b6d4;
+  --portfolio-accent-subtle: rgba(6, 182, 212, 0.1);
+  --portfolio-accent-border: rgba(6, 182, 212, 0.25);
+}
+
+/* Default Accent Fallback */
+.portfolio-root:not([class*="accent-"]) {
+  --portfolio-accent: #7c3aed;
+  --portfolio-accent-subtle: rgba(124, 58, 237, 0.1);
+  --portfolio-accent-border: rgba(124, 58, 237, 0.25);
+}
+
+/* Apply Accent to Common Elements */
+.portfolio-root .accent-color-text {
+  color: var(--portfolio-accent) !important;
+}
+
+.portfolio-root .accent-color-bg {
+  background-color: var(--portfolio-accent) !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   DYNAMIC THEMES (Glass, Light, Dark)
+   ========================================================================== */
+
+/* Theme: Light */
+.portfolio-root.theme-light {
+  background: #ffffff;
+  color: #0f172a;
+  --portfolio-card-bg: #f8fafc;
+  --portfolio-border: #e2e8f0;
+  --portfolio-text-muted: #64748b;
+}
+
+/* Theme: Dark */
+.portfolio-root.theme-dark {
+  background: #090d16;
+  color: #f1f5f9;
+  --portfolio-card-bg: rgba(30, 41, 59, 0.5);
+  --portfolio-border: rgba(255, 255, 255, 0.08);
+  --portfolio-text-muted: #94a3b8;
+}
+
+.portfolio-root.theme-dark .portfolio-section-title {
+  color: #ffffff;
+}
+
+/* Theme: Glass */
+.portfolio-root.theme-glass {
+  background: radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.04) 0%, rgba(255, 255, 255, 0.95) 90%);
+  color: #0f172a;
+  --portfolio-card-bg: rgba(255, 255, 255, 0.7);
+  --portfolio-border: rgba(255, 255, 255, 0.8);
+  --portfolio-text-muted: #64748b;
+}
+
+/* ==========================================================================
+   TEMPLATE 1: GLASS (Liquid-Glass Depth, Frosted Specular Layers)
+   ========================================================================== */
+.template-glass {
+  position: relative;
+}
+
+.template-glass .glass-hero {
+  text-align: center;
+  padding: 5rem 1.5rem 3.5rem;
+  background: radial-gradient(circle at 50% 30%, var(--portfolio-accent-subtle) 0%, transparent 65%);
+}
+
+.template-glass .glass-avatar-ring {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--portfolio-accent) 0%, #312e81 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.25rem;
+  font-weight: 800;
+  box-shadow: 0 10px 25px var(--portfolio-accent-border);
+}
+
+.template-glass .glass-name {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--portfolio-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.template-glass .glass-headline {
+  font-size: 1.25rem;
+  color: var(--portfolio-accent);
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+.template-glass .glass-bio {
+  max-width: 680px;
+  margin: 0 auto 1.75rem;
+  color: var(--portfolio-text-muted, #475569);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.template-glass .glass-card {
+  background: var(--portfolio-card-bg, rgba(255, 255, 255, 0.7));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--portfolio-border, rgba(255, 255, 255, 0.8));
+  border-radius: var(--radius-2xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+}
+
+.template-glass .glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--portfolio-accent-border);
+}
+
+/* ==========================================================================
+   TEMPLATE 2: MINIMAL (Swiss Editorial, Crisp Typography, Pure Structure)
+   ========================================================================== */
+.template-minimal {
+  font-family: var(--font-sans);
+}
+
+.template-minimal .portfolio-container {
+  max-width: 860px;
+  padding: 5rem 2rem;
+}
+
+.template-minimal .minimal-hero {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.template-minimal.theme-dark .minimal-hero {
+  border-bottom-color: #f1f5f9;
+}
+
+.template-minimal .minimal-name {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.template-minimal .minimal-headline {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--portfolio-accent);
+  margin-bottom: 1.5rem;
+}
+
+.template-minimal .minimal-bio {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--portfolio-text-muted, #334155);
+}
+
+.template-minimal .portfolio-section-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 800;
+  color: var(--portfolio-text-muted, #64748b);
+  border-bottom: 1px solid var(--portfolio-border, #e2e8f0);
+  padding-bottom: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.template-minimal .minimal-project-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--portfolio-border, #f1f5f9);
+}
+
+@media (max-width: 768px) {
+  .template-minimal .minimal-project-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+.template-minimal .minimal-project-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   TEMPLATE 3: MODERN (High-Impact Tech SaaS, Structured Bento Grid)
+   ========================================================================== */
+.template-modern .modern-hero {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 3rem;
+  align-items: center;
+  padding: 4rem 0 3.5rem;
+  border-bottom: 1px solid var(--portfolio-border, #e2e8f0);
+  margin-bottom: 3.5rem;
+}
+
+@media (max-width: 900px) {
+  .template-modern .modern-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+.template-modern .modern-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.875rem;
+  border-radius: var(--radius-full);
+  background: var(--portfolio-accent-subtle);
+  color: var(--portfolio-accent);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.template-modern .modern-name {
+  font-size: 3.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+
+.template-modern .modern-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+
+.template-modern .modern-card {
+  background: var(--portfolio-card-bg, #ffffff);
+  border: 1px solid var(--portfolio-border, #e2e8f0);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.template-modern .modern-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--portfolio-accent);
+}
+
+/* ==========================================================================
+   TEMPLATE 4: DEVELOPER (Terminal Prompt, Monospace Code Tokens)
+   ========================================================================== */
+.template-developer {
+  font-family: var(--font-mono);
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.template-developer .portfolio-container {
+  max-width: 980px;
+}
+
+.template-developer .terminal-window {
+  background: #0b0f19;
+  border: 1px solid #1e293b;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.template-developer .terminal-titlebar {
+  background: #1e293b;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.template-developer .terminal-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.template-developer .terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot-red    { background: #ef4444; }
+.dot-yellow { background: #f59e0b; }
+.dot-green  { background: #10b981; }
+
+.template-developer .terminal-body {
+  padding: 2rem;
+}
+
+.template-developer .cli-prompt {
+  color: #38bdf8;
+  margin-bottom: 0.5rem;
+  font-size: 0.9375rem;
+}
+
+.template-developer .cli-prompt .path {
+  color: #a855f7;
+}
+
+.template-developer .cli-prompt .branch {
+  color: #4ade80;
+}
+
+.template-developer .dev-name {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.template-developer .dev-code-block {
+  background: #030712;
+  border: 1px solid #1f2937;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-size: 0.875rem;
+  color: #93c5fd;
+  overflow-x: auto;
+}
+
+/* ==========================================================================
+   TEMPLATE 5: DARK (OLED Midnight Deep Space, Radiant Edge Glow)
+   ========================================================================== */
+.template-dark {
+  background: #040711;
+  color: #e2e8f0;
+}
+
+.template-dark .dark-hero {
+  text-align: center;
+  padding: 5rem 1rem 3.5rem;
+  position: relative;
+}
+
+.template-dark .dark-glow-orb {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 350px;
+  background: radial-gradient(ellipse, var(--portfolio-accent-subtle) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.template-dark .dark-name {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.template-dark .dark-card {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+  transition: var(--transition-normal);
+}
+
+.template-dark .dark-card:hover {
+  border-color: var(--portfolio-accent);
+  box-shadow: 0 0 25px var(--portfolio-accent-subtle);
+  transform: translateY(-2px);
+}
+
+/* Common Projects Grid & Skills for All Templates */
+.portfolio-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+
+.portfolio-skills-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.portfolio-skill-pill {
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: var(--portfolio-card-bg, #f1f5f9);
+  border: 1px solid var(--portfolio-border, #e2e8f0);
+  color: var(--text-primary);
+}
+
+.portfolio-social-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.portfolio-social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--portfolio-card-bg, #f1f5f9);
+  border: 1px solid var(--portfolio-border, #e2e8f0);
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+}
+
+.portfolio-social-btn:hover {
+  border-color: var(--portfolio-accent);
+  color: var(--portfolio-accent);
+}
