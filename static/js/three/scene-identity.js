@@ -33,16 +33,16 @@
         c.height = 1024;
         const ctx = c.getContext('2d');
 
-        // Dark radial background
+        // Dark monochrome radial background
         const grad = ctx.createRadialGradient(512, 512, 100, 512, 512, 512);
-        grad.addColorStop(0, '#13131e');
-        grad.addColorStop(1, '#07070b');
+        grad.addColorStop(0, '#141414');
+        grad.addColorStop(1, '#080808');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 1024, 1024);
 
         // Dashed circular radar ring
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.lineWidth = 1.5;
         ctx.setLineDash([8, 8]);
         ctx.beginPath();
         ctx.arc(512, 512, 440, 0, Math.PI * 2);
@@ -56,39 +56,39 @@
         const isRealCandidate = name && !name.includes('CURRICULUM VITAE');
         const monogramA = isRealCandidate ? name.slice(0, 2).toUpperCase() : 'CV';
 
-        ctx.strokeStyle = 'rgba(161, 161, 170, 0.4)';
-        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.lineWidth = 2;
         ctx.setLineDash([6, 6]);
         ctx.beginPath();
         ctx.arc(512, 360, 90, 0, Math.PI * 2);
         ctx.stroke();
         ctx.setLineDash([]);
 
-        ctx.fillStyle = '#71717a';
+        ctx.fillStyle = '#888888';
         ctx.font = 'bold 52px monospace';
         ctx.textAlign = 'center';
         ctx.fillText(monogramA, 512, 378);
 
         // Title: Raw Student Resume
-        ctx.fillStyle = '#a1a1aa';
+        ctx.fillStyle = '#888888';
         ctx.font = 'bold 36px monospace';
         ctx.fillText('UNSTRUCTURED DOCUMENT ARTIFACT', 512, 510);
 
         // Status Badge
-        ctx.strokeStyle = 'rgba(161, 161, 170, 0.3)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
         ctx.strokeRect(342, 545, 340, 42);
-        ctx.fillStyle = '#71717a';
+        ctx.fillStyle = '#666666';
         ctx.font = '600 20px monospace';
         ctx.fillText('STATUS: PENDING LOCAL SYNTHESIS', 512, 573);
 
         // Editorial Muted Text
-        ctx.fillStyle = '#52525b';
+        ctx.fillStyle = '#555555';
         ctx.font = '24px -apple-system, BlinkMacSystemFont, sans-serif';
         ctx.fillText('Raw flat text · Unindexed capabilities', 512, 640);
         ctx.fillText('Static bullet points · Awaiting architectural synthesis', 512, 680);
 
         ctx.font = '18px monospace';
-        ctx.fillStyle = '#3f3f46';
+        ctx.fillStyle = '#444444';
         ctx.fillText('[ SCAN POINTER TO REVEAL PROFESSIONAL IDENTITY ]', 512, 780);
 
         const tex = new THREE.CanvasTexture(c);
@@ -97,23 +97,23 @@
         return tex;
       }
 
-      // --- 2. Texture B: Technical Professional Engine (Cyan/Violet Synthesis) ---
+      // --- 2. Texture B: Technical Professional Engine (Monochrome Synthesis) ---
       function generateTextureB(name, headline) {
         const c = document.createElement('canvas');
         c.width = 1024;
         c.height = 1024;
         const ctx = c.getContext('2d');
 
-        // Deep cybernetic background with energy glow
+        // Deep graphite / black background with restrained specular core
         const grad = ctx.createRadialGradient(512, 512, 80, 512, 512, 512);
-        grad.addColorStop(0, '#1a1033');
-        grad.addColorStop(0.6, '#0b0a17');
-        grad.addColorStop(1, '#050508');
+        grad.addColorStop(0, '#222222');
+        grad.addColorStop(0.6, '#111111');
+        grad.addColorStop(1, '#060606');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 1024, 1024);
 
-        // Circuit Grid Lines
-        ctx.strokeStyle = 'rgba(124, 58, 237, 0.2)';
+        // Circuit Grid Lines (Silver Hairlines)
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
         ctx.lineWidth = 1;
         for (let r = 120; r < 500; r += 70) {
           ctx.beginPath();
@@ -127,21 +127,21 @@
           ctx.stroke();
         }
 
-        // Luminous Avatar Badge
+        // Luminous Monochromatic Avatar Badge
         const isRealCandidate = name && !name.includes('CURRICULUM VITAE');
         const monogramB = isRealCandidate ? name.slice(0, 2).toUpperCase() : 'ID';
         const displayName = isRealCandidate ? name : 'SYNTHESIZED IDENTITY';
         const displayRole = isRealCandidate ? (headline || 'Verified Engineering Profile') : 'ARCHITECTURAL PORTFOLIO SYSTEM';
 
         const avGrad = ctx.createLinearGradient(420, 270, 604, 450);
-        avGrad.addColorStop(0, '#7c3aed');
-        avGrad.addColorStop(1, '#06b6d4');
+        avGrad.addColorStop(0, '#FFFFFF');
+        avGrad.addColorStop(1, '#D4D4D8');
         ctx.fillStyle = avGrad;
         ctx.beginPath();
         ctx.arc(512, 360, 90, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#000000';
         ctx.font = 'bold 56px -apple-system, BlinkMacSystemFont, sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(monogramB, 512, 380);
@@ -152,28 +152,28 @@
         ctx.fillText(displayName, 512, 505);
 
         // Role / Title
-        ctx.fillStyle = '#06b6d4';
+        ctx.fillStyle = '#D4D4D8';
         ctx.font = '600 24px monospace';
         ctx.fillText(displayRole, 512, 545);
 
         // Status Badge
-        ctx.fillStyle = 'rgba(6, 182, 212, 0.15)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
         ctx.fillRect(312, 580, 400, 44);
-        ctx.strokeStyle = '#06b6d4';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.lineWidth = 1.5;
         ctx.strokeRect(312, 580, 400, 44);
-        ctx.fillStyle = '#38bdf8';
+        ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 20px monospace';
         ctx.fillText('STATUS: VERIFIED PROFESSIONAL', 512, 609);
 
         // Verified Highlights
-        ctx.fillStyle = '#e4e4e7';
+        ctx.fillStyle = '#D4D4D8';
         ctx.font = '22px -apple-system, sans-serif';
         ctx.fillText('Authentic career capabilities · Verified engineering systems', 512, 675);
         ctx.fillText('Deterministic PostgreSQL storage · Zero-leakage privacy', 512, 715);
 
         // Telemetry Footer
-        ctx.fillStyle = '#10b981';
+        ctx.fillStyle = '#A1A1AA';
         ctx.font = '18px monospace';
         ctx.fillText('● SYSTEM VERIFIED · RELATIONAL INTEGRITY', 512, 785);
 
@@ -214,7 +214,7 @@
           float dist = length(delta);
 
           // Subtle harmonic wave disturbance along reveal frontier
-          float wave = sin(dist * 34.0 - uTime * 3.0) * 0.012 * smoothstep(uRadius + 0.12, uRadius, dist);
+          float wave = sin(dist * 34.0 - uTime * 3.0) * 0.010 * smoothstep(uRadius + 0.12, uRadius, dist);
           float perturbedDist = dist + wave;
 
           // Reveal mask factor (0.0 = Base Student, 1.0 = Revealed Professional)
@@ -223,9 +223,9 @@
           // Base layer sample
           vec4 colA = texture2D(uTextureA, vUv);
 
-          // Chromatic aberration at the wave threshold
+          // Subtle specular dispersion at the wave threshold
           float edgeFactor = smoothstep(uRadius - 0.06, uRadius, perturbedDist) * (1.0 - smoothstep(uRadius, uRadius + 0.06, perturbedDist));
-          vec2 chromOffset = normalize(delta + 0.0001) * edgeFactor * (0.018 * uChromatic);
+          vec2 chromOffset = normalize(delta + 0.0001) * edgeFactor * (0.008 * uChromatic);
 
           vec4 colB;
           colB.r = texture2D(uTextureB, vUv + chromOffset).r;
@@ -233,8 +233,8 @@
           colB.b = texture2D(uTextureB, vUv - chromOffset).b;
           colB.a = texture2D(uTextureB, vUv).a;
 
-          // Edge glow energy along transition wave
-          vec3 edgeGlow = vec3(0.08, 0.45, 0.85) * edgeFactor * 1.6;
+          // Pure silver specular sheen along transition wave (No loud colored glow)
+          vec3 edgeGlow = vec3(0.9, 0.9, 0.95) * edgeFactor * 1.4;
 
           // Final composite
           vec4 finalCol = mix(colA, colB, mask);

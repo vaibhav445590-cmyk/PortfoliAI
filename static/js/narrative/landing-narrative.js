@@ -459,6 +459,38 @@
       }
     } catch (e) {}
 
+    // ========================================================================
+    // 7. ARCHITECTURAL THEME TOGGLE (Dark Mode / Swiss Paper Light Mode)
+    // ========================================================================
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const savedTheme = localStorage.getItem('portfoliai-theme') || 'dark';
+    if (savedTheme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.body.classList.add('theme-light');
+      if (themeToggleBtn) themeToggleBtn.textContent = '[ ☼ LIGHT ]';
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.body.classList.remove('theme-light');
+      if (themeToggleBtn) themeToggleBtn.textContent = '[ ◐ DARK ]';
+    }
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const nextTheme = isLight ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', nextTheme);
+        if (nextTheme === 'light') {
+          document.body.classList.add('theme-light');
+          themeToggleBtn.textContent = '[ ☼ LIGHT ]';
+        } else {
+          document.body.classList.remove('theme-light');
+          themeToggleBtn.textContent = '[ ◐ DARK ]';
+        }
+        localStorage.setItem('portfoliai-theme', nextTheme);
+        window.dispatchEvent(new CustomEvent('portfoliai:theme-changed', { detail: { theme: nextTheme } }));
+      });
+    }
+
     console.info('[PortfoliAI] Acts I–V Immersive Narrative bound to Motion Engine.');
   }
 

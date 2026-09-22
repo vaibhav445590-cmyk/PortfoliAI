@@ -8,63 +8,108 @@
    1. DESIGN TOKENS & CSS CUSTOM PROPERTIES
    ========================================================================== */
 :root {
-  /* Environment Colors — Deep Obsidian Void */
-  --imm-bg-void: #050508;
-  --imm-bg-deep: #0a0a10;
-  --imm-bg-surface: #101018;
-  --imm-bg-surface-elevated: #161622;
-  --imm-bg-glass: rgba(16, 16, 24, 0.72);
-  --imm-bg-glass-heavy: rgba(10, 10, 16, 0.90);
+  /* ========================================================================
+     OPTION A — PRIMARY DARK MODE (Black / Graphite / Silver / Off-White)
+     ======================================================================== */
+  /* Environment Colors — Architectural Black Void */
+  --imm-bg-void: #050505;
+  --imm-bg-deep: #080808;
+  --imm-bg-surface: #111111;
+  --imm-bg-surface-elevated: #151515;
+  --imm-bg-surface-hover: #1a1a1a;
+  --imm-bg-glass: rgba(17, 17, 17, 0.78);
+  --imm-bg-glass-heavy: rgba(10, 10, 10, 0.94);
   --imm-bg-glass-subtle: rgba(255, 255, 255, 0.03);
 
-  /* Environment Colors — Architectural Chalk / Light */
-  --imm-chalk-bg: #f4f4f6;
-  --imm-chalk-surface: #ffffff;
-  --imm-chalk-subtle: #e8e8ec;
-  --imm-chalk-border: rgba(0, 0, 0, 0.08);
+  /* Typography Text Colors (Dark Mode) */
+  --imm-text-primary: #FFFFFF;
+  --imm-text-secondary: #D6D6D6;
+  --imm-text-muted: #8A8A8A;
+  --imm-text-faint: #555555;
+  --imm-text-inverse: #050505;
 
-  /* Typography Text Colors (Void Mode) */
-  --imm-text-primary: #f8fafc;
-  --imm-text-secondary: #94a3b8;
-  --imm-text-muted: #64748b;
-  --imm-text-faint: #334155;
-  --imm-text-inverse: #050508;
+  /* Hairline Borders & Structural Seams (Dark Mode) */
+  --imm-border-hairline: rgba(255, 255, 255, 0.07);
+  --imm-border-subtle: rgba(255, 255, 255, 0.12);
+  --imm-border-medium: rgba(255, 255, 255, 0.20);
+  --imm-border-accent: rgba(255, 255, 255, 0.38);
 
-  /* Typography Text Colors (Chalk Mode) */
-  --imm-chalk-text-primary: #090d16;
-  --imm-chalk-text-secondary: #475569;
-  --imm-chalk-text-muted: #64748b;
-  --imm-chalk-text-faint: #94a3b8;
+  /* Restrained Monochrome Accents & Silver Specular Highlights */
+  --imm-accent-silver: #E5E5E5;
+  --imm-accent-silver-rgb: 229, 229, 229;
+  --imm-accent-graphite: #737373;
+  --imm-accent-active: #E5E5E5;
+  --imm-accent-active-rgb: 229, 229, 229;
 
-  /* Hairline Borders & Structural Seams */
-  --imm-border-hairline: rgba(255, 255, 255, 0.08);
-  --imm-border-subtle: rgba(255, 255, 255, 0.14);
-  --imm-border-medium: rgba(255, 255, 255, 0.22);
-  --imm-border-chalk: rgba(0, 0, 0, 0.08);
-  --imm-border-chalk-subtle: rgba(0, 0, 0, 0.14);
-
-  /* Single Dominant Chromatic Accents (Only one active at a time) */
-  --imm-accent-violet: #7c3aed;
-  --imm-accent-violet-rgb: 124, 58, 237;
-  --imm-accent-cyan: #06b6d4;
-  --imm-accent-cyan-rgb: 6, 182, 212;
+  /* Legacy Compat Accents (Muted & Monochrome-Friendly) */
+  --imm-accent-violet: #d4d4d8;
+  --imm-accent-violet-rgb: 212, 212, 216;
+  --imm-accent-cyan: #e4e4e7;
+  --imm-accent-cyan-rgb: 228, 228, 231;
   --imm-accent-emerald: #10b981;
   --imm-accent-emerald-rgb: 16, 185, 129;
   --imm-accent-crimson: #f43f5e;
   --imm-accent-crimson-rgb: 244, 63, 94;
 
-  /* Active Accent Pointer (Defaults to Violet) */
-  --imm-accent-active: var(--imm-accent-violet);
-  --imm-accent-active-rgb: var(--imm-accent-violet-rgb);
-  --imm-border-accent: rgba(var(--imm-accent-active-rgb), 0.45);
+  /* Architectural Radiance & Specular Sheen (No Loud Neon) */
+  --imm-glow-subtle: 0 0 20px rgba(255, 255, 255, 0.05);
+  --imm-glow-focused: 0 0 35px rgba(255, 255, 255, 0.12);
+  --imm-glow-violet: 0 0 30px rgba(255, 255, 255, 0.08);
+  --imm-glow-cyan: 0 0 30px rgba(255, 255, 255, 0.08);
+  --imm-glow-emerald: 0 0 25px rgba(16, 185, 129, 0.18);
+  --imm-glow-crimson: 0 0 25px rgba(244, 63, 94, 0.18);
+}
 
-  /* Atmospheric Radiance & Glows */
-  --imm-glow-subtle: 0 0 25px rgba(var(--imm-accent-active-rgb), 0.16);
-  --imm-glow-focused: 0 0 50px rgba(var(--imm-accent-active-rgb), 0.30);
-  --imm-glow-violet: 0 0 45px rgba(124, 58, 237, 0.28);
-  --imm-glow-cyan: 0 0 45px rgba(6, 182, 212, 0.28);
-  --imm-glow-emerald: 0 0 45px rgba(16, 185, 129, 0.28);
-  --imm-glow-crimson: 0 0 45px rgba(244, 63, 94, 0.28);
+/* ==========================================================================
+   OPTION B — LIGHT / WHITE MODE (Architectural Paper / Swiss Editorial)
+   ========================================================================== */
+[data-theme="light"],
+body.theme-light {
+  /* Environment Colors — Architectural Chalk / Paper */
+  --imm-bg-void: #F7F7F5;
+  --imm-bg-deep: #F1F1EF;
+  --imm-bg-surface: #FFFFFF;
+  --imm-bg-surface-elevated: #ECECE9;
+  --imm-bg-surface-hover: #E3E3DF;
+  --imm-bg-glass: rgba(255, 255, 255, 0.88);
+  --imm-bg-glass-heavy: rgba(247, 247, 245, 0.96);
+  --imm-bg-glass-subtle: rgba(0, 0, 0, 0.025);
+
+  /* Typography Text Colors (Light Mode) */
+  --imm-text-primary: #111111;
+  --imm-text-secondary: #555555;
+  --imm-text-muted: #888888;
+  --imm-text-faint: #B5B5B2;
+  --imm-text-inverse: #FFFFFF;
+
+  /* Hairline Borders & Structural Seams (Light Mode) */
+  --imm-border-hairline: rgba(0, 0, 0, 0.07);
+  --imm-border-subtle: #D8D8D5;
+  --imm-border-medium: rgba(0, 0, 0, 0.18);
+  --imm-border-accent: rgba(0, 0, 0, 0.45);
+
+  /* Accents & Highlights */
+  --imm-accent-silver: #181818;
+  --imm-accent-silver-rgb: 24, 24, 24;
+  --imm-accent-graphite: #555555;
+  --imm-accent-active: #111111;
+  --imm-accent-active-rgb: 17, 17, 17;
+
+  --imm-accent-violet: #262626;
+  --imm-accent-violet-rgb: 38, 38, 38;
+  --imm-accent-cyan: #181818;
+  --imm-accent-cyan-rgb: 24, 24, 24;
+
+  /* Shadows & Sheen */
+  --imm-glow-subtle: 0 2px 10px rgba(0, 0, 0, 0.04);
+  --imm-glow-focused: 0 4px 18px rgba(0, 0, 0, 0.08);
+  --imm-shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
+  --imm-shadow-md: 0 6px 18px rgba(0, 0, 0, 0.06);
+  --imm-shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.08);
+  --imm-shadow-cinematic: 0 24px 60px rgba(0, 0, 0, 0.09), 0 0 0 1px var(--imm-border-subtle);
+}
+
+:root {
 
   /* Gaussian Blur Radii */
   --imm-blur-xs: 4px;
@@ -530,11 +575,16 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  background: radial-gradient(circle at center, transparent 40%, rgba(5, 5, 8, 0.72) 100%);
+  background: radial-gradient(circle at center, transparent 35%, rgba(5, 5, 5, 0.85) 100%);
   z-index: var(--imm-z-atmosphere);
 }
 
-/* Architectural Hairline Grid Overlay */
+[data-theme="light"] .bg-vignette,
+body.theme-light .bg-vignette {
+  background: radial-gradient(circle at center, transparent 50%, rgba(235, 235, 230, 0.85) 100%);
+}
+
+/* Architectural Hairline Grid Overlay (Ultra-Subtle Construction Lines) */
 .grid-architectural {
   position: absolute;
   inset: 0;
@@ -543,43 +593,44 @@
   pointer-events: none;
   background-size: 80px 80px;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
   z-index: var(--imm-z-atmosphere);
 }
 
+[data-theme="light"] .grid-architectural,
+body.theme-light .grid-architectural,
 .atmosphere-chalk .grid-architectural {
   background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
 }
 
-/* Soft Ambient Glow Points (Static chromatic lighting) */
+/* Soft Ambient Architectural Light Falloff (Restrained Specular Luminance) */
 .ambient-glow-point {
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 650px;
+  height: 650px;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(100px);
-  opacity: 0.16;
+  filter: blur(120px);
+  opacity: 0.12;
   z-index: var(--imm-z-atmosphere);
 }
 
-.glow-point-violet {
-  background: radial-gradient(circle, var(--imm-accent-violet) 0%, transparent 70%);
-}
-
-.glow-point-cyan {
-  background: radial-gradient(circle, var(--imm-accent-cyan) 0%, transparent 70%);
-}
-
-.glow-point-emerald {
-  background: radial-gradient(circle, var(--imm-accent-emerald) 0%, transparent 70%);
-}
-
+.glow-point-graphite,
+.glow-point-silver,
+.glow-point-violet,
+.glow-point-cyan,
+.glow-point-emerald,
 .glow-point-crimson {
-  background: radial-gradient(circle, var(--imm-accent-crimson) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+}
+
+[data-theme="light"] .ambient-glow-point,
+body.theme-light .ambient-glow-point {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.035) 0%, transparent 70%);
+  opacity: 0.08;
 }
 
 /* ==========================================================================
@@ -713,3 +764,102 @@
     gap: 2rem;
   }
 }
+
+/* ==========================================================================
+   ARCHITECTURAL MONOCHROME UTILITIES & GLOBAL OVERRIDES
+   ========================================================================== */
+.scroll-progress-bar,
+.cinematic-progress {
+  background: linear-gradient(90deg, #FFFFFF, #D4D4D8, #71717A) !important;
+  height: 2px !important;
+}
+
+[data-theme="light"] .scroll-progress-bar,
+body.theme-light .scroll-progress-bar {
+  background: linear-gradient(90deg, #111111, #555555, #888888) !important;
+}
+
+.cursor-glow,
+.cursor-ambient-glow {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%) !important;
+}
+
+[data-theme="light"] .cursor-glow,
+body.theme-light .cursor-glow {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.025) 0%, transparent 70%) !important;
+}
+
+/* Architectural Monochrome Buttons */
+.immersive-narrative .btn-primary,
+.imm-hud-header .btn-primary {
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  border: 1px solid #FFFFFF !important;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15) !important;
+  font-weight: 700 !important;
+}
+
+.immersive-narrative .btn-primary:hover,
+.imm-hud-header .btn-primary:hover {
+  background: #E4E4E7 !important;
+  color: #000000 !important;
+  border-color: #E4E4E7 !important;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-1px);
+}
+
+.immersive-narrative .btn-outline,
+.imm-hud-header .btn-outline {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.immersive-narrative .btn-outline:hover,
+.imm-hud-header .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+
+/* Light Mode Architectural Buttons */
+[data-theme="light"] .immersive-narrative .btn-primary,
+body.theme-light .immersive-narrative .btn-primary,
+[data-theme="light"] .imm-hud-header .btn-primary,
+body.theme-light .imm-hud-header .btn-primary {
+  background: #111111 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #111111 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-theme="light"] .immersive-narrative .btn-primary:hover,
+body.theme-light .immersive-narrative .btn-primary:hover,
+[data-theme="light"] .imm-hud-header .btn-primary:hover,
+body.theme-light .imm-hud-header .btn-primary:hover {
+  background: #262626 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
+}
+
+[data-theme="light"] .immersive-narrative .btn-outline,
+body.theme-light .immersive-narrative .btn-outline,
+[data-theme="light"] .imm-hud-header .btn-outline,
+body.theme-light .imm-hud-header .btn-outline {
+  background: #FFFFFF !important;
+  color: #111111 !important;
+  border: 1px solid #D8D8D5 !important;
+}
+
+[data-theme="light"] .immersive-narrative .btn-outline:hover,
+body.theme-light .immersive-narrative .btn-outline:hover,
+[data-theme="light"] .imm-hud-header .btn-outline:hover,
+body.theme-light .imm-hud-header .btn-outline:hover {
+  background: #F1F1EF !important;
+  border-color: #111111 !important;
+  color: #111111 !important;
+}
+
+

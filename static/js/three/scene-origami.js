@@ -27,21 +27,21 @@
       camera.position.set(0, 0, 6.2);
 
       // --- 1. Lighting Setup (Cinematic paper studio) ---
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
       scene.add(ambientLight);
 
-      // Key light: directional white from upper-right
-      const keyLight = new THREE.DirectionalLight(0xffffff, 1.1);
+      // Key light: directional crisp white from upper-right
+      const keyLight = new THREE.DirectionalLight(0xffffff, 1.15);
       keyLight.position.set(3, 4, 5);
       scene.add(keyLight);
 
-      // Rim light: subtle violet radiance from lower-left
-      const rimLight = new THREE.DirectionalLight(0x7c3aed, 0.85);
+      // Rim light: soft silver rim radiance from lower-left (replaces violet)
+      const rimLight = new THREE.DirectionalLight(0xe4e4e7, 0.75);
       rimLight.position.set(-4, -3, 2);
       scene.add(rimLight);
 
-      // Internal Core Light (ignites during data core collapse)
-      const coreLight = new THREE.PointLight(0xa855f7, 0, 4);
+      // Internal Core Light (pure white specular sheen during data core collapse)
+      const coreLight = new THREE.PointLight(0xffffff, 0, 4);
       coreLight.position.set(0, 0, 0);
       scene.add(coreLight);
 
@@ -52,20 +52,20 @@
         texCanvas.height = 1366;
         const ctx = texCanvas.getContext('2d');
 
-        // Background: tactile paper card
-        ctx.fillStyle = '#101018';
+        // Background: tactile architectural paper card (#F8F8F6 off-white paper)
+        ctx.fillStyle = '#F8F8F6';
         ctx.fillRect(0, 0, 1024, 1366);
 
         // Subtle paper fiber grain
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.015)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.02)';
         for (let i = 0; i < 20000; i++) {
           const gx = Math.random() * 1024;
           const gy = Math.random() * 1366;
           ctx.fillRect(gx, gy, 1.5, 1.5);
         }
 
-        // Architectural grid lines
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+        // Architectural hairline grid lines
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.04)';
         ctx.lineWidth = 1;
         for (let x = 60; x < 1024; x += 80) {
           ctx.beginPath();
@@ -80,10 +80,15 @@
           ctx.stroke();
         }
 
-        // Header Border
-        ctx.strokeStyle = 'rgba(124, 58, 237, 0.35)';
-        ctx.lineWidth = 2;
+        // Architectural Outer Frame
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.15)';
+        ctx.lineWidth = 1.5;
         ctx.strokeRect(40, 40, 944, 1286);
+
+        // Inner Hairline Frame
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.06)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(46, 46, 932, 1274);
 
         // Avatar monogram
         const isRealCandidate = candidateName && !candidateName.includes('CURRICULUM VITAE');
@@ -91,34 +96,32 @@
         const displayRole = isRealCandidate ? (headline || 'Software Engineer') : 'UNSTRUCTURED DOCUMENT // ARTIFACT';
         const monogram = isRealCandidate ? displayName.slice(0, 2).toUpperCase() : 'CV';
 
-        ctx.fillStyle = 'rgba(124, 58, 237, 0.2)';
+        ctx.fillStyle = '#111111';
         ctx.fillRect(70, 70, 90, 90);
-        ctx.strokeStyle = 'rgba(124, 58, 237, 0.6)';
-        ctx.strokeRect(70, 70, 90, 90);
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#F8F8F6';
         ctx.font = 'bold 36px monospace';
         ctx.fillText(monogram, 95, 128);
 
         // Candidate Name
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#111111';
         ctx.font = 'bold 40px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
         ctx.fillText(displayName, 185, 110);
 
         // Headline
-        ctx.fillStyle = '#a855f7';
+        ctx.fillStyle = '#555555';
         ctx.font = '600 22px monospace';
         ctx.fillText(displayRole, 185, 145);
 
         // Divider
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.12)';
         ctx.beginPath();
         ctx.moveTo(70, 185);
         ctx.lineTo(954, 185);
         ctx.stroke();
 
         // Detected Entities Section
-        ctx.fillStyle = '#71717a';
-        ctx.font = '600 20px monospace';
+        ctx.fillStyle = '#222222';
+        ctx.font = '700 20px monospace';
         ctx.fillText('DETECTED ENTITIES // SYSTEM METRICS', 70, 230);
 
         // Extract real skills from DOM if present
@@ -130,43 +133,43 @@
         let sx = 70;
         let sy = 265;
         skills.forEach(skill => {
-          ctx.font = '500 20px monospace';
+          ctx.font = '500 18px monospace';
           const w = ctx.measureText(skill).width + 32;
           if (sx + w > 940) {
             sx = 70;
             sy += 50;
           }
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+          ctx.fillStyle = '#ECECE9';
           ctx.fillRect(sx, sy, w, 36);
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+          ctx.strokeStyle = '#D8D8D5';
           ctx.strokeRect(sx, sy, w, 36);
-          ctx.fillStyle = '#e4e4e7';
+          ctx.fillStyle = '#111111';
           ctx.fillText(skill, sx + 16, sy + 25);
           sx += w + 12;
         });
 
         // Experience Section
         sy += 90;
-        ctx.fillStyle = '#71717a';
-        ctx.font = '600 20px monospace';
+        ctx.fillStyle = '#222222';
+        ctx.font = '700 20px monospace';
         ctx.fillText('EXPERIENCE // PRODUCTION DEPLOYMENTS', 70, sy);
         sy += 38;
 
         const domExp = document.querySelector('.decomp-track-exp div[style*="color:var(--imm-text-secondary)"]')?.textContent?.trim() || '';
         const isRealExp = domExp && !domExp.includes('CHRONOLOGICAL DECOMPOSITION');
 
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#111111';
         ctx.font = 'bold 24px -apple-system, sans-serif';
         if (isRealExp) {
           ctx.fillText(domExp.slice(0, 48), 70, sy);
           sy += 30;
-          ctx.fillStyle = '#a1a1aa';
+          ctx.fillStyle = '#555555';
           ctx.font = '20px -apple-system, sans-serif';
           ctx.fillText('• Verified career milestone from student profile record.', 70, sy);
         } else {
           ctx.fillText('CHRONOLOGICAL MILESTONES & CAPABILITIES', 70, sy);
           sy += 30;
-          ctx.fillStyle = '#a1a1aa';
+          ctx.fillStyle = '#555555';
           ctx.font = '20px -apple-system, sans-serif';
           ctx.fillText('• Structural extraction of career history & engineering scope.', 70, sy);
           sy += 28;
@@ -174,16 +177,16 @@
         }
 
         // Verification Footer
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.12)';
         ctx.beginPath();
         ctx.moveTo(70, 1240);
         ctx.lineTo(954, 1240);
         ctx.stroke();
 
-        ctx.fillStyle = '#71717a';
+        ctx.fillStyle = '#555555';
         ctx.font = '18px monospace';
         ctx.fillText('01 // ID: RESUME_ARTIFACT', 70, 1275);
-        ctx.fillStyle = '#10b981';
+        ctx.fillStyle = '#111111';
         ctx.fillText('● ZERO-LEAKAGE LOCAL ENGINE', 670, 1275);
 
         const tex = new THREE.CanvasTexture(texCanvas);
@@ -210,11 +213,11 @@
 
       const material = new THREE.MeshStandardMaterial({
         map: paperTexture,
-        roughness: 0.88,
+        roughness: 0.85,
         metalness: 0.05,
         bumpScale: 0.015,
         side: THREE.DoubleSide,
-        emissive: 0x06b6d4,
+        emissive: 0xffffff,
         emissiveIntensity: 0
       });
 
@@ -236,6 +239,7 @@
           posAttr.needsUpdate = true;
           geometry.computeVertexNormals();
           coreLight.intensity = 0;
+          if (material) material.color.setRGB(1, 1, 1);
           return;
         }
 
@@ -257,6 +261,12 @@
 
         // Core light shines as paper collapses into data core
         coreLight.intensity = t3 * 2.5;
+
+        // Fold color shift: off-white paper (1.0) -> architectural gray -> deep graphite (0.28)
+        if (material) {
+          const shade = 1.0 - (t2 * 0.35 + t3 * 0.37);
+          material.color.setRGB(shade, shade, shade);
+        }
 
         for (let i = 0; i < vertexCount; i++) {
           const i3 = i * 3;
