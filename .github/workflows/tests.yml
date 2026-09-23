@@ -74,4 +74,10 @@ jobs:
           DB_PASSWORD: testpassword
           PYTHONPATH: .
         run: |
-          python -m pytest -v
+          python -m pytest -v --tb=short 2>&1 | tee pytest_output.log
+          STATUS=${PIPESTATUS[0]}
+          echo "## Pytest Output (exit: $STATUS)" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat pytest_output.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          exit $STATUS
