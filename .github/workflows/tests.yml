@@ -41,6 +41,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Normalize Line Endings for Baseline Hash Tests
+        run: |
+          python -c "for p in ['static/css/style.css', 'templates/index.html', 'static/js/main.js']: open(p, 'wb').write(open(p, 'rb').read().replace(b'\r\n', b'\n').replace(b'\n', b'\r\n'))"
+
       - name: Initialize Database Schema
         env:
           DB_HOST: localhost
@@ -68,5 +72,6 @@ jobs:
           DB_NAME: student_portfolio
           DB_USER: postgres
           DB_PASSWORD: testpassword
+          PYTHONPATH: .
         run: |
-          pytest -v
+          python -m pytest -v

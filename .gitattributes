@@ -1,0 +1,5 @@
+# PortfoliAI — Git Attributes
+# Ensure critical baseline assets preserve exact line endings for SHA-256 integrity tests
+static/css/style.css text eol=crlf
+templates/index.html text eol=crlf
+static/js/main.js text eol=crlf
