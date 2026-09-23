@@ -74,15 +74,4 @@ jobs:
           DB_PASSWORD: testpassword
           PYTHONPATH: .
         run: |
-          python -m pytest -v --tb=short 2>&1 | tee pytest_output.log
-          STATUS=${PIPESTATUS[0]}
-          if [ $STATUS -ne 0 ]; then
-            python -c "
-          content = open('pytest_output.log').read()
-          for line in content.splitlines()[-40:]:
-              if line.strip():
-                  clean = line.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
-                  print(f'::error title=Pytest Error::{clean}')
-          "
-            exit $STATUS
-          fi
+          python -m pytest -v
