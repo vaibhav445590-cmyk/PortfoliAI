@@ -2,9 +2,9 @@ name: PortfoliAI Automated Test Suite
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, version-b-cinematic-3d ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, master, version-b-cinematic-3d ]
 
 jobs:
   test:
